@@ -37,7 +37,7 @@ device_info initial_WODE_info = {
 int startupWode() {
 	if(OpenWode() == 0) {
 		DrawFrameStart();
-		DrawMessageBox(D_FAIL,"No Wode found! Press A");
+		DrawMessageBox(D_FAIL,"No Wode found! Appuyer sur A");
 		DrawFrameFinish();
 		wait_press_A();
 		return -1;

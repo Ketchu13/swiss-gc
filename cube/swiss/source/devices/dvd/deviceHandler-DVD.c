@@ -166,7 +166,7 @@ int initialize_disc(u32 streaming) {
 		}
 		else if((dvd_get_error()>>24) == 1) {  // Lid is open, tell the user!
 			DrawFrameStart();
-			sprintf(txtbuffer, "Error %s. Press A.",dvd_error_str());
+			sprintf(txtbuffer, "Error %s. Appuyer sur A.",dvd_error_str());
 			DrawMessageBox(D_FAIL, txtbuffer);
 			DrawFrameFinish();
 			wait_press_A();
@@ -475,7 +475,7 @@ int deviceHandler_DVD_init(file_handle* file){
   file->status = initialize_disc(ENABLE_BYDISK);
   if(file->status == DRV_ERROR){
 	  DrawFrameStart();
-	  DrawMessageBox(D_FAIL,"Failed to mount DVD. Press A");
+	  DrawMessageBox(D_FAIL,"Failed to mount DVD. Appuyer sur A");
 	  DrawFrameFinish();
 	  wait_press_A();
 	  return file->status;

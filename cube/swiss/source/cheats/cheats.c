@@ -229,7 +229,7 @@ int findCheats(bool silent) {
 			if(!silent) {
 				while(PAD_ButtonsHeld(0) & PAD_BUTTON_Y);
 				DrawFrameStart();
-				DrawMessageBox(D_INFO,"No cheats file found.\nPress A to continue.");
+				DrawMessageBox(D_INFO,"No cheats file found.\nAppuyer sur A pour continuer.");
 				DrawFrameFinish();
 				while(!(PAD_ButtonsHeld(0) & PAD_BUTTON_A));
 				while(PAD_ButtonsHeld(0) & PAD_BUTTON_A);

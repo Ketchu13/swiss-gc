@@ -61,7 +61,7 @@ char *cardError(int error_code) {
     case CARD_ERROR_NOCARD:
       return "No Card Inserted";
     case CARD_ERROR_BROKEN:
-      return "Card Corrupted(?)";
+      return "Carte Corrompue(?)";
 	case CARD_ERROR_NOFILE:
 		return "File does not exist";
     default:

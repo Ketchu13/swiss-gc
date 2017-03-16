@@ -136,7 +136,7 @@ void DrawEmptyBox(int x1, int y1, int x2, int y2, int color);
 void DrawTransparentBox(int x1, int y1, int x2, int y2);
 void DrawFileBrowserButton(int x1, int y1, int x2, int y2, char *message, file_handle *file, int mode, u32 color);
 void DrawMenuButtons(int selection);
-int DrawYesNoDialog(char *message);
+int DrawAbsentNoDialog(char *message);
 void DrawVertScrollBar(int x, int y, int width, int height, float scrollPercent, int scrollHeight);
 void DrawArgsSelector(char *fileName);
 void DrawCheatsSelector(char *fileName);

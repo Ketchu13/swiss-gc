@@ -74,32 +74,32 @@ int install_code()
   	if(deviceHandler_initial == &initial_IDE0 || deviceHandler_initial == &initial_IDE1) {	
 		patch = (!_ideexi_version)?&ideexi_v1_bin[0]:&ideexi_v2_bin[0]; 
 		patchSize = (!_ideexi_version)?ideexi_v1_bin_size:ideexi_v2_bin_size;
-		print_gecko("Installing Patch for IDE-EXI\r\n");
+		print_gecko("Installation du patch pour IDE-EXI\r\n");
   	}
 	// SD Gecko
 	else if(deviceHandler_initial == &initial_SD0 || deviceHandler_initial == &initial_SD1) {
 		patch = &sd_bin[0]; patchSize = sd_bin_size;
-		print_gecko("Installing Patch for SD Gecko\r\n");
+		print_gecko("Installation du patch pour SD Gecko\r\n");
 	}
 	// DVD 2 disc code
 	else if(deviceHandler_initial == &initial_DVD) {
 		patch = &dvd_bin[0]; patchSize = dvd_bin_size;
 		location = (void*)LO_RESERVE_DVD;
-		print_gecko("Installing Patch for DVD\r\n");
+		print_gecko("Installation du patch pour DVD\r\n");
 	}
 	// USB Gecko
 	else if(deviceHandler_initial == &initial_USBGecko) {
 		patch = &usbgecko_bin[0]; patchSize = usbgecko_bin_size;
-		print_gecko("Installing Patch for USB Gecko\r\n");
+		print_gecko("Installation du patch pour USB Gecko\r\n");
 	}
 	// Wiikey Fusion
 	else if(deviceHandler_initial == &initial_WKF) {
 		location = (void*)LO_RESERVE_DVD;
 		patch = &wkf_bin[0]; patchSize = wkf_bin_size;
-		print_gecko("Installing Patch for WKF\r\n");
+		print_gecko("Installation du patch pour WKF\r\n");
 	}
-	print_gecko("Space for patch remaining: %i\r\n",top_addr - LO_RESERVE);
-	print_gecko("Space taken by vars/video patches: %i\r\n",VAR_PATCHES_BASE-top_addr);
+	print_gecko("Espace pour patch restant: %i\r\n",top_addr - LO_RESERVE);
+	print_gecko("Espace utilise par les patchs vars/video: %i\r\n",VAR_PATCHES_BASE-top_addr);
 	if(top_addr - LO_RESERVE < patchSize)
 		return 0;
 	memcpy(location,patch,patchSize);
@@ -216,7 +216,7 @@ int find_pattern( u8 *data, u32 length, FuncPattern *functionPattern )
 	FP.Length = i;
 
 	if(!functionPattern) {
-		print_gecko("Length: 0x%02X\r\n", FP.Length );
+		print_gecko("Longueur: 0x%02X\r\n", FP.Length );
 		print_gecko("Loads : %d\r\n", FP.Loads );
 		print_gecko("Stores: %d\r\n", FP.Stores );
 		print_gecko("FCalls: %d\r\n", FP.FCalls );
@@ -374,7 +374,7 @@ void PatchDVDInterface( u8 *dst, u32 Length, int dataType )
 		}
 	}
 
-	print_gecko("Patch:[DI] applied %u times\r\n", DIPatched);
+	print_gecko("Patch:[DI] applique %u fois\r\n", DIPatched);
 }
 
 int PatchDetectLowMemUsage( u8 *dst, u32 Length, int dataType )
@@ -432,7 +432,7 @@ int PatchDetectLowMemUsage( u8 *dst, u32 Length, int dataType )
 		}
 	}
 
-	print_gecko("Patch:[LowMem] applied %u times\r\n", LowMemPatched);
+	print_gecko("Patch:[LowMem] applique %u fois\r\n", LowMemPatched);
 	return LowMemPatched;
 }
 

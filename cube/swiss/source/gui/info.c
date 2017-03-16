@@ -27,7 +27,7 @@ char *getSramLang(u8 lang) {
 		case 3:
 			return "Spanish";
 		case 2:
-			return "French";
+			return "Francais";
 		case 1:
 			return "German";
 		case 0:
@@ -44,7 +44,7 @@ void info_draw_page(int page_num) {
 	
 	// System Info (Page 1/3)
 	if(!page_num) {
-		WriteFont(30, 65, "System Info (1/3):");
+		WriteFont(30, 65, "Info Systeme (1/3):");
 		// Model
 		if(is_gamecube()) {
 			if(*(u32*)&driveVersion[0] == 0x20010831) {
@@ -82,7 +82,7 @@ void info_draw_page(int page_num) {
 		WriteFontStyled(640/2, 140, topStr, 1.0f, true, defaultColor);
 		if(swissSettings.hasDVDDrive) {
 			if((!__wkfSpiReadId() || (__wkfSpiReadId() == 0xFFFFFFFF))) {
-				sprintf(topStr, "DVD Drive %02X %02X%02X/%02X (%02X)",driveVersion[2],driveVersion[0],driveVersion[1],driveVersion[3],driveVersion[4]);
+				sprintf(topStr, "Lecteur DVD %02X %02X%02X/%02X (%02X)",driveVersion[2],driveVersion[0],driveVersion[1],driveVersion[3],driveVersion[4]);
 			} else {
 				sprintf(topStr, "WKF Serial %s",wkfGetSerial());
 			}
@@ -99,22 +99,22 @@ void info_draw_page(int page_num) {
 	}
 	else if(page_num == 1) {
 		WriteFont(30, 65, "Device Info (2/3):");
-		sprintf(topStr,"BBA: %s", bba_exists ? "Installed":"Not Present");
+		sprintf(topStr,"BBA: %s", bba_exists ? "Installe":"Absente");
 		WriteFont(30, 110, topStr);
 		if(exi_bba_exists()) {
-			sprintf(topStr,"IP: %s", net_initialized ? bba_ip:"Not Available");
+			sprintf(topStr,"IP: %s", net_initialized ? bba_ip:"Non Disponible");
 		}
 		else {
 			sprintf(topStr,"IP: Not Available");
 		}
 		WriteFont(270, 110, topStr);
-		sprintf(topStr,"Component Cable Plugged in: %s",VIDEO_HaveComponentCable()?"Yes":"No");
+		sprintf(topStr,"Component Cable Plugged in: %s",VIDEO_HaveComponentCable()?"Oui":"Non");
 		WriteFont(30, 140, topStr);
 		if(usb_isgeckoalive(0)||usb_isgeckoalive(1)) {
-			sprintf(topStr,"USB Gecko: Installed in %s",usb_isgeckoalive(0)?"Slot A":"Slot B");
+			sprintf(topStr,"USB Gecko: Installe dans %s",usb_isgeckoalive(0)?"Slot A":"Slot B");
 		}
 		else {
-			sprintf(topStr,"USB Gecko: Not Present");
+			sprintf(topStr,"USB Gecko: Absente");
 		}
 		WriteFont(30, 170, topStr);
 		if (!deviceHandler_initial) {
@@ -153,8 +153,8 @@ void info_draw_page(int page_num) {
 	}
 	else if(page_num == 2) {
 		WriteFont(30, 65, "Credits (3/3):");
-		WriteFontStyled(640/2, 115, "Swiss ver 0.4", 1.0f, true, defaultColor);
-		WriteFontStyled(640/2, 140, "by emu_kidid 2017", 0.75f, true, defaultColor);
+		WriteFontStyled(640/2, 115, "Swiss ver 0.4 Fr", 1.0f, true, defaultColor);
+		WriteFontStyled(640/2, 140, "by emu_kidid 2017 (Fr by Ketchu13)", 0.75f, true, defaultColor);
 		sprintf(txtbuffer, "Commit %s Revision %s", GITREVISION, GITVERSION);
 		WriteFontStyled(640/2, 165, txtbuffer, 0.75f, true, defaultColor);
 		WriteFontStyled(640/2, 210, "Thanks to", 0.75f, true, defaultColor);
@@ -171,7 +171,7 @@ void info_draw_page(int page_num) {
 	if(page_num != 0) {
 		WriteFont(100, 390, "<-");
 	}
-	WriteFontStyled(640/2, 400, "Press A to return", 1.0f, true, defaultColor);
+	WriteFontStyled(640/2, 400, "Appuyez sur A pour quitter", 1.0f, true, defaultColor);
 	DrawFrameFinish();
 }
 

@@ -353,8 +353,8 @@ void _DrawBackdrop()
 	char ver[32];
 	memset(ver,0,16);
 	DrawImage(TEX_BACKDROP, 0, 0, 640, 480, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
-	WriteFontStyled(40,27, "Swiss v0.4", 1.5f, false, defaultColor);
-	sprintf(ver, "commit: %s rev: %s", GITREVISION, GITVERSION);
+	WriteFontStyled(40,27, "Swiss v0.4[Fr]", 1.5f, false, defaultColor);
+	sprintf(ver, "commit: %s rev: %s", GITREVISION, "382");//**k13 GITVERSION);
 	WriteFontStyled(210,60, ver, 0.55f, false, defaultColor);
 }
 
@@ -397,7 +397,7 @@ void DrawProgressBar(int percent, char *message) {
 			(multiplier*percent), 20, 0, progressBarColor, noColor); 
 
 	WriteFontStyled(640/2, middleY, message, scale, true, defaultColor);
-	sprintf(txtbuffer,"%d%% percent complete",percent);
+	sprintf(txtbuffer,"%d%% complete",percent);
 	WriteFontStyled(640/2, middleY+30, txtbuffer, 1.0f, true, defaultColor);
 }
 
@@ -506,10 +506,10 @@ void DrawFileBrowserButton(int x1, int y1, int x2, int y2, char *message, file_h
 			sprintf(txtbuffer,"Partition: %i, ISO: %i", isoInfo->iso_partition,isoInfo->iso_number);
 		}
 		else if(curDevice == MEMCARD) {
-			sprintf(txtbuffer,"%.2fKB (%ld blocks)", (float)file->size/1024, file->size/8192);
+			sprintf(txtbuffer,"%.2fKo (%ld blocs)", (float)file->size/1024, file->size/8192);
 		}
 		else if(curDevice == QOOB_FLASH) {
-			sprintf(txtbuffer,"%.2fKB (%ld blocks)", (float)file->size/1024, file->size/0x10000);
+			sprintf(txtbuffer,"%.2fKo (%ld blocs)", (float)file->size/1024, file->size/0x10000);
 		}
 		else {
 			sprintf(txtbuffer,"%.2f %s",file->size > (1024*1024) ? (float)file->size/(1024*1024):(float)file->size/1024,file->size > (1024*1024) ? "MB":"KB");
@@ -562,15 +562,15 @@ void DrawMenuButtons(int selection)
 	}
 }
 
-int DrawYesNoDialog(char *message) {
+int DrawAbsentNoDialog(char *message) {
 	int sel = 0;
 	while ((PAD_ButtonsHeld(0) & PAD_BUTTON_A)){ VIDEO_WaitVSync (); }
 	while(1) {
 		doBackdrop();
 		DrawEmptyBox(75,190, vmode->fbWidth-78, 330, COLOR_BLACK);
 		WriteFontStyled(640/2, 215, message, 1.0f, true, defaultColor);
-		DrawSelectableButton(100, 280, -1, 310, "Yes", (sel==1) ? B_SELECTED:B_NOSELECT,-1);
-		DrawSelectableButton(380, 280, -1, 310, "No", (!sel) ? B_SELECTED:B_NOSELECT,-1);
+		DrawSelectableButton(100, 280, -1, 310, "Absent", (sel==1) ? B_SELECTED:B_NOSELECT,-1);
+		DrawSelectableButton(380, 280, -1, 310, "Non", (!sel) ? B_SELECTED:B_NOSELECT,-1);
 		DrawFrameFinish();
 		while (!(PAD_ButtonsHeld(0) & PAD_BUTTON_RIGHT) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_LEFT) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_B)&& !(PAD_ButtonsHeld(0) & PAD_BUTTON_A))
 			{ VIDEO_WaitVSync (); }
@@ -646,7 +646,7 @@ void DrawArgsSelector(char *fileName) {
 	while(1) {
 		doBackdrop();
 		DrawEmptyBox(20,60, vmode->fbWidth-20, 460, COLOR_BLACK);
-		sprintf(txtbuffer, "%s Parameters:", fileName);
+		sprintf(txtbuffer, "Parametres de %s :", fileName);
 		WriteFontStyled(25, 62, txtbuffer, GetTextScaleToFitInWidth(txtbuffer, vmode->fbWidth-50), false, defaultColor);
 
 		int j = 0;

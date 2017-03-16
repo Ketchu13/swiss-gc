@@ -104,17 +104,17 @@ int config_update_file() {
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		sprintf(txtbuffer, "Swiss Video Mode=%s\r\n",(uiVModeStr[configSwissSettings.uiVMode]));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Enable Debug=%s\r\n",(configSwissSettings.debugUSB ? "Yes":"No"));
+		sprintf(txtbuffer, "Enable Debug=%s\r\n",(configSwissSettings.debugUSB ? "Oui":"Non"));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Force No DVD Drive Mode=%s\r\n",(configSwissSettings.hasDVDDrive ? "No":"Yes"));
+		sprintf(txtbuffer, "Force No DVD Drive Mode=%s\r\n",(configSwissSettings.hasDVDDrive ? "Non":"Oui"));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Hide Unknown file types=%s\r\n",(configSwissSettings.hideUnknownFileTypes ? "Yes":"No"));
+		sprintf(txtbuffer, "Hide Unknown file types=%s\r\n",(configSwissSettings.hideUnknownFileTypes ? "Oui":"Non"));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Stop DVD Motor on startup=%s\r\n",(configSwissSettings.stopMotor ? "Yes":"No"));
+		sprintf(txtbuffer, "Stop DVD Motor on startup=%s\r\n",(configSwissSettings.stopMotor ? "Oui":"Non"));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Enable WiiRD debug=%s\r\n",(configSwissSettings.wiirdDebug ? "Yes":"No"));
+		sprintf(txtbuffer, "Enable WiiRD debug=%s\r\n",(configSwissSettings.wiirdDebug ? "Oui":"Non"));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Enable File Management=%s\r\n",(configSwissSettings.enableFileManagement ? "Yes":"No"));
+		sprintf(txtbuffer, "Enable File Management=%s\r\n",(configSwissSettings.enableFileManagement ? "Oui":"Non"));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		sprintf(txtbuffer, "SMBUserName=%s\r\n",configSwissSettings.smbUser);
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
@@ -124,7 +124,7 @@ int config_update_file() {
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		sprintf(txtbuffer, "SMBHostIP=%s\r\n",configSwissSettings.smbServerIp);
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "AutoCheats=%s\r\n", (configSwissSettings.autoCheats ? "Yes":"No"));
+		sprintf(txtbuffer, "AutoCheats=%s\r\n", (configSwissSettings.autoCheats ? "Oui":"Non"));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		sprintf(txtbuffer, "IGRType=%s\r\n", (igrTypeStr[swissSettings.igrType]));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
@@ -158,13 +158,13 @@ int config_update_file() {
 			sprintf(txtbuffer, "Soft Progressive=%s\r\n",softProgressiveStr[configEntries[i].softProgressive]);
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
-			sprintf(txtbuffer, "Mute Audio Streaming=%s\r\n",(configEntries[i].muteAudioStreaming ? "Yes":"No"));
+			sprintf(txtbuffer, "Mute Audio Streaming=%s\r\n",(configEntries[i].muteAudioStreaming ? "Oui":"Non"));
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 					
 			sprintf(txtbuffer, "Force Widescreen=%s\r\n",forceWidescreenStr[configEntries[i].forceWidescreen]);
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
-			sprintf(txtbuffer, "Force Anisotropy=%s\r\n",(configEntries[i].forceAnisotropy ? "Yes":"No"));
+			sprintf(txtbuffer, "Force Anisotropy=%s\r\n",(configEntries[i].forceAnisotropy ? "Oui":"Non"));
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 	
 			sprintf(txtbuffer, "Force Encoding=%s\r\n\r\n\r\n",forceEncodingStr[configEntries[i].forceEncoding]);
@@ -252,7 +252,7 @@ void config_parse(char *configData) {
 						configEntries[configEntriesCount].softProgressive = 2;
 				}
 				else if(!strcmp("Mute Audio Streaming", name)) {
-					configEntries[configEntriesCount].muteAudioStreaming = !strcmp("Yes", value) ? 1:0;
+					configEntries[configEntriesCount].muteAudioStreaming = !strcmp("Oui", value) ? 1:0;
 				}
 				else if(!strcmp("Force Widescreen", name)) {
 					if(!strcmp(forceWidescreenStr[0], value))
@@ -263,7 +263,7 @@ void config_parse(char *configData) {
 						configEntries[configEntriesCount].forceWidescreen = 2;
 				}
 				else if(!strcmp("Force Anisotropy", name)) {
-					configEntries[configEntriesCount].forceAnisotropy = !strcmp("Yes", value) ? 1:0;
+					configEntries[configEntriesCount].forceAnisotropy = !strcmp("Oui", value) ? 1:0;
 				}
 				else if(!strcmp("Force Encoding", name)) {
 					if(!strcmp(forceEncodingStr[0], value))
@@ -279,22 +279,22 @@ void config_parse(char *configData) {
 					configSwissSettings.exiSpeed = !strcmp("32MHz", value) ? 1:0;
 				}
 				else if(!strcmp("Enable Debug", name)) {
-					configSwissSettings.debugUSB = !strcmp("Yes", value) ? 1:0;
+					configSwissSettings.debugUSB = !strcmp("Oui", value) ? 1:0;
 				}
 				else if(!strcmp("Force No DVD Drive Mode", name)) {
-					configSwissSettings.hasDVDDrive = !strcmp("No", value) ? 1:0;
+					configSwissSettings.hasDVDDrive = !strcmp("Non", value) ? 1:0;
 				}
 				else if(!strcmp("Hide Unknown file types", name)) {
-					configSwissSettings.hideUnknownFileTypes = !strcmp("Yes", value) ? 1:0;
+					configSwissSettings.hideUnknownFileTypes = !strcmp("Oui", value) ? 1:0;
 				}
 				else if(!strcmp("Stop DVD Motor on startup", name)) {
-					configSwissSettings.stopMotor = !strcmp("Yes", value) ? 1:0;
+					configSwissSettings.stopMotor = !strcmp("Oui", value) ? 1:0;
 				}
 				else if(!strcmp("Enable WiiRD debug", name)) {
-					configSwissSettings.wiirdDebug = !strcmp("Yes", value) ? 1:0;
+					configSwissSettings.wiirdDebug = !strcmp("Oui", value) ? 1:0;
 				}
 				else if(!strcmp("Enable File Management", name)) {
-					configSwissSettings.enableFileManagement = !strcmp("Yes", value) ? 1:0;
+					configSwissSettings.enableFileManagement = !strcmp("Oui", value) ? 1:0;
 				}
 				else if(!strcmp("Swiss Video Mode", name)) {
 					if(!strcmp(uiVModeStr[0], value))
@@ -321,7 +321,7 @@ void config_parse(char *configData) {
 					strncpy(configSwissSettings.smbServerIp, value, 80);
 				}
 				else if(!strcmp("AutoCheats", name)) {
-					configSwissSettings.autoCheats = !strcmp("Yes", value) ? 1:0;
+					configSwissSettings.autoCheats = !strcmp("Oui", value) ? 1:0;
 				}
 				else if(!strcmp("IGRType", name)) {
 					if(!strcmp(igrTypeStr[0], value))
