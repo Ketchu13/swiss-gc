@@ -38,6 +38,7 @@
 #include "wkf.h"
 #include "cheats.h"
 #include "settings.h"
+#include "ksubstr.h"
 #include "aram/sidestep.h"
 #include "gui/FrameBufferMagic.h"
 #include "gui/IPLFontWrite.h"
@@ -134,15 +135,6 @@ void ogc_video__reset()
 		sram->flags = (swissSettings.gameVMode == 5) || (swissSettings.gameVMode == 10) ? (sram->flags|0x80):(sram->flags&~0x80);
 		__SYS_UnlockSram(1);
 		while(!__SYS_SyncSram());
-	}
-	char *replace(const char *s, char ch, char repl) {
-		char *t;
-		for(t=s; *t; t++)
-			if (*t == ch){
-				*t = repl;
-			}
-		
-		return t;
 	}
 	/* set TV mode for current game */
 	switch(swissSettings.gameVMode) {
@@ -1407,26 +1399,26 @@ void draw_game_info() {
 
 	sprintf(txtbuffer,"%s",(GCMDisk.DVDMagicWord != DVD_MAGIC)?getRelativeName(&curFile.name[0]):GCMDisk.GameName);
 	float scale = GetTextScaleToFitInWidth(txtbuffer,(vmode->fbWidth-78)-75);
-	WriteFontStyled(640/2, 130, txtbuffer, scale, true, defaultColor);
+	WriteFontStyled(640/2, 130, txtbuffer, scale, true, redColor);
 
 	if((curDevice==SD_CARD)||(curDevice == IDEEXI) ||(curDevice == WKF) ||(curDevice == DVD_DISC)) {
 		sprintf(txtbuffer,"Taille: %.2fMo", (float)curFile.size/1024/1024);
 		WriteFontStyled(640/2, 160, txtbuffer, 0.8f, true, defaultColor);
 		if((curDevice==SD_CARD)||(curDevice == IDEEXI) ||(curDevice == WKF)) {
 			get_frag_list(curFile.name);
+			int bckslhPos = -1;
 			if(frag_list->num > 1) {
 				sprintf(txtbuffer,"Fichier en %ld fragments.", frag_list->num);
-				WriteFontStyled(640/2, 170, txtbuffer, 0.8f, true, defaultColor);
-				sprintf(txtbuffer,"%s", curFile.name);
 				WriteFontStyled(640/2, 180, txtbuffer, 0.8f, true, defaultColor);
-			//**k13 reomve useless info
 			}
 			else {
 				/*sprintf(txtbuffer,"File base sector 0x%08lX", frag_list->frag[0].sector);*/
-				sprintf(txtbuffer,"%s", curFile.name);
-				WriteFontStyled(640/2, 170, txtbuffer, 0.8f, true, defaultColor);
+				sprintf(txtbuffer,"%s", curFile.name);// affichage du nom du fichier
+				bckslhPos = strpos(txtbuffer, "/");
+				sprintf(txtbuffer,"%s",mid(txtbuffer,bckslhPos+2));
+				scale = GetTextScaleToFitInWidth(txtbuffer,(vmode->fbWidth-78)-75);
+				WriteFontStyled(640/2, 180, txtbuffer, scale, true, defaultColor);
 			}
-			
 		}
 		if(curFile.meta) {
 			if(curFile.meta->banner)
@@ -1531,7 +1523,7 @@ void select_copy_device()
 			WriteFontStyled(vmode->fbWidth-165, 370, slot ? "Slot: B":"Slot: A", 0.65f, false, !inAdvancedPos ? defaultColor:deSelectedColor);
 			WriteFontStyled(vmode->fbWidth-165, 385, swissSettings.exiSpeed ? "Vitesse: Rapide":"Vitesse: Compatible", 0.65f, false, inAdvancedPos ? defaultColor:deSelectedColor);
 		}
-		WriteFontStyled(vmode->fbWidth-120, 345, "(X) Avancé", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
+		WriteFontStyled(vmode->fbWidth-120, 345, "(X) Opts. Avancées", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
 		if(curCopyDevice==DEST_SD_CARD) {
 			DrawImage(TEX_SDSMALL, 640/2, 230, 60, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 			WriteFontStyled(640/2, 330, "Carte SD via SD Gecko", 0.85f, true, defaultColor);
@@ -1672,13 +1664,13 @@ void select_device(int skipPrompts)
 				DrawImage(TEX_SDSMALL, 640/2, 230, 60, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "Carte SD via SD Gecko", 0.85f, true, defaultColor);
 				WriteFontStyled(640/2, 350, "Système(s) de fichiers pris en charge: FAT16, FAT32", 0.65f, true, defaultColor);
-				WriteFontStyled(vmode->fbWidth-190, 400, "(X) Options Avancees", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
+				WriteFontStyled(vmode->fbWidth-190, 400, "(X) Options Avancées", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
 			}
 			else if(curDevice==IDEEXI) {
 				DrawImage(TEX_HDD, 640/2, 230, 80, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "HDD IDE via IDE-EXI", 0.85f, true, defaultColor);
 				WriteFontStyled(640/2, 350, "Système(s) de fichiers pris en charge: FAT16, FAT32", 0.65f, true, defaultColor);
-				WriteFontStyled(vmode->fbWidth-190, 400, "(X) Options Avancees", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
+				WriteFontStyled(vmode->fbWidth-190, 400, "(X) Options Avancées", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
 			}
 			else if(curDevice==QOOB_FLASH) {
 				DrawImage(TEX_QOOB, 640/2, 230, 70, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
@@ -1703,7 +1695,7 @@ void select_device(int skipPrompts)
 			else if(curDevice==USBGECKO) {
 				DrawImage(TEX_USBGECKO, 640/2, 230, 129, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "USB Gecko (req. PC app)", 0.85f, true, defaultColor);
-				WriteFontStyled(640/2, 350, "Slot B only", 0.65f, true, defaultColor);
+				WriteFontStyled(640/2, 350, "Slot B seulement", 0.65f, true, defaultColor);
 			}
 			else if(curDevice==SAMBA) {
 				DrawImage(TEX_SAMBA, 640/2, 230, 160, 85, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
