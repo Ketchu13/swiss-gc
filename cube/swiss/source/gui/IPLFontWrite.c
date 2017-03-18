@@ -5,7 +5,7 @@
       Version 1.0 11/11/2009
         - Initial Code
    ----------------------------------------------------------- */
-
+//** add more color - k13 14.22.18.3.17
 #include <gccore.h>
 #include <malloc.h>
 #include <stdio.h>
@@ -35,6 +35,12 @@ GXColor defaultColor = (GXColor) {255,255,255,255};
 GXColor disabledColor = (GXColor) {175,175,182,255};
 GXColor fontColor = (GXColor) {255,255,255,255};
 GXColor deSelectedColor = (GXColor) {80,80,73,255};
+
+//**added color
+GXColor redColor = (GXColor) {255,0,0,255};
+GXColor blueColor = (GXColor) {0,0,255,255};
+GXColor greenColor = (GXColor) {0,255,0,255};
+//**
 
 /****************************************************************************
  * YAY0 Decoding

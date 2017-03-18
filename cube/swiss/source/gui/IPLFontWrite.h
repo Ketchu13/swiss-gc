@@ -5,7 +5,7 @@
       Version 1.0 11/11/2009
         - Initial Code
    ----------------------------------------------------------- */
-
+//** add more color - k13 14.22.18.3.17
 #ifndef IPLFontWrite_H
 #define IPLFontWrite_H
 
@@ -16,6 +16,11 @@
 extern GXColor defaultColor;
 extern GXColor disabledColor;
 extern GXColor deSelectedColor;
+
+extern GXColor redColor;
+extern GXColor blueColor;
+extern GXColor greenColor;
+
 extern char txtbuffer[2048];
 
 void init_font(void);
