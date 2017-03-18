@@ -1,3 +1,5 @@
+//Todo add replace éèêç
+//translation by k13 4.07-18.3.17 windows-1252
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -21,19 +23,19 @@ char topStr[256];
 char *getSramLang(u8 lang) {
 	switch(lang) {
 		case 5:
-			return "Dutch";
+			return "Hollandais";
 		case 4:
-			return "Italian";
+			return "Italien";
 		case 3:
-			return "Spanish";
+			return "Espagnol";
 		case 2:
-			return "Francais";
+			return "Français";
 		case 1:
-			return "German";
+			return "Allemand";
 		case 0:
-			return "English";
+			return "Anglais";
 	}
-	return "Unknown";
+	return "Inconnu";
 }
 
 void info_draw_page(int page_num) {
@@ -44,7 +46,7 @@ void info_draw_page(int page_num) {
 	
 	// System Info (Page 1/3)
 	if(!page_num) {
-		WriteFont(30, 65, "Info Systeme (1/3):");
+		WriteFont(30, 65, "Info Système (1/3):");
 		// Model
 		if(is_gamecube()) {
 			if(*(u32*)&driveVersion[0] == 0x20010831) {
@@ -70,7 +72,7 @@ void info_draw_page(int page_num) {
 		// IPL version string
 		if(is_gamecube()) {
 			if(!IPLInfo[0x55]) {
-				sprintf(topStr, "NTSC Revision 1.0");
+				sprintf(topStr, "NTSC Révision 1.0");//accent
 			}
 			else {
 				sprintf(topStr, "%s", &IPLInfo[0x55]);
@@ -84,11 +86,11 @@ void info_draw_page(int page_num) {
 			if((!__wkfSpiReadId() || (__wkfSpiReadId() == 0xFFFFFFFF))) {
 				sprintf(topStr, "Lecteur DVD %02X %02X%02X/%02X (%02X)",driveVersion[2],driveVersion[0],driveVersion[1],driveVersion[3],driveVersion[4]);
 			} else {
-				sprintf(topStr, "WKF Serial %s",wkfGetSerial());
+				sprintf(topStr, "WKF num. de serie: %s",wkfGetSerial());
 			}
 		}
 		else
-			sprintf(topStr, "No DVD Drive present");
+			sprintf(topStr, "Aucun Lecteur DVD présent");
 		WriteFontStyled(640/2, 170, topStr, 1.0f, true, defaultColor);
 		sprintf(topStr, "%s",videoStr);
 		WriteFontStyled(640/2, 200, topStr, 1.0f, true, defaultColor);
@@ -98,63 +100,63 @@ void info_draw_page(int page_num) {
 		WriteFontStyled(640/2, 260, topStr, 0.75f, true, defaultColor);
 	}
 	else if(page_num == 1) {
-		WriteFont(30, 65, "Device Info (2/3):");
-		sprintf(topStr,"BBA: %s", bba_exists ? "Installe":"Absente");
+		WriteFont(30, 65, "Info Périphérique (2/3):");
+		sprintf(topStr,"BBA: %s", bba_exists ? "Instalé":"Absent");
 		WriteFont(30, 110, topStr);
 		if(exi_bba_exists()) {
 			sprintf(topStr,"IP: %s", net_initialized ? bba_ip:"Non Disponible");
 		}
 		else {
-			sprintf(topStr,"IP: Not Available");
+			sprintf(topStr,"IP: Non Disponible");
 		}
 		WriteFont(270, 110, topStr);
-		sprintf(topStr,"Component Cable Plugged in: %s",VIDEO_HaveComponentCable()?"Oui":"Non");
+		sprintf(topStr,"Câble Composite connecté: %s",VIDEO_HaveComponentCable()?"Oui":"Non");
 		WriteFont(30, 140, topStr);
 		if(usb_isgeckoalive(0)||usb_isgeckoalive(1)) {
-			sprintf(topStr,"USB Gecko: Installe dans %s",usb_isgeckoalive(0)?"Slot A":"Slot B");
+			sprintf(topStr,"USB Gecko: Instalé dans %s",usb_isgeckoalive(0)?"Slot A":"Slot B");
 		}
 		else {
-			sprintf(topStr,"USB Gecko: Absente");
+			sprintf(topStr,"USB Gecko: Absent");
 		}
 		WriteFont(30, 170, topStr);
 		if (!deviceHandler_initial) {
-			sprintf(topStr, "Current Device: No Device Selected");
+			sprintf(topStr, "Périphérique actuel: aucun périphérique sélectionné");//accent
 		}
 		else if(deviceHandler_initial == &initial_SD0 || deviceHandler_initial == &initial_SD1) {
 			int slot = (deviceHandler_initial->name[2] == 'b');
-			sprintf(topStr, "Current Device: %s Card in %s @ %s",!SDHCCard?"SDHC":"SD",!slot?"Slot A":"Slot B",!swissSettings.exiSpeed?"16Mhz":"32Mhz");
+			sprintf(topStr, "Périphérique actuel: %s Carte %s @ %s",!SDHCCard?"SDHC":"SD",!slot?"Slot A":"Slot B",!swissSettings.exiSpeed?"16Mhz":"32Mhz");
 		}
 		else if(deviceHandler_initial == &initial_DVD) {
-			sprintf(topStr, "Current Device: %s DVD Disc",dvdDiscTypeStr);
+			sprintf(topStr, "Périphérique actuel: %s Disque DVD ",dvdDiscTypeStr);
 		}
 		else if(deviceHandler_initial == &initial_IDE0 || deviceHandler_initial == &initial_IDE1) {
 			int slot = (deviceHandler_initial->name[3] == 'b');
-			sprintf(topStr, "Current Device: %ld GB HDD in %s",ataDriveInfo.sizeInGigaBytes,!slot?"Slot A":"Slot B");
+			sprintf(topStr, "Périphérique actuel: %ld Go HDD %s",ataDriveInfo.sizeInGigaBytes,!slot?"Slot A":"Slot B");
 		}
 		else if(deviceHandler_initial == &initial_Qoob) {
-			sprintf(topStr, "Current Device: Qoob IPL Replacement");
+			sprintf(topStr, "Périphérique actuel: Qoob IPL Replacement");
 		}
 		else if(deviceHandler_initial == &initial_WODE) {
-			sprintf(topStr, "Current Device: Wode Jukebox");
+			sprintf(topStr, "Périphérique actuel: Wode Jukebox");
 		}
 		else if(deviceHandler_initial == &initial_CARDA || deviceHandler_initial == &initial_CARDB) {
-			sprintf(topStr, "Current Device: Memory Card in %s",!deviceHandler_initial->fileBase?"Slot A":"Slot B");
+			sprintf(topStr, "Périphérique actuel: Memory Card %s",!deviceHandler_initial->fileBase?"Slot A":"Slot B");
 		}
 		else if(deviceHandler_initial == &initial_USBGecko) {
-			sprintf(topStr, "Current Device: USB Gecko");
+			sprintf(topStr, "Périphérique actuel: USB Gecko");
 		}
 		else if(deviceHandler_initial == &initial_WKF) {
-			sprintf(topStr, "Current Device: Wiikey Fusion");
+			sprintf(topStr, "Périphérique actuel: Wiikey Fusion");
 		}
 		else if(deviceHandler_initial == &initial_SYS) {
-			sprintf(topStr, "Current Device: System");
+			sprintf(topStr, "Périphérique actuel: Système");
 		}
 		WriteFont(30, 200, topStr);
 	}
-	else if(page_num == 2) {
+	else if(page_num == 2) { //todo rewrite
 		WriteFont(30, 65, "Credits (3/3):");
-		WriteFontStyled(640/2, 115, "Swiss ver 0.4 Fr", 1.0f, true, defaultColor);
-		WriteFontStyled(640/2, 140, "by emu_kidid 2017 (Fr by Ketchu13)", 0.75f, true, defaultColor);
+		WriteFontStyled(640/2, 115, "Swiss ver 0.4 France", 1.0f, true, defaultColor);
+		WriteFontStyled(640/2, 140, "by emu_kidid 2017 (Trad Fr by Ketchu13)", 0.75f, true, defaultColor);
 		sprintf(txtbuffer, "Commit %s Revision %s", GITREVISION, GITVERSION);
 		WriteFontStyled(640/2, 165, txtbuffer, 0.75f, true, defaultColor);
 		WriteFontStyled(640/2, 210, "Thanks to", 0.75f, true, defaultColor);

@@ -3,7 +3,7 @@
 *   Swiss - The Gamecube IPL replacement
 *
 */
-
+//translation by k13 3.51-18.3.17 windows-1252
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
@@ -148,43 +148,43 @@ void ogc_video__reset()
 	switch(swissSettings.gameVMode) {
 		case -1:
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, replace("Mode Vid#eo: NTSC 60Hz", '#', (char)225));
+			DrawMessageBox(D_INFO, "Mode Vidéo: NTSC 60Hz");
 			DrawFrameFinish();
 			newmode = &TVNtsc480IntDf;
 			break;
 		case -2:
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Mode Video: PAL 50Hz");
+			DrawMessageBox(D_INFO, "Mode Vidéo: PAL 50Hz");
 			DrawFrameFinish();
 			newmode = &TVPal576IntDfScale;
 			break;
 		case 1:
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Mode Video: NTSC 480i");
+			DrawMessageBox(D_INFO, "Mode Vidéo: NTSC 480i");
 			DrawFrameFinish();
 			newmode = &TVNtsc480IntDf;
 			break;
 		case 2:
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Mode Video: NTSC 480sf");
+			DrawMessageBox(D_INFO, "Mode Vidéo: NTSC 480sf");
 			DrawFrameFinish();
 			newmode = &TVNtsc480IntDf;
 			break;
 		case 3:
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Mode Video: NTSC 240p");
+			DrawMessageBox(D_INFO, "Mode Vidéo: NTSC 240p");
 			DrawFrameFinish();
 			newmode = &TVNtsc480IntDf;
 			break;
 		case 4:
 			if(VIDEO_HaveComponentCable()) {
 				DrawFrameStart();
-				DrawMessageBox(D_INFO, "Mode Video: NTSC 960i");
+				DrawMessageBox(D_INFO, "Mode Vidéo: NTSC 960i");
 				DrawFrameFinish();
 				newmode = &TVNtsc480Prog;
 			} else {
 				DrawFrameStart();
-				DrawMessageBox(D_WARN, "Mode Video: NTSC 480i");
+				DrawMessageBox(D_WARN, "Mode Vidéo: NTSC 480i");
 				DrawFrameFinish();
 				swissSettings.gameVMode = 1;
 				newmode = &TVNtsc480IntDf;
@@ -194,12 +194,12 @@ void ogc_video__reset()
 		case 5:
 			if(VIDEO_HaveComponentCable()) {
 				DrawFrameStart();
-				DrawMessageBox(D_INFO, "Mode Video: NTSC 480p");
+				DrawMessageBox(D_INFO, "Mode Vidéo: NTSC 480p");
 				DrawFrameFinish();
 				newmode = &TVNtsc480Prog;
 			} else {
 				DrawFrameStart();
-				DrawMessageBox(D_WARN, "Mode Video: NTSC 240p");
+				DrawMessageBox(D_WARN, "Mode Vidéo: NTSC 240p");
 				DrawFrameFinish();
 				swissSettings.gameVMode = 3;
 				newmode = &TVNtsc480IntDf;
@@ -208,31 +208,31 @@ void ogc_video__reset()
 			break;
 		case 6:
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Mode Video: PAL 576i");
+			DrawMessageBox(D_INFO, "Mode Vidéo: PAL 576i");
 			DrawFrameFinish();
 			newmode = &TVPal576IntDfScale;
 			break;
 		case 7:
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Mode Video: PAL 576sf");
+			DrawMessageBox(D_INFO, "Mode Vidéo: PAL 576sf");
 			DrawFrameFinish();
 			newmode = &TVPal576IntDfScale;
 			break;
 		case 8:
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Mode Video: PAL 288p");
+			DrawMessageBox(D_INFO, "Mode Vidéo: PAL 288p");
 			DrawFrameFinish();
 			newmode = &TVPal576IntDfScale;
 			break;
 		case 9:
 			if(VIDEO_HaveComponentCable()) {
 				DrawFrameStart();
-				DrawMessageBox(D_INFO, "Mode Video: PAL 1152i");
+				DrawMessageBox(D_INFO, "Mode Vidéo: PAL 1152i");
 				DrawFrameFinish();
 				newmode = &TVPal576ProgScale;
 			} else {
 				DrawFrameStart();
-				DrawMessageBox(D_WARN, "Mode Video: PAL 576i");
+				DrawMessageBox(D_WARN, "Mode Vidéo: PAL 576i");
 				DrawFrameFinish();
 				swissSettings.gameVMode = 6;
 				newmode = &TVPal576IntDfScale;
@@ -242,12 +242,12 @@ void ogc_video__reset()
 		case 10:
 			if(VIDEO_HaveComponentCable()) {
 				DrawFrameStart();
-				DrawMessageBox(D_INFO, "Mode Video: PAL 576p");
+				DrawMessageBox(D_INFO, "Mode Vidéo: PAL 576p");
 				DrawFrameFinish();
 				newmode = &TVPal576ProgScale;
 			} else {
 				DrawFrameStart();
-				DrawMessageBox(D_WARN, "Mode Video: PAL 288p");
+				DrawMessageBox(D_WARN, "Mode Vidéo: PAL 288p");
 				DrawFrameFinish();
 				swissSettings.gameVMode = 8;
 				newmode = &TVPal576IntDfScale;
@@ -518,7 +518,7 @@ unsigned int load_app(int multiDol)
 	for(i = 0; i < 14; i++) {
 		if(!strncmp(gameID, DiscIDNoASRequired[i], 3) ) {
 			GCMDisk.AudioStreaming = 0;
-			print_gecko("This game doesn't really need Audio Streaming but has it set!\r\n");//todo
+			print_gecko("Ce jeu n'a pas vraiment besoin de Streaming Audio, mais il est mis!\r\n");//td "This game doesn't really need Audio Streaming but has it set"
 			break;
 		}
 	}
@@ -537,7 +537,7 @@ unsigned int load_app(int multiDol)
 		top_of_main_ram = WIIRD_ENGINE;
 	}
 
-	print_gecko("Top of RAM simulated as: 0x%08X\r\n", top_of_main_ram);
+	print_gecko("Haut de la RAM simulé comme: 0x%08X\r\n", top_of_main_ram);//td "Top of RAM simulated as"
 	
 	// Read FST to top of Main Memory (round to 32 byte boundary)
 	u32 fstSizeAligned = GCMDisk.MaxFSTSize + (32-(GCMDisk.MaxFSTSize%32));
@@ -569,7 +569,7 @@ unsigned int load_app(int multiDol)
 	*(volatile u32*)0x800000D4 = (u32)osctxblock;
 	memset(osctxblock, 0, 1024);
 		
-	print_gecko("Main DOL Lives at %08X\r\n", GCMDisk.DOLOffset);
+	print_gecko("Offset du DOL Princ. %08X\r\n", GCMDisk.DOLOffset);//td "Main DOL Lives at"
 	
 	// Read the Main DOL header
 	deviceHandler_seekFile(&curFile,GCMDisk.DOLOffset,DEVICE_HANDLER_SEEK_SET);
@@ -593,7 +593,7 @@ unsigned int load_app(int multiDol)
 
 	// Read the entire Main DOL
 	main_dol_buffer = (u8*)memalign(32,main_dol_size+DOLHDRLENGTH);
-	print_gecko("Main DOL buffer %08X\r\n", (u32)main_dol_buffer);
+	print_gecko("Tampon du DOL principal: %08X\r\n", (u32)main_dol_buffer);
 	deviceHandler_seekFile(&curFile,GCMDisk.DOLOffset,DEVICE_HANDLER_SEEK_SET);
 	if(deviceHandler_readFile(&curFile,(void*)main_dol_buffer,main_dol_size+DOLHDRLENGTH) != main_dol_size+DOLHDRLENGTH) {
 		DrawFrameStart();
@@ -609,7 +609,7 @@ unsigned int load_app(int multiDol)
 		u32 ret = Patch_DVDLowLevelRead(main_dol_buffer, main_dol_size+DOLHDRLENGTH, PATCH_DOL);
 		if(READ_PATCHED_ALL != ret)	{
 			DrawFrameStart();
-			DrawMessageBox(D_FAIL, "Failed to find necessary functions for patching!");
+			DrawMessageBox(D_FAIL, "Impossible de trouver les fonctions nécessaires au correctif!");//td "Failed to find necessary functions for patching"
 			DrawFrameFinish();
 			sleep(5);
 		}
@@ -620,7 +620,7 @@ unsigned int load_app(int multiDol)
 		u32 ret = Patch_DVDLowLevelReadForWKF(main_dol_buffer, main_dol_size+DOLHDRLENGTH, PATCH_DOL);
 		if(1 != ret) {
 			DrawFrameStart();
-			DrawMessageBox(D_FAIL, "Fragmentation patch failed to apply!");
+			DrawMessageBox(D_FAIL, "Le correctif de fragmentation n'a pas été appliqué");//td "Fragmentation patch failed to apply!"
 			DrawFrameFinish();
 			sleep(5);
 			return 0;
@@ -674,7 +674,7 @@ unsigned int load_app(int multiDol)
 	// See if the combination of our patches has exhausted our play area.
 	if(!install_code()) {
 		DrawFrameStart();
-		DrawMessageBox(D_FAIL, "Trop de patches actifs. Memoire saturee!");
+		DrawMessageBox(D_FAIL, "Trop de patches actifs. Memoire saturée!");
 		DrawFrameFinish();
 		wait_press_A();
 		return 0;
@@ -697,7 +697,7 @@ unsigned int load_app(int multiDol)
 	
 	// Try a device speed test using the actual in-game read code
 	if((curDevice == SD_CARD)||(curDevice == IDEEXI)||(curDevice == USBGECKO)) {
-		print_gecko("Attempting speed test\r\n");
+		print_gecko("Tentative de test de vitesse\r\n");
 		char *buffer = memalign(32,1024*1024);
 		typedef u32 (*_calc_speed) (void* dst, u32 len, u32 *speed);
 		_calc_speed calculate_speed = (_calc_speed) (void*)(CALC_SPEED);
@@ -708,10 +708,10 @@ unsigned int load_app(int multiDol)
 		}
 		calculate_speed(buffer, 1024*1024, &speed);
 		float timeTakenInSec = (float)speed/1000000;
-		print_gecko("Speed is %i usec %.2f sec for 1MB\r\n",speed,timeTakenInSec);
+		print_gecko("La vitesse est %i usec %.2f sec for 1Mo\r\n",speed,timeTakenInSec);
 		float bytePerSec = (1024*1024) / timeTakenInSec;
-		print_gecko("Speed is %.2f KB/s\r\n",bytePerSec/1024);
-		print_gecko("Speed for 1024 bytes is: %i usec\r\n",speed/1024);
+		print_gecko("La vitesse est de %.2f Ko/s\r\n",bytePerSec/1024);
+		print_gecko("Vitesse pour 1024 octets est de: %i usec\r\n",speed/1024);
 		*(unsigned int*)VAR_DEVICE_SPEED = speed/1024;
 		free(buffer);
 	}
@@ -730,7 +730,7 @@ unsigned int load_app(int multiDol)
 	*(volatile unsigned char*)VAR_IGR_EXIT_TYPE = (u8)swissSettings.igrType;
 	memset((void*)VAR_DI_REGS, 0, 0x24);
 	memset((void*)VAR_STREAM_START, 0, 0xA0);
-	print_gecko("Audio Streaming is %s\r\n",*(volatile unsigned int*)VAR_AS_ENABLED?"Enabled":"Disabled");
+	print_gecko("Le Streaming Audio est %s\r\n",*(volatile unsigned int*)VAR_AS_ENABLED?"Actif":"Inactif");
 
 	if(swissSettings.wiirdDebug || getEnabledCheatsSize() > 0) {
 		kenobi_install_engine();
@@ -740,7 +740,7 @@ unsigned int load_app(int multiDol)
 	if(curDevice == WKF /*&& !wkfFragSetupReq && swissSettings.muteAudioStreaming*/) {
 		wkfWriteOffset(*(volatile unsigned int*)VAR_DISC_1_LBA);
 	}
-	print_gecko("libogc shutdown and boot game!\r\n");
+	print_gecko("Fermeture de ligogc and démarrage du jeu!\r\n");//td "libogc shutdown and boot game!\r\n"
 	DOLtoARAM(main_dol_buffer, 0, NULL);
 	return 0;
 }
@@ -849,16 +849,16 @@ void manage_file() {
 		// Ask the user what they want to do with it
 		DrawFrameStart();
 		DrawEmptyBox(10,150, vmode->fbWidth-10, 350, COLOR_BLACK);
-		WriteFontStyled(640/2, 160, "Manage File:", 1.0f, true, defaultColor);
+		WriteFontStyled(640/2, 160, "Gestion du Fichier:", 1.0f, true, defaultColor);
 		float scale = GetTextScaleToFitInWidth(getRelativeName(curFile.name), vmode->fbWidth-10-10);
 		WriteFontStyled(640/2, 200, getRelativeName(curFile.name), scale, true, defaultColor);
 		if(deviceHandler_deleteFile) {
-			WriteFontStyled(640/2, 230, "(A) Charger (X) Copier (Y) DÃ©placer (Z) Effacer", 1.0f, true, defaultColor);
+			WriteFontStyled(640/2, 230, "(A) Charger (X) Copier (Y) Déplacer (Z) Effacer", 1.0f, true, defaultColor);
 		}
 		else {
 			WriteFontStyled(640/2, 230, "(A) Charger (X) Copier", 1.0f, true, defaultColor);
 		}
-		WriteFontStyled(640/2, 300, "SÃ©lectionnez une option, ou retour avec B", 1.0f, true, defaultColor);
+		WriteFontStyled(640/2, 300, "Sélectionnez une option, ou retour avec B", 1.0f, true, defaultColor);
 		DrawFrameFinish();
 		while(PAD_ButtonsHeld(0) & PAD_BUTTON_A) { VIDEO_WaitVSync (); }
 		int option = 0;
@@ -898,14 +898,14 @@ void manage_file() {
 				}
 				curFile.name[len-1] = '\0';
 				DrawFrameStart();
-				DrawMessageBox(D_INFO,"Fichier effacÃ©! Appuyer sur A pour continuer");
+				DrawMessageBox(D_INFO,"Fichier effacé! Appuyer sur A pour continuer");
 				DrawFrameFinish();
 				wait_press_A();
 				needsRefresh=1;
 			}
 			else {
 				DrawFrameStart();
-				DrawMessageBox(D_INFO,"Suppresion ratÃ©e! Appuyer sur A pour continuer");
+				DrawMessageBox(D_INFO,"Suppresion ratée! Appuyer sur A pour continuer");
 				DrawFrameFinish();
 			}
 		}
@@ -929,7 +929,7 @@ void manage_file() {
 					print_gecko("Essaie sur un autre slot...\r\n");
 					if(!deviceHandler_dest_init( deviceHandler_dest_initial )) {
 						DrawFrameStart();
-						sprintf(txtbuffer, "Failed to init destination device! (%ld)",ret);
+						sprintf(txtbuffer, "Échec de l'initialisation du périphérique de destination! (%ld)",ret);
 						DrawMessageBox(D_FAIL,txtbuffer);
 						DrawFrameFinish();
 						wait_press_A();
@@ -963,11 +963,11 @@ void manage_file() {
 			if(deviceHandler_dest_readFile(destFile, nothing, 1) >= 0) {
 				DrawFrameStart();
 				DrawEmptyBox(10,150, vmode->fbWidth-10, 350, COLOR_BLACK);
-				WriteFontStyled(640/2, 160, "File exists:", 1.0f, true, defaultColor);
+				WriteFontStyled(640/2, 160, "Fichier existant:", 1.0f, true, defaultColor);
 				float scale = GetTextScaleToFitInWidth(getRelativeName(curFile.name), vmode->fbWidth-10-10);
 				WriteFontStyled(640/2, 200, getRelativeName(curFile.name), scale, true, defaultColor);
 				WriteFontStyled(640/2, 230, "(A) Renommer (Z) Ecraser", 1.0f, true, defaultColor);
-				WriteFontStyled(640/2, 300, "Selectionnez une option, ou retour avec B", 1.0f, true, defaultColor);
+				WriteFontStyled(640/2, 300, "Sélectionnez une option, ou retour avec B", 1.0f, true, defaultColor);
 				DrawFrameFinish();
 
 				while(PAD_ButtonsHeld(0) & (PAD_BUTTON_A | PAD_TRIGGER_Z)) { VIDEO_WaitVSync (); }
@@ -976,7 +976,7 @@ void manage_file() {
 					if(buttons & PAD_TRIGGER_Z) {
 						if(!strcmp(curFile.name, destFile->name)) {
 							DrawFrameStart();
-							DrawMessageBox(D_INFO, "Ne peux ecraser un fichier avec lui meme!");
+							DrawMessageBox(D_INFO, "Impossible d'écraser un fichier avec lui meme!");//check
 							DrawFrameFinish();
 							wait_press_A();
 							return; 
@@ -1069,7 +1069,7 @@ void manage_file() {
 				curFile.name[len-1] = '\0';
 				needsRefresh=1;
 				DrawFrameStart();
-				DrawMessageBox(D_INFO,ret ? "Deplacement ratee! Appuyer sur A pour continuer":"Fichier deplace! Appuyer sur A pour continuer");
+				DrawMessageBox(D_INFO,ret ? "Deplacement raté! Appuyer sur A pour continuer":"Fichier déplacé! Appuyer sur A pour continuer");
 				DrawFrameFinish();
 				wait_press_A();
 			}
@@ -1126,7 +1126,7 @@ void manage_file() {
 					if(ret != amountToCopy) {
 						free(readBuffer);
 						DrawFrameStart();
-						sprintf(txtbuffer, "Ecriture ratee! (%ld %ld)\n%s",amountToCopy,ret,destFile->name);
+						sprintf(txtbuffer, "Ecriture ratée! (%ld %ld)\n%s",amountToCopy,ret,destFile->name);
 						DrawMessageBox(D_FAIL,txtbuffer);
 						DrawFrameFinish();
 						wait_press_A();
@@ -1143,7 +1143,7 @@ void manage_file() {
 					if(ret != 0) {
 						free(readBuffer);
 						DrawFrameStart();
-						sprintf(txtbuffer, "Ecriture ratee! (%ld)\n%s",ret,destFile->name);
+						sprintf(txtbuffer, "Ecriture ratée! (%ld)\n%s",ret,destFile->name);
 						DrawMessageBox(D_FAIL,txtbuffer);
 						DrawFrameFinish();
 						wait_press_A();
@@ -1165,14 +1165,14 @@ void manage_file() {
 					if(option == MOVE_OPTION) {
 						deviceHandler_deleteFile(&curFile);
 						needsRefresh=1;
-						DrawMessageBox(D_INFO,"Deplacement termine!");
+						DrawMessageBox(D_INFO,"Déplacement terminé!");
 					}
 					else {
-						DrawMessageBox(D_INFO,"Copie Efectuee! Appuyer sur A pour continuer");
+						DrawMessageBox(D_INFO,"Copie Efectuée! Appuyer sur A pour continuer");
 					}
 				} 
 				else {
-					DrawMessageBox(D_INFO,"Operation annulee! Appuyer sur A pour continuer");
+					DrawMessageBox(D_INFO,"Opération annulée! Appuyer sur A pour continuer");
 				}
 				DrawFrameFinish();
 				wait_press_A();
@@ -1182,7 +1182,7 @@ void manage_file() {
 	// Else if directory, mention support not yet implemented.
 	else {
 		DrawFrameStart();
-		DrawMessageBox(D_INFO,"Directory support not implemented");
+		DrawMessageBox(D_INFO,"Support de répertoire non implémenté");
 		DrawFrameFinish();
 	}
 }
@@ -1212,7 +1212,7 @@ void load_file()
 			if(endsWith(fileName,".fzn")) {
 				if(curFile.size != 0x1D0000) {
 					DrawFrameStart();
-					DrawMessageBox(D_WARN, "File Size must be 0x1D0000 bytes!");
+					DrawMessageBox(D_WARN, "La taille du fichier doit être 0x1D0000 bytes!");
 					DrawFrameFinish();
 					sleep(2);
 					return;
@@ -1231,30 +1231,30 @@ void load_file()
 				DrawFrameStart();
 				if(curDevice == DVD_DISC || deviceHandler_readFile(&fwFile,firmware,0x3000) != 0x3000) {
 					free(firmware); firmware = NULL;
-					DrawMessageBox(D_WARN, "Didn't find a firmware file, flashing menu only.");
+					DrawMessageBox(D_WARN, "Aucun Fichier Firmware trouvé, flash du menu uniquement.");
 				}
 				else {
-					DrawMessageBox(D_INFO, "Found firmware file, this will be flashed too.");
+					DrawMessageBox(D_INFO, "Fichier Firmware trouvé, il sera flashé aussi.");
 				}
 				DrawFrameFinish();
 				sleep(1);
 				wkfWriteFlash(flash, firmware);
 				DrawFrameStart();
-				DrawMessageBox(D_INFO, "Flashing Complete !!");
+				DrawMessageBox(D_INFO, "Flashi Terminé !!");
 				DrawFrameFinish();
 				sleep(2);
 				return;
 			}
 			if(!(endsWith(fileName,".iso") || endsWith(fileName,".gcm"))) {
 				DrawFrameStart();
-				DrawMessageBox(D_WARN, "Unknown File Type\nEnable file management to manage this file.");
+				DrawMessageBox(D_WARN, "Type de fichier inconnu\nActivez la gestion des fichiers pour gérer ce fichier.");
 				DrawFrameFinish();
 				sleep(1);
 				return;
 			}
 			if((endsWith(fileName,".iso") || endsWith(fileName,".gcm")) && (curDevice == SAMBA)) {
 				DrawFrameStart();
-				DrawMessageBox(D_WARN, "Non Supporte");
+				DrawMessageBox(D_WARN, "Non Supporté");
 				DrawFrameFinish();
 				sleep(1);
 				return;
@@ -1263,12 +1263,12 @@ void load_file()
 		}
 	}
 	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Reading ...");
+	DrawMessageBox(D_INFO, "Lecture en cours ...");
 	DrawFrameFinish();
 	
 	if((curDevice==WODE)) {
 		DrawFrameStart();
-		DrawMessageBox(D_INFO, "Setup base offset please Wait ..");
+		DrawMessageBox(D_INFO, "Configuration du décalage de base, veuillez patienter ..");
 		DrawFrameFinish();
 		deviceHandler_setupFile(&curFile, 0);
 	}
@@ -1285,7 +1285,7 @@ void load_file()
 
 	if(GCMDisk.DVDMagicWord != DVD_MAGIC) {
 		DrawFrameStart();
-		DrawMessageBox(D_FAIL, "Disque does not contain valid word at 0x1C");
+		DrawMessageBox(D_FAIL, "Disque Ne contient pas de mot valide à 0x1C");
 		DrawFrameFinish();
 		sleep(2);
 		return;
@@ -1301,7 +1301,7 @@ void load_file()
 		if(findCheats(true) > 0) {
 			int appliedCount = applyAllCheats();
 			DrawFrameStart();
-			sprintf(txtbuffer, "Cheats %i appliques", appliedCount);
+			sprintf(txtbuffer, "Cheats %i appliqués", appliedCount);
 			DrawMessageBox(D_INFO, txtbuffer);
 			DrawFrameFinish();
 			sleep(1);
@@ -1330,7 +1330,7 @@ void load_file()
 			//todo change multi disck game 
 			//**k13
 			    DrawFrameStart();
-	            DrawMessageBox(D_INFO,"Verification si le jeu est un multi-disque..");
+	            DrawMessageBox(D_INFO,"Vérification si le jeu est un jeu multi-disque..");
 	            DrawFrameFinish();
 			//--k13
 			if(curFile.name[strlen(secondDisc->name)-5] == '1') {
@@ -1347,7 +1347,7 @@ void load_file()
 		// Call the special setup for each device (e.g. SD will set the sector(s))
 		if(!deviceHandler_setupFile(&curFile, secondDisc)) {
 			DrawFrameStart();
-			DrawMessageBox(D_FAIL, "Failed to setup the file (trop fragmente?)");
+			DrawMessageBox(D_FAIL, "Impossible de configurer le fichier (trop fragmenté?)");
 			DrawFrameFinish();
 			wait_press_A();
 			return;
@@ -1368,7 +1368,7 @@ int check_game()
 { 	
 	int multiDol = 0;
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Verification du Jeu ..");
+	DrawMessageBox(D_INFO,"Vérification du Jeu ..");
 	DrawFrameFinish();
 	
 	ExecutableFile *filesToPatch = memalign(32, sizeof(ExecutableFile)*512);
@@ -1390,12 +1390,12 @@ void save_config(ConfigEntry *config) {
 		DrawFrameFinish();
 		if(config_update(config)) {
 			DrawFrameStart();
-			DrawMessageBox(D_INFO,"Configuration Enregistree avec Succes!");
+			DrawMessageBox(D_INFO,"Configuration Enregistrée avec Succés!");
 			DrawFrameFinish();
 		}
 		else {
 			DrawFrameStart();
-			DrawMessageBox(D_INFO,"Enregistrement rate!");
+			DrawMessageBox(D_INFO,"Enregistrement raté!");
 			DrawFrameFinish();
 		}
 	}
@@ -1448,7 +1448,7 @@ void draw_game_info() {
 	else if(curDevice == QOOB_FLASH) {
 		sprintf(txtbuffer,"Taille: %.2fKo (%ld blocs)", (float)curFile.size/1024, curFile.size/0x10000);
 		WriteFontStyled(640/2, 160, txtbuffer, 0.8f, true, defaultColor);
-		sprintf(txtbuffer,"Position on Flash: %08lX",(u32)(curFile.fileBase&0xFFFFFFFF));
+		sprintf(txtbuffer,"Position sur le Qoob Flash: %08lX",(u32)(curFile.fileBase&0xFFFFFFFF));
 		WriteFontStyled(640/2, 180, txtbuffer, 0.8f, true, defaultColor);
 	}
 	else if(curDevice == WODE) {
@@ -1524,14 +1524,14 @@ void select_copy_device()
 	while(1) {
 		doBackdrop();
 		DrawEmptyBox(20,190, vmode->fbWidth-20, 355, COLOR_BLACK);
-		WriteFontStyled(640/2, 195, "Selection de la destination", 1.0f, true, defaultColor);
+		WriteFontStyled(640/2, 195, "Sélection de la destination", 1.0f, true, defaultColor);
 		if(inAdvanced) {
 			// Draw slot / speed selection if advanced menu is showing.
 			DrawEmptyBox(vmode->fbWidth-170, 370, vmode->fbWidth-20, 405, COLOR_BLACK);
 			WriteFontStyled(vmode->fbWidth-165, 370, slot ? "Slot: B":"Slot: A", 0.65f, false, !inAdvancedPos ? defaultColor:deSelectedColor);
 			WriteFontStyled(vmode->fbWidth-165, 385, swissSettings.exiSpeed ? "Vitesse: Rapide":"Vitesse: Compatible", 0.65f, false, inAdvancedPos ? defaultColor:deSelectedColor);
 		}
-		WriteFontStyled(vmode->fbWidth-120, 345, "(X) Avance", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
+		WriteFontStyled(vmode->fbWidth-120, 345, "(X) Avancé", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
 		if(curCopyDevice==DEST_SD_CARD) {
 			DrawImage(TEX_SDSMALL, 640/2, 230, 60, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 			WriteFontStyled(640/2, 330, "Carte SD via SD Gecko", 0.85f, true, defaultColor);
@@ -1633,7 +1633,7 @@ void select_device(int skipPrompts)
 {
 	if(is_httpd_in_use()) {
 		doBackdrop();
-		DrawMessageBox(D_INFO,"Can't load device while HTTP is processing!");
+		DrawMessageBox(D_INFO,"Impossible de charger le périphérique pendant le traitement HTTP!");
 		DrawFrameFinish();
 		sleep(5);
 		return;
@@ -1657,7 +1657,7 @@ void select_device(int skipPrompts)
 		while(1) {
 			doBackdrop();
 			DrawEmptyBox(20,190, vmode->fbWidth-20, 410, COLOR_BLACK);
-			WriteFontStyled(640/2, 195, "Device Selection", 1.0f, true, defaultColor);		
+			WriteFontStyled(640/2, 195, "Sélection du périphérique", 1.0f, true, defaultColor);		
 			if(inAdvanced) {
 				// Draw slot / speed selection if advanced menu is showing.
 				WriteFontStyled(vmode->fbWidth-160, 370, slot ? "Slot: B":"Slot: A", 0.65f, false, !inAdvancedPos ? defaultColor:deSelectedColor);
@@ -1666,39 +1666,39 @@ void select_device(int skipPrompts)
 			if(curDevice==DVD_DISC) {
 				DrawImage(TEX_GCDVDSMALL, 640/2, 230, 80, 79, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "DVD", 0.85f, true, defaultColor);
-				WriteFontStyled(640/2, 350, "Supported File System(s): GCM, ISO 9660, Multi-Game", 0.65f, true, defaultColor);
+				WriteFontStyled(640/2, 350, "Système(s) de fichiers pris en charge: GCM, ISO 9660, Multi-Game", 0.65f, true, defaultColor);
 			}
 			else if(curDevice==SD_CARD) {
 				DrawImage(TEX_SDSMALL, 640/2, 230, 60, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "Carte SD via SD Gecko", 0.85f, true, defaultColor);
-				WriteFontStyled(640/2, 350, "Supported File System(s): FAT16, FAT32", 0.65f, true, defaultColor);
+				WriteFontStyled(640/2, 350, "Système(s) de fichiers pris en charge: FAT16, FAT32", 0.65f, true, defaultColor);
 				WriteFontStyled(vmode->fbWidth-190, 400, "(X) Options Avancees", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
 			}
 			else if(curDevice==IDEEXI) {
 				DrawImage(TEX_HDD, 640/2, 230, 80, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "HDD IDE via IDE-EXI", 0.85f, true, defaultColor);
-				WriteFontStyled(640/2, 350, "Supported File System(s): FAT16, FAT32", 0.65f, true, defaultColor);
+				WriteFontStyled(640/2, 350, "Système(s) de fichiers pris en charge: FAT16, FAT32", 0.65f, true, defaultColor);
 				WriteFontStyled(vmode->fbWidth-190, 400, "(X) Options Avancees", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
 			}
 			else if(curDevice==QOOB_FLASH) {
 				DrawImage(TEX_QOOB, 640/2, 230, 70, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "Qoob PRO", 0.85f, true, defaultColor);
-				WriteFontStyled(640/2, 350, "Supported File System(s): QOOB Flash", 0.65f, true, defaultColor);
+				WriteFontStyled(640/2, 350, "Système(s) de fichiers pris en charge: QOOB Flash", 0.65f, true, defaultColor);
 			}
 			else if(curDevice==WODE) {
 				DrawImage(TEX_WODEIMG, 640/2, 230, 146, 72, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "WODE Jukebox", 0.85f, true, defaultColor);
-				WriteFontStyled(640/2, 350, "Supported File System(s): FAT32, NTFS, EXT2/3, HPFS", 0.65f, true, defaultColor);
+				WriteFontStyled(640/2, 350, "Système(s) de fichiers pris en charge: FAT32, NTFS, EXT2/3, HPFS", 0.65f, true, defaultColor);
 			}
 			else if(curDevice==MEMCARD) {
 				DrawImage(TEX_MEMCARD, 640/2, 230, 107, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "Memory Card", 0.85f, true, defaultColor);
-				WriteFontStyled(vmode->fbWidth-190, 400, "(X) Options Avancees", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
+				WriteFontStyled(vmode->fbWidth-190, 400, "(X) Options Avancées", 0.65f, false, inAdvanced ? defaultColor:deSelectedColor);
 			}
 			else if(curDevice==WKF) {
 				DrawImage(TEX_WIIKEY, 640/2, 230, 102, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
 				WriteFontStyled(640/2, 330, "Wiikey / Wasp Fusion", 0.85f, true, defaultColor);
-				WriteFontStyled(640/2, 350, "Supported File System(s): FAT16, FAT32", 0.65f, true, defaultColor);
+				WriteFontStyled(640/2, 350, "Système(s) de fichiers pris en charge: FAT16, FAT32", 0.65f, true, defaultColor);
 			}
 			else if(curDevice==USBGECKO) {
 				DrawImage(TEX_USBGECKO, 640/2, 230, 129, 80, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
@@ -1711,7 +1711,7 @@ void select_device(int skipPrompts)
 			}
 			else if(curDevice==SYS) {
 				DrawImage(TEX_SYSTEM, 640/2, 230, 160, 85, 0, 0.0f, 1.0f, 0.0f, 1.0f, 1);
-				WriteFontStyled(640/2, 330, "Systeme", 0.85f, true, defaultColor);
+				WriteFontStyled(640/2, 330, "Système", 0.85f, true, defaultColor);
 			}
 			WriteFont(520, 270, "->");
 			WriteFont(100, 270, "<-");
