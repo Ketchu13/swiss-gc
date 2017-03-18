@@ -353,9 +353,9 @@ void _DrawBackdrop()
 	char ver[32];
 	memset(ver,0,16);
 	DrawImage(TEX_BACKDROP, 0, 0, 640, 480, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
-	WriteFontStyled(40,27, "Swiss v0.4[Fr]", 1.5f, false, defaultColor);
-	sprintf(ver, "commit: %s rev: %s", GITREVISION, "382");//**k13 GITVERSION);
-	WriteFontStyled(210,60, ver, 0.55f, false, defaultColor);
+	WriteFontStyled(40,27, "Swiss v0.4[France]", 1.5f, false, defaultColor);
+	sprintf(ver, "commit: %s rev: %s", GITREVISION, GITVERSION);//**k13 GITVERSION);
+	WriteFontStyled(210,60, ver, 0.50f, false, defaultColor);
 }
 
 // Call this when starting a screen
