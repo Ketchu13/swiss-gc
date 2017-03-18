@@ -2,7 +2,7 @@
 	- device implementation for USBGecko
 	by emu_kidid
  */
-
+//translation by k13 3.16-18.3.17 windows-1252
 #include <string.h>
 #include <unistd.h>
 #include <malloc.h>
@@ -52,7 +52,7 @@ int deviceHandler_USBGecko_readDir(file_handle* ffile, file_handle** dir, unsign
 	}
 	
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Read directory!");
+	DrawMessageBox(D_INFO,"Lecture du Dossier en cours !!"); //td "Read directory!"
 	DrawFrameFinish();
 	// Read each entry of the directory
 	int res = usbgecko_open_dir(&ffile->name[0]);
@@ -112,13 +112,13 @@ int deviceHandler_USBGecko_setupFile(file_handle* file, file_handle* file2) {
 
 int deviceHandler_USBGecko_init(file_handle* file) {
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Looking for USBGecko in Slot B");
+	DrawMessageBox(D_INFO,"Recherche d'un USBGecko dans le Slot B");//td "Looking for USBGecko in Slot B"
 	DrawFrameFinish();
 	if(usb_isgeckoalive(1)) {
 		int retries = 1000;
 		
 		DrawFrameStart();
-		DrawMessageBox(D_INFO,"Waiting for PC ...");
+		DrawMessageBox(D_INFO,"Recherche d'un USBGecko dans le Slot B");//td "Waiting for PC ..."
 		DrawFrameFinish();
 		
 		usb_flush(1);
@@ -130,14 +130,14 @@ int deviceHandler_USBGecko_init(file_handle* file) {
 		}
 		if(!retries) {
 			DrawFrameStart();
-			DrawMessageBox(D_INFO,"Couldn't find PC!");
+			DrawMessageBox(D_INFO,"PC Introuvable!");//td "Couldn't find PC!"
 			DrawFrameFinish();
 			sleep(5);
 			return 0;	// Didn't find the PC
 		}
 		else {
 			DrawFrameStart();
-			DrawMessageBox(D_INFO,"Found PC !!");
+			DrawMessageBox(D_INFO,"PC Trouvé!!");//td "Found PC !!"
 			DrawFrameFinish();
 			return 1;
 		}
