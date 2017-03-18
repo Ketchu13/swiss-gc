@@ -1,3 +1,4 @@
+//translation by k13 22.35-18.3.17 windows-1252
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/
@@ -192,7 +193,7 @@ void* Initialise (void)
 	if(!driveVersion[0]) {
 		// Reset DVD if there was a modchip
 		DrawFrameStart();
-		WriteFontStyled(640/2, 250, "Initialisation du DVD .. (HOLD B if NO DVD Drive)", 0.8f, true, defaultColor);
+		WriteFontStyled(640/2, 250, "Initialisation du DVD .. (Maintenez B si aucun lecteur DVD)", 0.75f, true, defaultColor);
 		DrawFrameFinish();
 		dvd_reset();	// low-level, basic
 		dvd_read_id();
@@ -203,7 +204,7 @@ void* Initialise (void)
 		swissSettings.hasDVDDrive = *(u32*)&driveVersion[0] ? 1 : 0;
 		if(!swissSettings.hasDVDDrive) {
 			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Pas de lecteur DVD Detecte!!");
+			DrawMessageBox(D_INFO, "Pas de lecteur DVD détecté!!");
 			DrawFrameFinish();
 			sleep(2);
 		}
@@ -239,7 +240,7 @@ void load_config() {
 		if(curDevice == SD_CARD || curDevice == IDEEXI) {
 			if(!config_create()) {
 				DrawFrameStart();
-				DrawMessageBox(D_INFO,"Failed to create configuration file!");
+				DrawMessageBox(D_INFO,"Impossible de créer le fichier de configuration!");
 				DrawFrameFinish();
 				sleep(1);
 			}
@@ -247,7 +248,7 @@ void load_config() {
 	}
 	else {
 		DrawFrameStart();
-		sprintf(txtbuffer,"Loaded %i entries from the config file",config_get_count());
+		sprintf(txtbuffer,"%i entrées du fichier de configuration chargées",config_get_count());
 		DrawMessageBox(D_INFO,txtbuffer);
 		DrawFrameFinish();
 		memcpy(&swissSettings, config_get_swiss_settings(), sizeof(SwissSettings));
@@ -331,7 +332,7 @@ void main_loop()
 		sdgecko_setSpeed(EXI_SPEED32MHZ);
 		if(!deviceHandler_init( deviceHandler_initial )) {
 			if(((deviceHandler_initial->name[0] == 's')&&(deviceHandler_initial->name[1] == 'd'))||(deviceHandler_initial->name[0] == 'i')) {
-				print_gecko("SD/IDE-EXI Device Failed to initialize @ 32MHz!\r\nTrying again once @ 16MHz...\r\n");
+				print_gecko("L'initialisation du périphérique SD/IDE-EXI a échoué à 32MHz! \r\nEssayez 16MHz ...\r\n");
 				sdgecko_setSpeed(EXI_SPEED16MHZ);
 				if(!deviceHandler_init(deviceHandler_initial)) {
 				// Try the alternate slot for SDGecko or IDE-EXI
@@ -343,13 +344,13 @@ void main_loop()
 												&initial_IDE1:&initial_IDE0;
 					memcpy(&curFile, deviceHandler_initial, sizeof(file_handle));
 				}
-				print_gecko("Trying alternate slot @ 32MHz...\r\n");
+				print_gecko("Essai d'une autre slot à 32MHz...\r\n");
 				sdgecko_setSpeed(EXI_SPEED32MHZ);
 				if(!deviceHandler_init( deviceHandler_initial )) {
-					print_gecko("Alternate slot failed once @ 16MHz... \r\n");
+					print_gecko("L'autre slot a échoué à 16MHz... \r\n");
 					sdgecko_setSpeed(EXI_SPEED16MHZ);
 					if(!deviceHandler_init( deviceHandler_initial )) {
-						print_gecko("Both slots failed twice\r\n");
+						print_gecko("Echec sur les deux slots\r\n");
 						needsDeviceChange = 1;
 						return;
 					}
@@ -382,7 +383,7 @@ void main_loop()
 			resume_netinit_thread();
 			memcpy(&curDir, &curFile, sizeof(file_handle));
 			sortFiles(allFiles, files);
-			print_gecko("%i entrees trouvees\r\n",files);
+			print_gecko("%i entrées trouvées\r\n",files);
 			if(files<1) { deviceHandler_deinit(deviceHandler_initial); needsDeviceChange=1; break;}
 			needsRefresh = 0;
 			curMenuLocation=ON_FILLIST;
@@ -469,8 +470,8 @@ int main ()
 		if(usb_isgeckoalive(1)) {
 			usb_flush(1);
 		}
-		print_gecko("Arena Size: %iKb\r\n",(SYS_GetArena1Hi()-SYS_GetArena1Lo())/1024);
-		print_gecko("DVD Drive Present? %s\r\n",swissSettings.hasDVDDrive?"Oui":"Non");
+		print_gecko("Arena Size: %iKo\r\n",(SYS_GetArena1Hi()-SYS_GetArena1Lo())/1024);
+		print_gecko("Lecteur DVD présent? %s\r\n",swissSettings.hasDVDDrive?"Oui":"Non");
 		print_gecko("GIT Commit: %s\r\n", GITREVISION);
 		print_gecko("GIT Revision: %s\r\n", GITVERSION);
 	}
@@ -478,7 +479,7 @@ int main ()
 	curDevice = -1;
 	// Are we working with a Wiikey Fusion?
 	if(__wkfSpiReadId() != 0 && __wkfSpiReadId() != 0xFFFFFFFF) {
-		print_gecko("Detected Wiikey Fusion with SPI Flash ID: %08X\r\n",__wkfSpiReadId());
+		print_gecko("Wiikey Fusion détecté avec SPI Flash ID: %08X\r\n",__wkfSpiReadId());
 		curDevice = WKF;
 	}
 	else {
@@ -488,7 +489,7 @@ int main ()
 		deviceHandler_init		=  deviceHandler_FAT_init;
 		deviceHandler_deinit	=  deviceHandler_FAT_deinit;
 		if(deviceHandler_init(deviceHandler_initial)) {
-			print_gecko("SD GEcko detecte dans le Slot A\r\n");
+			print_gecko("SD GEcko détecté dans le Slot A\r\n");
 			load_auto_dol();
 			curDevice = SD_CARD;
 		}
@@ -507,13 +508,13 @@ int main ()
 			deviceHandler_init		=  deviceHandler_CARD_init;
 			deviceHandler_deinit	=  deviceHandler_CARD_deinit;
 			if(deviceHandler_init(deviceHandler_initial)) {
-				print_gecko("Memory Card detectee dans le Slot A\r\n");
+				print_gecko("Memory Card détectée dans le Slot A\r\n");
 				curDevice = MEMCARD;
 			}
 			else {
 				deviceHandler_initial = &initial_CARDB;
 				if(deviceHandler_init(deviceHandler_initial)) {
-					print_gecko("Memory Card detectee dans le Slot B\r\n");
+					print_gecko("Memory Card détectée dans le Slot B\r\n");
 					curDevice = MEMCARD;
 				}
 			}
@@ -522,14 +523,14 @@ int main ()
 	
 	// If no device has been selected yet to browse ..
 	if(curDevice < 0) {
-		print_gecko("No default boot device detected, trying DVD!\r\n");
+		print_gecko("Aucun périphérique d'amorçage par défaut détecté, essai du DVD!\r\n");
 		// Do we have a DVD drive with a ready medium we can perhaps browse then?
 		u8 driveReallyExists[8];
 		drive_version(&driveReallyExists[0]);
 		if(*(u32*)&driveReallyExists[0]) {
 			dvd_read_id();
 			if(!dvd_get_error()) {
-				print_gecko("DVD Medium is up, using it as default device\r\n");
+				print_gecko("Le support DVD est disponible, il est utilisé comme périphérique par défaut\r\n");
 				curDevice = DVD_DISC;
 				
 				// If we have a GameCube (single image) bootable disc, show the banner screen here
@@ -618,7 +619,7 @@ GXRModeObj *getModeFromSwissSetting(int uiVMode) {
 // Checks if devices are available, prints name of device being detected for slow init devices
 void populateDeviceAvailability() {
 	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Detection peripheriques  ...\nEvitable en pressant B au lancement");
+	DrawMessageBox(D_INFO, "Détection des périphériques  ...\nEvitable en pressant B au lancement");
 	DrawFrameFinish();
 	if(PAD_ButtonsHeld(0) & PAD_BUTTON_B) {
 		deviceHandler_setAllDevicesAvailable();
@@ -630,12 +631,12 @@ void populateDeviceAvailability() {
 	deviceHandler_setDeviceAvailable(DVD_DISC, swissSettings.hasDVDDrive);
 	// SD Gecko
 	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Detection peripheriques  [SD] ...\nEvitable en pressant B au lancement");
+	DrawMessageBox(D_INFO, "Détection des périphériques  [SD] ...\nEvitable en pressant B au lancement");
 	DrawFrameFinish();
 	deviceHandler_setDeviceAvailable(SD_CARD, carda->isInserted() || cardb->isInserted());
 	// IDE-EXI
 	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Detection peripheriques  [IDE-EXI] ...\nEvitable en pressant B au lancement");
+	DrawMessageBox(D_INFO, "Détection des périphériques  [IDE-EXI] ...\nEvitable en pressant B au lancement");
 	DrawFrameFinish();
 	deviceHandler_setDeviceAvailable(IDEEXI, ide_exi_inserted(0) || ide_exi_inserted(1));
 	// Qoob
@@ -644,12 +645,12 @@ void populateDeviceAvailability() {
 	deviceHandler_setDeviceAvailable(WODE, 0);	// Hidden by default, add auto detect at some point
 	// Memory card
 	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Detection peripheriques  [Memory Card] ...\nEvitable en pressant B au lancement");
+	DrawMessageBox(D_INFO, "Détection des périphériques  [Memory Card] ...\nEvitable en pressant B au lancement");
 	DrawFrameFinish();
 	deviceHandler_setDeviceAvailable(MEMCARD, (initialize_card(0)==CARD_ERROR_READY) || (initialize_card(1)==CARD_ERROR_READY));
 	// WKF/WASP
 	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Detection peripheriques  [WKF/WASP] ...\nEvitable en pressant B au lancement");
+	DrawMessageBox(D_INFO, "Détection des périphériques  [WKF/WASP] ...\nEvitable en pressant B au lancement");
 	DrawFrameFinish();
 	deviceHandler_setDeviceAvailable(WKF, swissSettings.hasDVDDrive && (__wkfSpiReadId() != 0 && __wkfSpiReadId() != 0xFFFFFFFF));
 	// USB Gecko
