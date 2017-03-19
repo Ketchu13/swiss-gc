@@ -19,3 +19,11 @@ pc/usbgecko/core.*
 *.d
 *.map
 *.gcm
+/cube/swiss/source/devices/memcard/deviceHandler-CARD.c.1
+/cube/swiss/.idea/encodings.xml
+/cube/swiss/.idea/misc.xml
+/cube/swiss/.idea/modules.xml
+/cube/swiss/.idea/swiss.iml
+/cube/swiss/.idea/workspace.xml
+/cube/swiss/CMakeLists.txt
+/cube/swiss/movetoSD.bat
