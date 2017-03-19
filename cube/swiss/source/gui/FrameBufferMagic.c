@@ -5,7 +5,7 @@
       Version 1.0 11/11/2009
         - Initial Code
    ----------------------------------------------------------- */
-
+//translation by k13 0.12-19.3.17 windows-1252
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -397,7 +397,7 @@ void DrawProgressBar(int percent, char *message) {
 			(multiplier*percent), 20, 0, progressBarColor, noColor); 
 
 	WriteFontStyled(640/2, middleY, message, scale, true, defaultColor);
-	sprintf(txtbuffer,"%d%% complete",percent);
+	sprintf(txtbuffer,"Progression %d%%..",percent);
 	WriteFontStyled(640/2, middleY+30, txtbuffer, 1.0f, true, defaultColor);
 }
 
@@ -562,14 +562,14 @@ void DrawMenuButtons(int selection)
 	}
 }
 
-int DrawAbsentNoDialog(char *message) {
+int DrawYesNoDialog(char *message) {
 	int sel = 0;
 	while ((PAD_ButtonsHeld(0) & PAD_BUTTON_A)){ VIDEO_WaitVSync (); }
 	while(1) {
 		doBackdrop();
 		DrawEmptyBox(75,190, vmode->fbWidth-78, 330, COLOR_BLACK);
 		WriteFontStyled(640/2, 215, message, 1.0f, true, defaultColor);
-		DrawSelectableButton(100, 280, -1, 310, "Absent", (sel==1) ? B_SELECTED:B_NOSELECT,-1);
+		DrawSelectableButton(100, 280, -1, 310, "Oui", (sel==1) ? B_SELECTED:B_NOSELECT,-1);
 		DrawSelectableButton(380, 280, -1, 310, "Non", (!sel) ? B_SELECTED:B_NOSELECT,-1);
 		DrawFrameFinish();
 		while (!(PAD_ButtonsHeld(0) & PAD_BUTTON_RIGHT) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_LEFT) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_B)&& !(PAD_ButtonsHeld(0) & PAD_BUTTON_A))
@@ -646,7 +646,7 @@ void DrawArgsSelector(char *fileName) {
 	while(1) {
 		doBackdrop();
 		DrawEmptyBox(20,60, vmode->fbWidth-20, 460, COLOR_BLACK);
-		sprintf(txtbuffer, "Parametres de %s :", fileName);
+		sprintf(txtbuffer, "Paramètres de %s :", fileName);
 		WriteFontStyled(25, 62, txtbuffer, GetTextScaleToFitInWidth(txtbuffer, vmode->fbWidth-50), false, defaultColor);
 
 		int j = 0;
@@ -661,10 +661,10 @@ void DrawArgsSelector(char *fileName) {
 		}
 		// Write about the default if there is any
 		DrawTransparentBox( 35, 350, vmode->fbWidth-35, 400);
-		WriteFontStyled(33, 345, "Default values will be used by the DOL being loaded if a", 0.8f, false, defaultColor);
-		WriteFontStyled(33, 365, "parameter is not enabled. Please check the documentation", 0.8f, false, defaultColor);
-		WriteFontStyled(33, 385, "for this DOL if you are unsure of the default values.", 0.8f, false, defaultColor);
-		WriteFontStyled(640/2, 440, "(A) Toggle Param - (Start) Load the DOL", 1.0f, true, defaultColor);
+		WriteFontStyled(33, 345, "Les valeurs par défaut seront utilisées par le DOL chargé", 0.8f, false, defaultColor);
+		WriteFontStyled(33, 365, "si un paramètre n'est pas activé. Veuillez consulter  la doc.", 0.8f, false, defaultColor);
+		WriteFontStyled(33, 385, "pour ce DOL si vous n'êtes pas certain des valeurs par défaut.", 0.8f, false, defaultColor);
+		WriteFontStyled(640/2, 440, "(A) Toggle Param - (Start) Charger le DOL", 1.0f, true, defaultColor); //todo
 		DrawFrameFinish();
 
 		while (!(PAD_ButtonsHeld(0) & (PAD_BUTTON_RIGHT|PAD_BUTTON_LEFT|PAD_BUTTON_UP|PAD_BUTTON_DOWN|PAD_BUTTON_START|PAD_BUTTON_A)))
@@ -733,7 +733,7 @@ void DrawCheatsSelector(char *fileName) {
 		}
 		// Write about how many cheats are enabled
 		DrawTransparentBox( 35, 350, vmode->fbWidth-35, 410);
-		WriteFontStyled(33, 345, "Space taken by cheats:", 0.8f, false, defaultColor);
+		WriteFontStyled(33, 345, "Espace pris par les cheats:", 0.8f, false, defaultColor);
 		GXColor noColor = (GXColor) {0,0,0,0}; //blank
 		GXColor borderColor = (GXColor) {200,200,200,GUI_MSGBOX_ALPHA}; //silver
 		GXColor progressBarColor = (GXColor) {255,128,0,GUI_MSGBOX_ALPHA}; //orange
@@ -741,9 +741,9 @@ void DrawCheatsSelector(char *fileName) {
 		float multiplier = (float)getEnabledCheatsSize() / (float)kenobi_get_maxsize();
 		DrawSimpleBox( 33, 370, vmode->fbWidth-66, 20, 0, noColor, borderColor); 
 		DrawSimpleBox( 33, 370,	(int)((vmode->fbWidth-66)*multiplier), 20, 0, progressBarColor, noColor);
-		sprintf(txtbuffer, "WiiRD Debug %s", swissSettings.wiirdDebug ? "Enabled":"Disabled");
+		sprintf(txtbuffer, "Déboguage WiiRD %s", swissSettings.wiirdDebug ? "Activéd":"Désactivé");
 		WriteFontStyled(33, 395, txtbuffer, 0.8f, false, defaultColor);
-		WriteFontStyled(640/2, 440, "(A) Toggle Cheat - (X) WiiRD Debug - (B) Return", 0.9f, true, defaultColor);
+		WriteFontStyled(640/2, 440, "(A) Toggle Cheat - (X) Déboguage WiiRD - (B) Retour", 0.9f, true, defaultColor);//todo
 		DrawFrameFinish();
 
 		while (!(PAD_ButtonsHeld(0) & (PAD_BUTTON_UP|PAD_BUTTON_DOWN|PAD_BUTTON_B|PAD_BUTTON_A|PAD_BUTTON_X)))
