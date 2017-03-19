@@ -1,3 +1,4 @@
+//translation by ketchu13 13.50-19.3.17 windows-1252
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -342,7 +343,7 @@ void config_parse(char *configData) {
 	if(configEntriesCount > 0 || !first)
 		configEntriesCount++;
 	
-	 print_gecko("Found %i entries in the config file\r\n",configEntriesCount);
+	 print_gecko("%i entrées trouvées dans le fichier de configuration\r\n",configEntriesCount);
 }
 
 void config_find(ConfigEntry *entry) {
