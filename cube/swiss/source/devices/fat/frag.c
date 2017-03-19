@@ -4,6 +4,7 @@
  * Borrowed from cfg-loader, thanks guys.
  * Adapted for swiss :)
 **/
+//translation by ketchu13 15.43-19.3.17 windows-1252
 
 #include <ogcsys.h>
 #include <stdlib.h>
@@ -36,14 +37,14 @@ void frag_init(FragList *ff, int maxnum)
 void frag_print(FragList *ff)
 {
 	int i;
-	print_gecko("frag list: %d %d %x\r\n", ff->num, ff->size, ff->size);
+	print_gecko("Liste des fragments: %d %d %x\r\n", ff->num, ff->size, ff->size);
 
 	for (i=0; i<ff->num; i++) {
 		if (i>10) {
 			print_gecko("...\n");
 			break;
 		}
-		print_gecko(" %d : %8x %8x %8x (%i bytes)\r\n", i,ff->frag[i].offset,ff->frag[i].count,ff->frag[i].sector, ff->frag[i].count*512);
+		print_gecko(" %d : %8x %8x %8x (%i octets)\r\n", i,ff->frag[i].offset,ff->frag[i].count,ff->frag[i].sector, ff->frag[i].count*512);
 	}
 }
 
