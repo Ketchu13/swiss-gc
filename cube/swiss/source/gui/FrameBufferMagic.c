@@ -741,7 +741,7 @@ void DrawCheatsSelector(char *fileName) {
 		float multiplier = (float)getEnabledCheatsSize() / (float)kenobi_get_maxsize();
 		DrawSimpleBox( 33, 370, vmode->fbWidth-66, 20, 0, noColor, borderColor); 
 		DrawSimpleBox( 33, 370,	(int)((vmode->fbWidth-66)*multiplier), 20, 0, progressBarColor, noColor);
-		sprintf(txtbuffer, "Déboguage WiiRD %s", swissSettings.wiirdDebug ? "Activéd":"Désactivé");
+		sprintf(txtbuffer, "Déboguage WiiRD %s", swissSettings.wiirdDebug ? "Activé":"Désactivé");
 		WriteFontStyled(33, 395, txtbuffer, 0.8f, false, defaultColor);
 		WriteFontStyled(640/2, 440, "(A) Toggle Cheat - (X) Déboguage WiiRD - (B) Retour", 0.9f, true, defaultColor);//todo
 		DrawFrameFinish();

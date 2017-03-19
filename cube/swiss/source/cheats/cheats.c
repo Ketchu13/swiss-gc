@@ -5,7 +5,7 @@
 * Adapted to Swiss by emu_kidid 2012-2015
 *
 */
-
+//translation by k13 13.16-19.3.17 windows-1252
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/
@@ -27,7 +27,7 @@ static CheatEntries _cheats;
 
 void printCheats(void) {
 	int i = 0, j = 0;
-	print_gecko("There are %i cheats\r\n", _cheats.num_cheats);
+	print_gecko("Nombre de cheats: %i\r\n", _cheats.num_cheats);
 	for(i = 0; i < _cheats.num_cheats; i++) {
 		CheatEntry *cheat = &_cheats.cheat[i];
 		print_gecko("Cheat: (%i codes) %s\r\n", cheat->num_codes, cheat->name);
@@ -154,7 +154,7 @@ void kenobi_install_engine() {
 	u8 *ptr = isDebug ? kenobigc_dbg_bin : kenobigc_bin;
 	u32 size = isDebug ? kenobigc_dbg_bin_size : kenobigc_bin_size;
 	
-	print_gecko("Copying kenobi%s to %08X\r\n", (isDebug?"_dbg":""),(u32)CHEATS_ENGINE);
+	print_gecko("Copie de kenobi%s to %08X en cours\r\n", (isDebug?"_dbg":""),(u32)CHEATS_ENGINE);
 	memcpy(CHEATS_ENGINE, ptr, size);
 	memcpy(CHEATS_GAMEID, (void*)0x80000000, CHEATS_GAMEID_LEN);
 	if(!isDebug) {
@@ -162,7 +162,7 @@ void kenobi_install_engine() {
 	}
 	CHEATS_START_PAUSED = isDebug ? CHEATS_TRUE : CHEATS_FALSE;
 	memset(CHEATS_LOCATION(size), 0, kenobi_get_maxsize());
-	print_gecko("Copying %i bytes of cheats to %08X\r\n", getEnabledCheatsSize(),(u32)CHEATS_LOCATION(size));
+	print_gecko("Copie de %i octets de cheats sur %08X\r\n", getEnabledCheatsSize(),(u32)CHEATS_LOCATION(size));
 	u32 *cheatsLocation = (u32*)CHEATS_LOCATION(size);
 	cheatsLocation[0] = 0x00D0C0DE;
 	cheatsLocation[1] = 0x00D0C0DE;
@@ -196,7 +196,7 @@ int findCheats(bool silent) {
 	file_handle *cheatsFile = memalign(32,sizeof(file_handle));
 	memcpy(cheatsFile, deviceHandler_initial, sizeof(file_handle));
 	sprintf(cheatsFile->name, "%s/cheats/%s.txt", deviceHandler_initial->name, trimmedGameId);
-	print_gecko("Looking for cheats file @ %s\r\n", cheatsFile->name);
+	print_gecko("Recherche de fichier cheats @ %s\r\n", cheatsFile->name);
 	cheatsFile->size = -1;
 	
 	deviceHandler_temp_readFile =  deviceHandler_readFile;
@@ -215,7 +215,7 @@ int findCheats(bool silent) {
 				// Try SD slots now
 				memcpy(cheatsFile, slotFile, sizeof(file_handle));
 				sprintf(cheatsFile->name, "%s/cheats/%s.txt", slotFile->name, trimmedGameId);
-				print_gecko("Looking for cheats file @ %s\r\n", cheatsFile->name);
+				print_gecko("Recherche de fichier cheats @ %s\r\n", cheatsFile->name);
 				cheatsFile->size = -1;
 				deviceHandler_temp_init(cheatsFile);
 				if(deviceHandler_temp_readFile(cheatsFile, &trimmedGameId, 8) == 8) {
@@ -229,7 +229,7 @@ int findCheats(bool silent) {
 			if(!silent) {
 				while(PAD_ButtonsHeld(0) & PAD_BUTTON_Y);
 				DrawFrameStart();
-				DrawMessageBox(D_INFO,"No cheats file found.\nAppuyer sur A pour continuer.");
+				DrawMessageBox(D_INFO,"Pas de fichier cheats trouvé.\nAppuyer sur A pour continuer.");
 				DrawFrameFinish();
 				while(!(PAD_ButtonsHeld(0) & PAD_BUTTON_A));
 				while(PAD_ButtonsHeld(0) & PAD_BUTTON_A);
@@ -238,7 +238,7 @@ int findCheats(bool silent) {
 			return 0;
 		}
 	}
-	print_gecko("Cheats file found with size %i\r\n", cheatsFile->size);
+	print_gecko("Fichier cheat trouvé avec pour taille %i\r\n", cheatsFile->size);
 	char *cheats_buffer = memalign(32, cheatsFile->size);
 	if(cheats_buffer) {
 		deviceHandler_temp_seekFile(cheatsFile, 0, DEVICE_HANDLER_SEEK_SET);
@@ -260,4 +260,6 @@ int applyAllCheats() {
 		j++;
 	}
 	return j;
+}
+
 }
