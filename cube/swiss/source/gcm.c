@@ -1,3 +1,4 @@
+//translation by ketchu13 14.10-19.3.17 windows-1252
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/
@@ -178,7 +179,7 @@ int parse_gcm(file_handle *file, ExecutableFile *filesToPatch) {
 		deviceHandler_seekFile(file,GCMDisk.DOLOffset,DEVICE_HANDLER_SEEK_SET);
 		if(deviceHandler_readFile(file,&dolhdr,DOLHDRLENGTH) != DOLHDRLENGTH) {
 			DrawFrameStart();
-			DrawMessageBox(D_FAIL, "Failed to read Main DOL Header");
+			DrawMessageBox(D_FAIL, "Échec de la lecture de l'en-tête du DOL principal");
 			DrawFrameFinish();
 			while(1);
 		}
@@ -193,7 +194,7 @@ int parse_gcm(file_handle *file, ExecutableFile *filesToPatch) {
 		filesToPatch[numFiles].offset = GCMDisk.DOLOffset;
 		filesToPatch[numFiles].size = main_dol_size;
 		filesToPatch[numFiles].type = PATCH_DOL;
-		sprintf(filesToPatch[numFiles].name, "Main DOL");
+		sprintf(filesToPatch[numFiles].name, "DOL principal");
 		numFiles++;
 		
 		// Patch the apploader too!
@@ -202,7 +203,7 @@ int parse_gcm(file_handle *file, ExecutableFile *filesToPatch) {
 		deviceHandler_seekFile(file,0x2454,DEVICE_HANDLER_SEEK_SET);
 		if(deviceHandler_readFile(file,&appldr_info,8) != 8) {
 			DrawFrameStart();
-			DrawMessageBox(D_FAIL, "Failed to read Apploader info");
+			DrawMessageBox(D_FAIL, "Échec de lecture des informations de l'Apploader");
 			DrawFrameFinish();
 			while(1);
 		}
@@ -309,7 +310,7 @@ int patch_gcm(file_handle *file, ExecutableFile *filesToPatch, int numToPatch, i
 		
 	if(savePatchDevice == -1) {
 		DrawFrameStart();
-		DrawMessageBox(D_FAIL, "No writable device present\nA SD Gecko must be inserted in\n order to utilise patches for this game.");
+		DrawMessageBox(D_FAIL, "NAucun périphérique inscriptible présent\nUn SD Gecko doit être inséré\nafin d'utiliser les correctifs pour ce jeu.");
 		DrawFrameFinish();
 		sleep(5);
 		return 0;
@@ -325,13 +326,13 @@ int patch_gcm(file_handle *file, ExecutableFile *filesToPatch, int numToPatch, i
 	strncpy((char*)&gameID, (char*)&GCMDisk, 4);
 	sprintf(&patchDirName[0],"%s:/swiss_patches/%s",(savePatchDevice ? "sdb":"sda"), &gameID[0]);
 	sprintf(&patchBaseDirName[0],"%s:/swiss_patches",(savePatchDevice ? "sdb":"sda"));
-	print_gecko("Patch dir will be: %s if required\r\n", patchDirName);
+	print_gecko("Le répertoire des correctifs sera: %s si requis\r\n", patchDirName);
 	*(u32*)VAR_EXECD_OFFSET = 0xFFFFFFFF;
 	// Go through all the possible files we think need patching..
 	for(i = 0; i < numToPatch; i++) {
 		u32 patched = 0, crc32 = 0;
 
-		sprintf(txtbuffer, "Patching File %i/%i",i+1,numToPatch);
+		sprintf(txtbuffer, "Application du correctif %i/%i",i+1,numToPatch);
 		DrawFrameStart();
 		DrawProgressBar((int)(((float)(i+1)/(float)numToPatch)*100), txtbuffer);
 		DrawFrameFinish();
@@ -342,10 +343,10 @@ int patch_gcm(file_handle *file, ExecutableFile *filesToPatch, int numToPatch, i
 		}
 		
 		if(filesToPatch[i].size > 8*1024*1024) {
-			print_gecko("Skipping %s %iKB too large\r\n", filesToPatch[i].name, filesToPatch[i].size/1024);
+			print_gecko("Skipping %s %iKo trop lourd\r\n", filesToPatch[i].name, filesToPatch[i].size/1024);
 			continue;
 		}
-		print_gecko("Checking %s %iKb\r\n", filesToPatch[i].name, filesToPatch[i].size/1024);
+		print_gecko("Vérification %s %iKo\r\n", filesToPatch[i].name, filesToPatch[i].size/1024);
 		if(strstr(filesToPatch[i].name, "execD.")) {
 			*(u32*)VAR_EXECD_OFFSET = filesToPatch[i].offset;
 		}
@@ -357,10 +358,10 @@ int patch_gcm(file_handle *file, ExecutableFile *filesToPatch, int numToPatch, i
 		
 		deviceHandler_seekFile(file,filesToPatch[i].offset, DEVICE_HANDLER_SEEK_SET);
 		ret = deviceHandler_readFile(file,buffer,sizeToRead);
-		print_gecko("Read from %08X Size %08X - Result: %08X\r\n", filesToPatch[i].offset, sizeToRead, ret);
+		print_gecko("Read from %08X Size %08X - Resultat: %08X\r\n", filesToPatch[i].offset, sizeToRead, ret);
 		if(ret != sizeToRead) {
 			DrawFrameStart();
-			DrawMessageBox(D_FAIL, "Failed to read!");
+			DrawMessageBox(D_FAIL, "Lecture impossible!");
 			DrawFrameFinish();
 			sleep(5);
 			return 0;
@@ -370,7 +371,7 @@ int patch_gcm(file_handle *file, ExecutableFile *filesToPatch, int numToPatch, i
 			ret = Patch_DVDLowLevelRead(buffer, sizeToRead, filesToPatch[i].type);
 			if(READ_PATCHED_ALL != ret)	{
 				DrawFrameStart();
-				DrawMessageBox(D_FAIL, "Failed to find necessary functions for patching!");
+				DrawMessageBox(D_FAIL, "Impossible de trouver les fonctions nécessaires au correctif!");
 				DrawFrameFinish();
 				sleep(5);
 			}
@@ -442,17 +443,17 @@ int patch_gcm(file_handle *file, ExecutableFile *filesToPatch, int numToPatch, i
 					num_patched++;
 					fclose(patchFile);
 					free(buffer);
-					print_gecko("CRC matched, no need to patch again\r\n");
+					print_gecko("Le CRC correspond, pas besoin de patcher à nouveau\r\n");
 					continue;
 				}
 				else {
 					remove(patchFileName);
 					fclose(patchFile);
-					print_gecko("CRC mismatch, writing patch again\r\n");
+					print_gecko("Le CRC ne correspond pas, réécriture du correctif en cours\r\n");
 				}
 			}
 			// Otherwise, write a file out for this game with the patched buffer inside.
-			print_gecko("Writing patch file: %s %i bytes (disc offset %08X)\r\n", patchFileName, sizeToRead, filesToPatch[i].offset);
+			print_gecko("Écriture du fichier patch: %s %i octets (offset du disque %08X)\r\n", patchFileName, sizeToRead, filesToPatch[i].offset);
 			patchFile = fopen(patchFileName, "wb");
 			fwrite(buffer, 1, sizeToRead, patchFile);
 			u32 magic = SWISS_MAGIC;
@@ -486,7 +487,7 @@ u32 calc_fst_entries_size(char *FST) {
 // Returns the number of filesToPatch and fills out the filesToPatch array passed in (pre-allocated)
 int read_fst(file_handle *file, file_handle** dir, u32 *usedSpace) {
 
-	print_gecko("Read dir for directory: %s\r\n",file->name);
+	print_gecko("Lire le dossier pour le répertoire: %s\r\n",file->name);
 	DiskHeader header;
 	char	*FST; 
 	char	filename[1024];

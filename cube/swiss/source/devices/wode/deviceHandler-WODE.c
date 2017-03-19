@@ -37,7 +37,7 @@ device_info initial_WODE_info = {
 int startupWode() {
 	if(OpenWode() == 0) {
 		DrawFrameStart();
-		DrawMessageBox(D_FAIL,"No Wode found! Appuyer sur A");
+		DrawMessageBox(D_FAIL,"Aucun Wode trouvé! Appuyer sur A");
 		DrawFrameFinish();
 		wait_press_A();
 		return -1;
@@ -53,7 +53,7 @@ int deviceHandler_WODE_readDir(file_handle* ffile, file_handle** dir, unsigned i
 
 	if(!wodeInited) return 0;
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Reading WODE");
+	DrawMessageBox(D_INFO,"Lecture WODE en cours");
 	DrawFrameFinish();
 	
 	//we don't care about partitions, just files!
