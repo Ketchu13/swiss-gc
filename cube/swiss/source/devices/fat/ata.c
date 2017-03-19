@@ -184,7 +184,7 @@ int _ideExiVersion(int chn) {
 	u32 cid = exi_get_id(chn,EXI_DEVICE_0);
 	print_gecko("IDE-EXI ID: %08X\r\n",cid);
 	if(cid==EXI_IDEEXIV2_ID) {
-		print_gecko("IDE-EXI v2 detected\r\n");
+		print_gecko("IDE-EXI v2 détecté\r\n");
 		return IDE_EXI_V2;
 	}
 	else {
@@ -285,8 +285,8 @@ u32 _ataDriveIdentify(int chn) {
 		i--;
 	}
 	
-	print_gecko("%d GB HDD Connected\r\n", ataDriveInfo.sizeInGigaBytes);
-	print_gecko("LBA 48-Bit Mode %s\r\n", ataDriveInfo.lba48Support ? "Supported" : "Not Supported");
+	print_gecko("%d Go HDD Connecté\r\n", ataDriveInfo.sizeInGigaBytes);
+	print_gecko("LBA 48-Bit Mode %s\r\n", ataDriveInfo.lba48Support ? "Supporté" : "Non Supporté");
 	if(!ataDriveInfo.lba48Support) {
 		print_gecko("Cylinders: %i\r\n",ataDriveInfo.cylinders);
 		print_gecko("Heads Per Cylinder: %i\r\n",ataDriveInfo.heads);
@@ -364,7 +364,7 @@ int ataUnlock(int chn, int useMaster, char *password, int command)
 	
 	// If the error bit was set, fail.
 	if(temp & ATA_SR_ERR) {
-		print_gecko("Error: %02X\r\n", ataReadErrorReg(chn));
+		print_gecko("Erreur: %02X\r\n", ataReadErrorReg(chn));
 		return 1;
 	}
 	
@@ -416,7 +416,7 @@ int _ataReadSector(int chn, u64 lba, u32 *Buffer)
 	
 	// If the error bit was set, fail.
 	if(temp & ATA_SR_ERR) {
-		print_gecko("Error: %02X", ataReadErrorReg(chn));
+		print_gecko("Erreur: %02X", ataReadErrorReg(chn));
 		return 1;
 	}
 
@@ -479,7 +479,7 @@ int _ataWriteSectors(int chn, u64 lba, u16 numsectors, u32 *Buffer)
 	
 	// If the error bit was set, fail.
 	if(temp & ATA_SR_ERR) {
-		print_gecko("Error: %02X", ataReadErrorReg(chn));
+		print_gecko("Erreur: %02X", ataReadErrorReg(chn));
 		return 1;
 	}
 	// Wait for drive to request data transfer
@@ -524,7 +524,7 @@ int ataReadSectors(int chn, u64 sector, unsigned int numSectors, unsigned char *
 	while(numSectors) {
 		//print_gecko("Reading, sec %08X, numSectors %i, dest %08X ..\r\n", (u32)(sector&0xFFFFFFFF),numSectors, (u32)dest);
 		if((ret=_ataReadSector(chn,sector,(u32*)dest))) {
-			print_gecko("(%08X) Failed to read!..\r\n", ret);
+			print_gecko("(%08X) Lecture impossible!..\r\n", ret);
 			return -1;
 		}
 		//print_hdd_sector((u32*)dest);
@@ -543,7 +543,7 @@ int ataWriteSectors(int chn, u64 sector,unsigned int numSectors, unsigned char *
 	int sectorchunks = 1;
 	while(numSectors > sectorchunks) {
 		if((ret=_ataWriteSectors(chn,sector,sectorchunks,(u32*)src))) {
-			print_gecko("(%08X) Failed to write!..\r\n", ret);
+			print_gecko("(%08X) Ecriture impossible!..\r\n", ret);
 			return -1;
 		}
 		src+=(sectorchunks*512);
