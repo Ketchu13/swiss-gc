@@ -2,7 +2,7 @@
 	- device implementation for Wiikey Fusion (FAT filesystem)
 	by emu_kidid
  */
-
+//translation by ketchu13 14.10-19.3.17 windows-1252
 #include <fat.h>
 #include <string.h>
 #include <unistd.h>
@@ -196,7 +196,7 @@ int deviceHandler_WKF_init(file_handle* file){
 	struct statvfs buf;
 	
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Init Wiikey Fusion");
+	DrawMessageBox(D_INFO,"Initialisation du Wiikey Fusion");
 	DrawFrameFinish();
 	wkfReinit();
 	int ret = fatMountSimple ("wkf", wkf) ? 1 : 0;
@@ -204,7 +204,7 @@ int deviceHandler_WKF_init(file_handle* file){
 	if(ret) {
 		memset(&buf, 0, sizeof(statvfs));
 		DrawFrameStart();
-		DrawMessageBox(D_INFO,"Reading filesystem info for wkf:/");
+		DrawMessageBox(D_INFO,"Lecture des infos du système de fichiers pour wkf:/ en cours");
 		DrawFrameFinish();
 		
 		int res = statvfs("wkf:/", &buf);
