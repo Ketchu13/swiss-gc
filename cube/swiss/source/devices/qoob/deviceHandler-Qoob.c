@@ -2,7 +2,7 @@
 	- device implementation for Qoob Flash
 	by emu_kidid
  */
-
+//translation by ketchu13 14.00-19.3.17 windows-1252
 #include <fat.h>
 #include <string.h>
 #include <unistd.h>
@@ -100,7 +100,7 @@ int deviceHandler_Qoob_setupFile(file_handle* file, file_handle* file2) {
 int deviceHandler_Qoob_init(file_handle* file){
 		
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Reading Qoob");
+	DrawMessageBox(D_INFO,"Lecture de Qoob en cours..");
 	DrawFrameFinish();
 	ipl_set_config(0);
 	return 1;
