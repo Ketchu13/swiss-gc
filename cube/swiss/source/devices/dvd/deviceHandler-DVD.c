@@ -2,8 +2,7 @@
 	- device implementation for DVD (Discs)
 	by emu_kidid
  */
-
-
+//translation by ketchu13 15.42-19.3.17 windows-1252
 #include <string.h>
 #include <unistd.h>
 #include <malloc.h>
@@ -58,105 +57,105 @@ char *dvd_error_str()
 	case 0:
 	  break;
 	case 1:
-	  strcpy(&error_str[0],"Lid open");
+	  strcpy(&error_str[0],"Couvercle ouvert");
 	  break;
 	case 2:
 	  strcpy(&error_str[0],"No disk/Disk changed");
 	  break;
 	case 3:
-	  strcpy(&error_str[0],"No disk");
+	  strcpy(&error_str[0],"Pas de disk");
 	  break;
 	case 4:
-	  strcpy(&error_str[0],"Motor off");
+	  strcpy(&error_str[0],"Moteur éteint");
 	  break;
 	case 5:
-	  strcpy(&error_str[0],"Disk not initialized");
+	  strcpy(&error_str[0],"Disque non initialisé");
 	  break;
   }
   switch(err&0xFFFFFF) {
 	case 0:
 	  break;
 	case 0x020400:
-	  strcat(&error_str[0]," Motor Stopped");
+	  strcat(&error_str[0]," Moteur arrêté");
 	  break;
 	case 0x020401:
-	  strcat(&error_str[0]," Disk ID not read");
+	  strcat(&error_str[0]," ID du disque non lu");
 	  break;
 	case 0x023A00:
-	  strcat(&error_str[0]," Medium not present / Cover opened");
+	  strcat(&error_str[0]," Support non présent / couvercle ouvert");
 	  break;
 	case 0x030200:
-	  strcat(&error_str[0]," No Seek complete");
+	  strcat(&error_str[0]," Pas de recherche terminée");
 	  break;
 	case 0x031100:
-	  strcat(&error_str[0]," UnRecoverd read error");
+	  strcat(&error_str[0]," Erreur de lecture non récupérée");
 	  break;
 	case 0x040800:
-	  strcat(&error_str[0]," Transfer protocol error");
+	  strcat(&error_str[0]," Erreur de protocole de transfert");
 	  break;
 	case 0x052000:
-	  strcat(&error_str[0]," Invalid command operation code");
+	  strcat(&error_str[0]," Code d'opération de commande non valide");
 	  break;
 	case 0x052001:
-	  strcat(&error_str[0]," Audio Buffer not set");
+	  strcat(&error_str[0]," Buffer audio non défini");
 	  break;
 	case 0x052100:
-	  strcat(&error_str[0]," Logical block address out of range");
+	  strcat(&error_str[0]," Adresse de bloc logique hors limites");
 	  break;
 	case 0x052400:
-	  strcat(&error_str[0]," Invalid Field in command packet");
+	  strcat(&error_str[0]," Champ non valide dans le paquet de commande");
 	  break;
 	case 0x052401:
-	  strcat(&error_str[0]," Invalid audio command");
+	  strcat(&error_str[0]," Commande audio non valide");
 	  break;
 	case 0x052402:
-	  strcat(&error_str[0]," Configuration out of permitted period");
+	  strcat(&error_str[0]," Configuration hors période autorisée");
 	  break;
 	case 0x053000:
 	  strcat(&error_str[0]," DVD-R"); //?
 	  break;
 	case 0x053100:
-	  strcat(&error_str[0]," Wrong Read Type"); //?
+	  strcat(&error_str[0]," Type de lecture incorrect"); //?
 	  break;
 	case 0x056300:
-	  strcat(&error_str[0]," End of user area encountered on this track");
+	  strcat(&error_str[0]," Fin de la zone utilisateur rencontrée sur cette piste");
 	  break;
 	case 0x062800:
-	  strcat(&error_str[0]," Medium may have changed");
+	  strcat(&error_str[0]," Le support peut avoir changé");
 	  break;
 	case 0x0B5A01:
-	  strcat(&error_str[0]," Operator medium removal request");
+	  strcat(&error_str[0]," Demande de retrait du support d'opérateur");
 	  break;
   }
   if(!error_str[0])
-	sprintf(&error_str[0],"Unknown %08X",err);
+	sprintf(&error_str[0]," %08X Incconu",err);
   return &error_str[0];
 }
 
 int initialize_disc(u32 streaming) {
 	int patched = NORMAL_MODE;
 	DrawFrameStart();
-	DrawProgressBar(33, "DVD Is Initializing");
+	DrawProgressBar(33, "Initialisation du DVD..");
 	DrawFrameFinish();
 	if(is_gamecube())
 	{
 		// Reset WKF hard to allow for a real disc to be read if SD is removed
 		if(wkfDetected || (__wkfSpiReadId() != 0 && __wkfSpiReadId() != 0xFFFFFFFF)) {
-			print_gecko("Detected Wiikey Fusion with SPI Flash ID: %08X\r\n",__wkfSpiReadId());
+			print_gecko("Wiikey Fusion détecté avec SPI Flash ID: %08X\r\n",__wkfSpiReadId());
 			__wkfReset();
 			print_gecko("WKF RESET\r\n");
 			wkfDetected = 1;
 		}
 
 		DrawFrameStart();
-		DrawProgressBar(40, "Resetting DVD drive - Detect Media");
+		DrawProgressBar(40, "Réinitialisation du lecteur de DVD - Détection du support");
 		DrawFrameFinish();
 		dvd_reset();
 		dvd_read_id();
 		// Avoid lid open scenario
 		if((dvd_get_error()>>24) && (dvd_get_error()>>24 != 1)) {
 			DrawFrameStart();
-			DrawProgressBar(75, "Possible DVD Backup - Enabling Patches");
+			DrawProgressBar(75, "Possible sauvegarde de DVD - Activation des correctifs");
 			DrawFrameFinish();
 			dvd_enable_patches();
 			if(!dvd_get_error()) {
@@ -166,7 +165,7 @@ int initialize_disc(u32 streaming) {
 		}
 		else if((dvd_get_error()>>24) == 1) {  // Lid is open, tell the user!
 			DrawFrameStart();
-			sprintf(txtbuffer, "Error %s. Appuyer sur A.",dvd_error_str());
+			sprintf(txtbuffer, "Erreur %s. Appuyer sur A.",dvd_error_str());
 			DrawMessageBox(D_FAIL, txtbuffer);
 			DrawFrameFinish();
 			wait_press_A();
@@ -193,7 +192,7 @@ int initialize_disc(u32 streaming) {
 	dvd_read_id();
 	if(dvd_get_error()) { //no disc, or no game id.
 		DrawFrameStart();
-		sprintf(txtbuffer, "Error: %s",dvd_error_str());
+		sprintf(txtbuffer, "Erreur: %s",dvd_error_str());
 		DrawMessageBox(D_FAIL, txtbuffer);
 		DrawFrameFinish();
 		wait_press_A();
@@ -201,7 +200,7 @@ int initialize_disc(u32 streaming) {
 		return DRV_ERROR;
 	}
 	DrawFrameStart();
-	DrawProgressBar(100, "Initialization Complete");
+	DrawProgressBar(100, "Initialisation Terminée");
 	DrawFrameFinish();
 	return patched;
 }
@@ -391,30 +390,30 @@ int deviceHandler_DVD_setupFile(file_handle* file, file_handle* file2) {
 		char streaming = *(char*)0x80000008;
 		if(streaming && !isXenoGC) {
 			DrawFrameStart();
-			DrawMessageBox(D_INFO,"One moment, setting up audio streaming.");
+			DrawMessageBox(D_INFO,"Veuillez patienter, mise en place du streaming audio en cours.");
 			DrawFrameFinish();
 			dvd_motor_off();
-			print_gecko("Set extension %08X\r\n",dvd_get_error());
+			print_gecko("Définir extension %08X\r\n",dvd_get_error());
 			dvd_setextension();
-			print_gecko("Set extension - done\r\nUnlock %08X\r\n",dvd_get_error());
+			print_gecko("Définir extension - terminé\r\nUnlock %08X\r\n",dvd_get_error());
 			dvd_unlock();
-			print_gecko("Unlock - done\r\nDebug Motor On %08X\r\n",dvd_get_error());
+			print_gecko("Unlock - terminé\r\nDéboguage Moteur allumé %08X\r\n",dvd_get_error());
 			dvd_motor_on_extra();
-			print_gecko("Debug Motor On - done\r\nSet Status %08X\r\n",dvd_get_error());
+			print_gecko("Déboguage Moteur allumé - terminé\r\nDéfinition du statut %08X\r\n",dvd_get_error());
 			dvd_setstatus();
-			print_gecko("Set Status - done %08X\r\n",dvd_get_error());
+			print_gecko("Définition du statut - terminé %08X\r\n",dvd_get_error());
 			dvd_read_id();
-			print_gecko("Read ID %08X\r\n",dvd_get_error());
+			print_gecko("ID lu %08X\r\n",dvd_get_error());
 			dvd_set_streaming(streaming);
 			
 		}
 		dvd_set_offset(file->fileBase);
 		file->status = OFFSET_SET;
-		print_gecko("Streaming %s %08X\r\n",streaming?"Enabled":"Disabled",dvd_get_error());
+		print_gecko("Streaming %s %08X\r\n",streaming?"Activé":"Desactivé",dvd_get_error());
 	}
 	// Check if there are any fragments in our patch location for this game
 	if(savePatchDevice>=0) {
-		print_gecko("Save Patch device found\r\n");
+		print_gecko("Enregistre le périphérique de Patch trouvé\r\n");
 		// If there are 2 discs, we only allow 5 fragments per disc.
 		int maxFrags = (VAR_FRAG_SIZE/12), i = 0;
 		u32 *fragList = (u32*)VAR_FRAG_LIST;
@@ -440,7 +439,7 @@ int deviceHandler_DVD_setupFile(file_handle* file, file_handle* file2) {
 				
 				if((fread(&patchInfo, 1, 12, patchFile.fp) == 12) && (patchInfo[2] == SWISS_MAGIC)) {
 					get_frag_list(&patchFile.name[0]);
-					print_gecko("Found patch file %i ofs 0x%08X len 0x%08X base 0x%08X\r\n", 
+					print_gecko("%i fichiers patch trouvés ofs 0x%08X len 0x%08X base 0x%08X\r\n", 
 									i, patchInfo[0], patchInfo[1], frag_list->frag[0].sector);
 					fclose(patchFile.fp);
 					fragList[patches*3] = patchInfo[0];
@@ -475,7 +474,7 @@ int deviceHandler_DVD_init(file_handle* file){
   file->status = initialize_disc(ENABLE_BYDISK);
   if(file->status == DRV_ERROR){
 	  DrawFrameStart();
-	  DrawMessageBox(D_FAIL,"Failed to mount DVD. Appuyer sur A");
+	  DrawMessageBox(D_FAIL,"Impossible de monter le DVD. Appuyer sur A");
 	  DrawFrameFinish();
 	  wait_press_A();
 	  return file->status;
@@ -492,4 +491,3 @@ int deviceHandler_DVD_deinit(file_handle* file) {
 int deviceHandler_DVD_closeFile(file_handle* file){
 	return 0;
 }
-
