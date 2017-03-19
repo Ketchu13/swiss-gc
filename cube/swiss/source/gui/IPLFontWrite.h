@@ -5,7 +5,7 @@
       Version 1.0 11/11/2009
         - Initial Code
    ----------------------------------------------------------- */
-//** add more color - k13 14.22.18.3.17
+//** add more color - ketchu13 14.22.18.3.17
 #ifndef IPLFontWrite_H
 #define IPLFontWrite_H
 

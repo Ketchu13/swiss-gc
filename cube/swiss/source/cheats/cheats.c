@@ -5,7 +5,7 @@
 * Adapted to Swiss by emu_kidid 2012-2015
 *
 */
-//translation by k13 13.16-19.3.17 windows-1252
+//translation by ketchu13 13.16-19.3.17 windows-1252
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/

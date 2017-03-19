@@ -3,7 +3,7 @@
 *   Swiss - The Gamecube IPL replacement
 *
 */
-//translation by k13 3.51-18.3.17 windows-1252
+//translation by ketchu13 3.51-18.3.17 windows-1252
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>

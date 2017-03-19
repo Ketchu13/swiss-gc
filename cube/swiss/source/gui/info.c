@@ -1,5 +1,5 @@
 //Todo add replace ιθκη
-//translation by k13 4.07-18.3.17 windows-1252
+//translation by ketchu13 4.07-18.3.17 windows-1252
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>

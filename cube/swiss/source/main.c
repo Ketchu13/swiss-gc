@@ -1,4 +1,4 @@
-//translation by k13 22.35-18.3.17 windows-1252
+//translation by ketchu13 22.35-18.3.17 windows-1252
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/

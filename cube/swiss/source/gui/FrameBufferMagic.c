@@ -5,7 +5,7 @@
       Version 1.0 11/11/2009
         - Initial Code
    ----------------------------------------------------------- */
-//translation by k13 0.12-19.3.17 windows-1252
+//translation by ketchu13 0.12-19.3.17 windows-1252
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
