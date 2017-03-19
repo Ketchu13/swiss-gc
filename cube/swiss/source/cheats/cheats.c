@@ -261,5 +261,3 @@ int applyAllCheats() {
 	}
 	return j;
 }
-
-}
