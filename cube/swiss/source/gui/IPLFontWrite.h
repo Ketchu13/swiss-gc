@@ -20,13 +20,14 @@ extern GXColor deSelectedColor;
 extern GXColor redColor;
 extern GXColor blueColor;
 extern GXColor greenColor;
+extern GXColor orangeColor;
 
 extern char txtbuffer[2048];
 
 void init_font(void);
 void WriteFont(int x, int y, char *string);
 void WriteFontStyled(int x, int y, char *string, float size, bool centered, GXColor color);
-int GetTextSizeInPixels(char *string);
+int GetTextSizeInPixels(char *string, float scale);
 float GetTextScaleToFitInWidth(char *string, int width);
 float GetTextScaleToFitInWidthWithMax(char *string, int width, float max);
 

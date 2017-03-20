@@ -40,6 +40,7 @@ GXColor deSelectedColor = (GXColor) {80,80,73,255};
 GXColor redColor = (GXColor) {255,0,0,255};
 GXColor blueColor = (GXColor) {0,0,255,255};
 GXColor greenColor = (GXColor) {0,255,0,255};
+GXColor orangeColor = (GXColor) {255,128,0,255};
 //**
 
 /****************************************************************************
@@ -311,10 +312,9 @@ void WriteFont(int x, int y, char *string)
 	drawString(x, y, string, 1.0f, false);
 }
 
-int GetTextSizeInPixels(char *string)
+int GetTextSizeInPixels(char *string, float scale)
 {
 	int strWidth = 0;
-	float scale = 1.0f;
 	char* string_work = string;
 	while(*string_work)
 	{
