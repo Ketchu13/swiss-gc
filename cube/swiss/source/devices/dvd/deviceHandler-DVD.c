@@ -63,7 +63,7 @@ char *dvd_error_str()
 	  strcpy(&error_str[0],"No disk/Disk changed");
 	  break;
 	case 3:
-	  strcpy(&error_str[0],"Pas de disk");
+	  strcpy(&error_str[0],"Pas de disque");
 	  break;
 	case 4:
 	  strcpy(&error_str[0],"Moteur éteint");
