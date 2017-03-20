@@ -6,6 +6,7 @@
         - Initial Code
    ----------------------------------------------------------- */
 //translation by ketchu13 0.12-19.3.17 windows-1252
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -353,7 +354,7 @@ void _DrawBackdrop()
 	char ver[32];
 	memset(ver,0,16);
 	DrawImage(TEX_BACKDROP, 0, 0, 640, 480, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
-	WriteFontStyled(40,27, "Swiss v0.4[France]", 1.5f, false, defaultColor);
+	WriteFontStyled(40,27, "Swiss v0.4[France]", 1.3f, false, defaultColor);
 	sprintf(ver, "commit: %s rev: %s", GITREVISION, GITVERSION);//**k13 GITVERSION);
 	WriteFontStyled(210,60, ver, 0.50f, false, defaultColor);
 }
@@ -417,7 +418,7 @@ void DrawMessageBox(int type, char *message)
 	sprintf(txtbuffer, "%s", message);
 	char *tok = strtok(txtbuffer,"\n");
 	while(tok != NULL) {
-		WriteFontStyled(640/2, middleY, tok, 1.0f, true, defaultColor);
+		WriteFontStyled(640/2, middleY, tok, 0.8f, true, defaultColor);
 		tok = strtok(NULL,"\n");
 		middleY+=24;
 	}
@@ -429,15 +430,20 @@ void DrawRawFont(int x, int y, char *message) {
 
 void DrawSelectableButton(int x1, int y1, int x2, int y2, char *message, int mode, u32 color) 
 {
+	DrawSelectableButtonStyled(x1, y1, x2, y2, message, mode, color, 1.0f);
+}
+
+void DrawSelectableButtonStyled(int x1, int y1, int x2, int y2, char *message, int mode, u32 color, float scale) 
+{
 	int middleY, borderSize;
 	color = (color == -1) ? BUTTON_COLOUR_INNER : color; //never used
 
 	borderSize = (mode==B_SELECTED) ? 6 : 4;
-	middleY = (((y2-y1)/2)-12)+y1;
+	middleY = (((y2-y1)/2)-(12*scale))+y1;
 
 	//determine length of the text ourselves if x2 == -1
 	x1 = (x2 == -1) ? x1+2:x1;
-	x2 = (x2 == -1) ? GetTextSizeInPixels(message)+x1+(borderSize*2)+6 : x2;
+	x2 = (x2 == -1) ? (GetTextSizeInPixels(message, scale))+x1+(borderSize*2)+6 : x2;
 
 	if(middleY+24 > y2) {
 		middleY = y1+3;
@@ -450,11 +456,11 @@ void DrawSelectableButton(int x1, int y1, int x2, int y2, char *message, int mod
 	//Draw Text and backfill (if selected)
 	if(mode==B_SELECTED) {
 		DrawSimpleBox( x1, y1, x2-x1, y2-y1, 0, selectColor, borderColor);
-		WriteFontStyled(x1 + borderSize+3, middleY, message, 1.0f, false, defaultColor);
+		WriteFontStyled(x1 + borderSize+3, middleY, message, scale, false, defaultColor);
 	}
 	else {
 		DrawSimpleBox( x1, y1, x2-x1, y2-y1, 0, noColor, borderColor);
-		WriteFontStyled(x1 + borderSize+3, middleY, message, 1.0f, false, defaultColor);
+		WriteFontStyled(x1 + borderSize+3, middleY, message, scale, false, defaultColor);
 	}
 }
 
@@ -514,7 +520,7 @@ void DrawFileBrowserButton(int x1, int y1, int x2, int y2, char *message, file_h
 		else {
 			sprintf(txtbuffer,"%.2f %s",file->size > (1024*1024) ? (float)file->size/(1024*1024):(float)file->size/1024,file->size > (1024*1024) ? "MB":"KB");
 		}
-		WriteFontStyled(x2 - ((borderSize+3) + (GetTextSizeInPixels(txtbuffer)*0.45)), y1+borderSize+24, txtbuffer, 0.45f, false, defaultColor);
+		WriteFontStyled(x2-((borderSize+3)+GetTextSizeInPixels(txtbuffer,0.45f)), y1+borderSize+24, txtbuffer, 0.45f, false, defaultColor);
 	}
 }
 

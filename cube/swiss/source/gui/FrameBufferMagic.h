@@ -140,5 +140,5 @@ int DrawYesNoDialog(char *message);
 void DrawVertScrollBar(int x, int y, int width, int height, float scrollPercent, int scrollHeight);
 void DrawArgsSelector(char *fileName);
 void DrawCheatsSelector(char *fileName);
-
+void DrawSelectableButtonStyled(int x1, int y1, int x2, int y2, char *message, int mode, u32 color, float scale);
 #endif
