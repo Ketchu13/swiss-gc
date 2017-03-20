@@ -46,7 +46,7 @@ void info_draw_page(int page_num) {
 	
 	// System Info (Page 1/3)
 	if(!page_num) {
-		WriteFont(30, 65, "Info Système (1/3):");
+		WriteFontStyled(30, 65, "Info Système (1/3):",1.0f, false, redColor);
 		// Model
 		if(is_gamecube()) {
 			if(*(u32*)&driveVersion[0] == 0x20010831) {
@@ -120,36 +120,36 @@ void info_draw_page(int page_num) {
 		}
 		WriteFont(30, 170, topStr);
 		if (!deviceHandler_initial) {
-			sprintf(topStr, "Périphérique actuel: aucun périphérique sélectionné");//accent
+			sprintf(topStr, "Périph. actuel: aucun périphérique sélectionné");//accent
 		}
 		else if(deviceHandler_initial == &initial_SD0 || deviceHandler_initial == &initial_SD1) {
 			int slot = (deviceHandler_initial->name[2] == 'b');
-			sprintf(topStr, "Périphérique actuel: %s Carte %s @ %s",!SDHCCard?"SDHC":"SD",!slot?"Slot A":"Slot B",!swissSettings.exiSpeed?"16Mhz":"32Mhz");
+			sprintf(topStr, "Périph. actuel: %s Carte %s @ %s",!SDHCCard?"SDHC":"SD",!slot?"Slot A":"Slot B",!swissSettings.exiSpeed?"16Mhz":"32Mhz");
 		}
 		else if(deviceHandler_initial == &initial_DVD) {
-			sprintf(topStr, "Périphérique actuel: %s Disque DVD ",dvdDiscTypeStr);
+			sprintf(topStr, "Périph. actuel: %s Disque DVD ",dvdDiscTypeStr);
 		}
 		else if(deviceHandler_initial == &initial_IDE0 || deviceHandler_initial == &initial_IDE1) {
 			int slot = (deviceHandler_initial->name[3] == 'b');
-			sprintf(topStr, "Périphérique actuel: %ld Go HDD %s",ataDriveInfo.sizeInGigaBytes,!slot?"Slot A":"Slot B");
+			sprintf(topStr, "Périph. actuel: %ld Go HDD %s",ataDriveInfo.sizeInGigaBytes,!slot?"Slot A":"Slot B");
 		}
 		else if(deviceHandler_initial == &initial_Qoob) {
-			sprintf(topStr, "Périphérique actuel: Qoob IPL Replacement");
+			sprintf(topStr, "Périph. actuel: Qoob IPL Replacement");
 		}
 		else if(deviceHandler_initial == &initial_WODE) {
-			sprintf(topStr, "Périphérique actuel: Wode Jukebox");
+			sprintf(topStr, "Périph. actuel: Wode Jukebox");
 		}
 		else if(deviceHandler_initial == &initial_CARDA || deviceHandler_initial == &initial_CARDB) {
-			sprintf(topStr, "Périphérique actuel: Memory Card %s",!deviceHandler_initial->fileBase?"Slot A":"Slot B");
+			sprintf(topStr, "Périph. actuel: Memory Card %s",!deviceHandler_initial->fileBase?"Slot A":"Slot B");
 		}
 		else if(deviceHandler_initial == &initial_USBGecko) {
-			sprintf(topStr, "Périphérique actuel: USB Gecko");
+			sprintf(topStr, "Périph. actuel: USB Gecko");
 		}
 		else if(deviceHandler_initial == &initial_WKF) {
-			sprintf(topStr, "Périphérique actuel: Wiikey Fusion");
+			sprintf(topStr, "Périph. actuel: Wiikey Fusion");
 		}
 		else if(deviceHandler_initial == &initial_SYS) {
-			sprintf(topStr, "Périphérique actuel: Système");
+			sprintf(topStr, "Périph. actuel: Système");
 		}
 		WriteFont(30, 200, topStr);
 	}
