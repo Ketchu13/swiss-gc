@@ -1,3 +1,4 @@
+//translation by ketchu13 15.50-19.3.17 windows-1252
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/
@@ -287,22 +288,22 @@ void dvd_enable_patches()
 
 	void* patchCode = drive_patch_ptr(driveVersion);
 	
-	print_gecko("Drive date %08X\r\nUnlocking DVD\r\n",driveVersion);
+	print_gecko("Drive date %08X\r\nDéblocage du DVD en cours\r\n",driveVersion);
 	dvd_unlock();
-	print_gecko("Unlocking DVD - done\r\nWrite patch\r\n");
+	print_gecko("Déblocage du DVD - terminé\r\nEcriture du patch en cours\r\n");
 	dvd_writemem_array(0xff40d000, patchCode, 0x1F0);
 	dvd_writemem_32(0x804c, 0x00d04000);
-	print_gecko("Write patch - done\r\nSet extension %08X\r\n",dvd_get_error());
+	print_gecko("Ecriture du patch - terminé\r\nDéfinition extension en cours %08X \r\n",dvd_get_error());
 	dvd_setextension();
-	print_gecko("Set extension - done\r\nUnlock again %08X\r\n",dvd_get_error());
+	print_gecko("Définition extension - terminé\r\nDébloquer à nouveau %08X\r\n",dvd_get_error());
 	dvd_unlock();
-	print_gecko("Unlock again - done\r\nDebug Motor On %08X\r\n",dvd_get_error());
+	print_gecko("Débloquage - terminé\r\nDéboguage Moteur allumé %08X\r\n",dvd_get_error());
 	dvd_motor_on_extra();
-	print_gecko("Debug Motor On - done\r\nSet Status %08X\r\n",dvd_get_error());
+	print_gecko("Déboguage Moteur allumé - terminé\r\nSet Status %08X\r\n",dvd_get_error());
 	dvd_setstatus();
-	print_gecko("Set Status - done %08X\r\n",dvd_get_error());
+	print_gecko("Définition du statut - terminé %08X\r\n",dvd_get_error());
 	dvd_read_id();
-	print_gecko("Read ID %08X\r\n",dvd_get_error());
+	print_gecko("Lecture ID %08X\r\n",dvd_get_error());
 }
 
 
