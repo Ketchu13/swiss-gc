@@ -346,7 +346,7 @@ void drawFiles(file_handle** directory, int num_files) {
 		// Draw which directory we're in
 		sprintf(txtbuffer, "%s", &curFile.name[0]);
 		float scale = GetTextScaleToFitInWidthWithMax(txtbuffer, ((vmode->fbWidth-150)-20), .85);
-		WriteFontStyled(150, 85, txtbuffer, scale, false, defaultColor);
+		WriteFontStyled(150, 85, txtbuffer, scale<=0.6?0.6f:scale, false, defaultColor);
 		if(num_files > FILES_PER_PAGE)
 			DrawVertScrollBar(vmode->fbWidth-25, fileListBase, 16, scrollBarHeight, (float)((float)curSelection/(float)(num_files-1)),scrollBarTabHeight);
 		for(j = 0; current_view_start<current_view_end; ++current_view_start,++j) {
@@ -510,7 +510,7 @@ unsigned int load_app(int multiDol)
 	for(i = 0; i < 14; i++) {
 		if(!strncmp(gameID, DiscIDNoASRequired[i], 3) ) {
 			GCMDisk.AudioStreaming = 0;
-			print_gecko("Ce jeu n'a pas vraiment besoin de Streaming Audio, mais il est mis!\r\n");//td "This game doesn't really need Audio Streaming but has it set"
+			print_gecko("Ce jeu n'a pas besoin de Streaming Audio, mais il est mis!\r\n");//td "This game doesn't really need Audio Streaming but has it set"
 			break;
 		}
 	}
@@ -601,7 +601,7 @@ unsigned int load_app(int multiDol)
 		u32 ret = Patch_DVDLowLevelRead(main_dol_buffer, main_dol_size+DOLHDRLENGTH, PATCH_DOL);
 		if(READ_PATCHED_ALL != ret)	{
 			DrawFrameStart();
-			DrawMessageBox(D_FAIL, "Impossible de trouver les fonctions nécessaires au correctif!");//td "Failed to find necessary functions for patching"
+			DrawMessageBox(D_FAIL, "Impossible de trouver les fonct. nécessaires au patch!");//td "Failed to find necessary functions for patching"
 			DrawFrameFinish();
 			sleep(5);
 		}
@@ -618,7 +618,7 @@ unsigned int load_app(int multiDol)
 			return 0;
 		}
 	}
-		
+
 	// Patch specific game hacks
 	Patch_GameSpecific(main_dol_buffer, main_dol_size+DOLHDRLENGTH, gameID, PATCH_DOL);
 
@@ -727,7 +727,7 @@ unsigned int load_app(int multiDol)
 	if(swissSettings.wiirdDebug || getEnabledCheatsSize() > 0) {
 		kenobi_install_engine();
 	}
-		
+
 	// Set WKF base offset if not using the frag or audio streaming patch
 	if(curDevice == WKF /*&& !wkfFragSetupReq && swissSettings.muteAudioStreaming*/) {
 		wkfWriteOffset(*(volatile unsigned int*)VAR_DISC_1_LBA);
@@ -1223,7 +1223,7 @@ void load_file()
 				DrawFrameStart();
 				if(curDevice == DVD_DISC || deviceHandler_readFile(&fwFile,firmware,0x3000) != 0x3000) {
 					free(firmware); firmware = NULL;
-					DrawMessageBox(D_WARN, "Aucun Fichier Firmware trouvé, flash du menu uniquement.");
+					DrawMessageBox(D_WARN, "Aucun Fichier Firmware trouvé, menu lecteur flash uniquement.");
 				}
 				else {
 					DrawMessageBox(D_INFO, "Fichier Firmware trouvé, il sera flashé aussi.");
@@ -1277,7 +1277,7 @@ void load_file()
 
 	if(GCMDisk.DVDMagicWord != DVD_MAGIC) {
 		DrawFrameStart();
-		DrawMessageBox(D_FAIL, "Disque Ne contient pas de mot valide à 0x1C");
+		DrawMessageBox(D_FAIL, "le disque ne contient pas de mot valide à 0x1C");
 		DrawFrameFinish();
 		sleep(2);
 		return;
@@ -1319,12 +1319,11 @@ void load_file()
 			secondDisc->fp = 0;
 			
 			// you're trying to load a disc1 of something
-			//todo change multi disck game 
-			//**k13
-			    DrawFrameStart();
-	            DrawMessageBox(D_INFO,"Vérification si le jeu est un jeu multi-disque..");
-	            DrawFrameFinish();
-			//--k13
+
+			DrawFrameStart();
+	        DrawMessageBox(D_INFO,"Vérification si c'est un jeu multi-disque..");
+	        DrawFrameFinish();
+
 			if(curFile.name[strlen(secondDisc->name)-5] == '1') {
 				secondDisc->name[strlen(secondDisc->name)-5] = '2';
 			} else if(curFile.name[strlen(secondDisc->name)-5] == '2') {
@@ -1416,7 +1415,7 @@ void draw_game_info() {
 				sprintf(txtbuffer,"%s", curFile.name);// affichage du nom du fichier
 				bckslhPos = strpos(txtbuffer, "/");
 				sprintf(txtbuffer,"%s",mid(txtbuffer,bckslhPos+2));
-				scale = GetTextScaleToFitInWidth(txtbuffer,(vmode->fbWidth-78)-75);
+				scale = 0.6f; // GetTextScaleToFitInWidth(txtbuffer,(vmode->fbWidth-78)-75);
 				WriteFontStyled(640/2, 180, txtbuffer, scale, true, defaultColor);
 			}
 		}
