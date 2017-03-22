@@ -15,7 +15,7 @@ include $(DEVKITPPC)/base_rules
 MACHDEP =  -DGEKKO -mvgc -mcpu=750 -meabi -mhard-float
 
 #---------------------------------------------------------------------------------
-%.dol: %.elf
+%.dol : %.elf
 	@echo output ... $(notdir $@)
 	@elf2dol $< $@
 
@@ -25,16 +25,15 @@ MACHDEP =  -DGEKKO -mvgc -mcpu=750 -meabi -mhard-float
 	@gxtexconv -s $< -d $(DEPSDIR)/$*.d -o $@
 
 #---------------------------------------------------------------------------------
-%.tpl.o	:	%.tpl
+%.tpl.o : %.tpl
 	@echo $(notdir $<)
 	@$(bin2o)
 	
 #---------------------------------------------------------------------------------
 %.elf:
 	@echo linking ... $(notdir $@)
-	@$(LD)  $^ $(LDFLAGS) $(LIBPATHS) $(LIBS) -o $@
+	@$(LD)	$^ $(LDFLAGS) $(LIBPATHS) $(LIBS) -o $@
 
-	
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
 # BUILD is the directory where object files & intermediate files will be placed
@@ -43,35 +42,36 @@ MACHDEP =  -DGEKKO -mvgc -mcpu=750 -meabi -mhard-float
 #---------------------------------------------------------------------------------
 TARGET		:=	swiss
 BUILD		:=	build
-SOURCES		:=  source \
-              source/aram \
-			  source/gui \
-			  source/config \
-			  source/crc32 \
-              source/devices \
-              source/devices/system \
-              source/devices/dvd \
-              source/devices/fat \
-              source/devices/memcard \
-              source/devices/qoob \
-			  source/devices/smb \
-			  source/devices/usbgecko \
-              source/devices/wode \
-			  source/devices/wiikeyfusion \
-              source/elmchan \
-              source/elmchan/option \
-              source/cheats \
-              source/patches \
-			  source/patches/card \
-			  source/patches/misc \
-			  source/patches/gx \
-			  source/patches/mtx \
-			  source/patches/vi \
-              source/images \
-			  source/images/buttons
+SOURCES		:=	source \
+				source/aram \
+				source/gui \
+				source/config \
+				source/crc32 \
+				source/devices \
+				source/devices/system \
+				source/devices/dvd \
+				source/devices/fat \
+				source/devices/memcard \
+				source/devices/qoob \
+				source/devices/smb \
+				source/devices/usbgecko \
+				source/devices/wode \
+				source/devices/wiikeyfusion \
+				source/elmchan \
+				source/elmchan/option \
+				source/cheats \
+				source/patches \
+				source/patches/card \
+				source/patches/misc \
+				source/patches/gx \
+				source/patches/mtx \
+				source/patches/vi \
+				source/images \
+				source/images/buttons \
+				source/lang
 DATA		:=	data  
 TEXTURES	:=	source/images \
-              source/images/buttons
+			  source/images/buttons
 INCLUDES	:= include $(SOURCES)
 
 #---------------------------------------------------------------------------------
@@ -119,7 +119,7 @@ SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 SCFFILES	:=	$(foreach dir,$(TEXTURES),$(notdir $(wildcard $(dir)/*.scf)))
 TPLFILES	:=	$(SCFFILES:.scf=.tpl)
-
+LANGFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.lang)))
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------
@@ -132,7 +132,8 @@ endif
 export OFILES	:=	$(addsuffix .o,$(BINFILES)) \
 					$(addsuffix .o,$(TPLFILES)) \
 					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
-					$(sFILES:.s=.o) $(SFILES:.S=.o)
+					$(sFILES:.s=.o) $(SFILES:.S=.o) \
+					$(LANGFILES:.lang=.lang.o)
 
 #---------------------------------------------------------------------------------
 # build a list of include paths
@@ -163,7 +164,7 @@ clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol
 #---------------------------------------------------------------------------------
-run:	
+run:
 	$(DEVKITPRO)/emulators/gcube/gcube $(OUTPUT).dol
 
 #---------------------------------------------------------------------------------
@@ -180,8 +181,11 @@ $(OUTPUT).elf: $(OFILES)
 #---------------------------------------------------------------------------------
 # This rule links in binary data with the .jpg extension
 #---------------------------------------------------------------------------------
-%.jpg.o	:	%.jpg
-#---------------------------------------------------------------------------------
+%.jpg.o : %.jpg
+	@echo $(notdir $<)
+	$(bin2o)
+
+%.lang.o : %.lang
 	@echo $(notdir $<)
 	$(bin2o)
 

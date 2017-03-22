@@ -20,6 +20,8 @@
 #include "wkf.h"
 #include "frag.h"
 #include "patcher.h"
+#include "gettext.h"
+
 
 const DISC_INTERFACE* wkf = &__io_wkf;
 int wkfFragSetupReq = 0;
@@ -196,7 +198,7 @@ int deviceHandler_WKF_init(file_handle* file){
 	struct statvfs buf;
 	
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Initialisation du Wiikey Fusion");
+	DrawMessageBox(D_INFO,gettext("Init Wiikey Fusion"));
 	DrawFrameFinish();
 	wkfReinit();
 	int ret = fatMountSimple ("wkf", wkf) ? 1 : 0;
@@ -204,7 +206,7 @@ int deviceHandler_WKF_init(file_handle* file){
 	if(ret) {
 		memset(&buf, 0, sizeof(statvfs));
 		DrawFrameStart();
-		DrawMessageBox(D_INFO,"Lecture des infos du système de fichiers pour wkf:/ en cours");
+		DrawMessageBox(D_INFO,gettext("Reading filesystem info for wkf:/"));
 		DrawFrameFinish();
 		
 		int res = statvfs("wkf:/", &buf);

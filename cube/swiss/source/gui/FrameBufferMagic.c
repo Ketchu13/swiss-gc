@@ -24,6 +24,9 @@
 #include "btns.h"
 #include "dolparameters.h"
 #include "cheats.h"
+#include "gettext.h"
+
+
 
 #define GUI_MSGBOX_ALPHA 200
 
@@ -354,8 +357,8 @@ void _DrawBackdrop()
 	char ver[32];
 	memset(ver,0,16);
 	DrawImage(TEX_BACKDROP, 0, 0, 640, 480, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
-	WriteFontStyled(40,27, "Swiss v0.4[France]", 1.3f, false, defaultColor);
-	sprintf(ver, "commit: %s rev: %s", GITREVISION, GITVERSION);//**k13 GITVERSION);
+	WriteFontStyled(40,27, "Swiss v0.4 i18n", 1.3f, false, defaultColor);
+	sprintf(ver, "commit: %s rev: %s", GITREVISION, GITVERSION);
 	WriteFontStyled(210,60, ver, 0.50f, false, defaultColor);
 }
 
@@ -398,7 +401,7 @@ void DrawProgressBar(int percent, char *message) {
 			(multiplier*percent), 20, 0, progressBarColor, noColor); 
 
 	WriteFontStyled(640/2, middleY, message, scale, true, defaultColor);
-	sprintf(txtbuffer,"Progression %d%%..",percent);
+	sprintf(txtbuffer,gettext("%d%% percent complete"),percent);
 	WriteFontStyled(640/2, middleY+30, txtbuffer, 1.0f, true, defaultColor);
 }
 
@@ -509,13 +512,13 @@ void DrawFileBrowserButton(int x1, int y1, int x2, int y2, char *message, file_h
 	if(file->fileAttrib==IS_FILE) {
 		if(curDevice == WODE) {
 			ISOInfo_t* isoInfo = (ISOInfo_t*)&file->other;
-			sprintf(txtbuffer,"Partition: %i, ISO: %i", isoInfo->iso_partition,isoInfo->iso_number);
+			sprintf(txtbuffer,gettext("Partition: %i, ISO: %i"), isoInfo->iso_partition,isoInfo->iso_number);
 		}
 		else if(curDevice == MEMCARD) {
-			sprintf(txtbuffer,"%.2fKo (%ld blocs)", (float)file->size/1024, file->size/8192);
+			sprintf(txtbuffer,gettext("%.2fKB (%ld blocks)"), (float)file->size/1024, file->size/8192);
 		}
 		else if(curDevice == QOOB_FLASH) {
-			sprintf(txtbuffer,"%.2fKo (%ld blocs)", (float)file->size/1024, file->size/0x10000);
+			sprintf(txtbuffer,gettext("%.2fKB (%ld blocks)"), (float)file->size/1024, file->size/0x10000);
 		}
 		else {
 			sprintf(txtbuffer,"%.2f %s",file->size > (1024*1024) ? (float)file->size/(1024*1024):(float)file->size/1024,file->size > (1024*1024) ? "MB":"KB");
@@ -575,8 +578,8 @@ int DrawYesNoDialog(char *message) {
 		doBackdrop();
 		DrawEmptyBox(75,190, vmode->fbWidth-78, 330, COLOR_BLACK);
 		WriteFontStyled(640/2, 215, message, 1.0f, true, defaultColor);
-		DrawSelectableButton(100, 280, -1, 310, "Oui", (sel==1) ? B_SELECTED:B_NOSELECT,-1);
-		DrawSelectableButton(380, 280, -1, 310, "Non", (!sel) ? B_SELECTED:B_NOSELECT,-1);
+		DrawSelectableButton(100, 280, -1, 310, gettext("Yes"), (sel==1) ? B_SELECTED:B_NOSELECT,-1);
+		DrawSelectableButton(380, 280, -1, 310, gettext("No"), (!sel) ? B_SELECTED:B_NOSELECT,-1);
 		DrawFrameFinish();
 		while (!(PAD_ButtonsHeld(0) & PAD_BUTTON_RIGHT) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_LEFT) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_B)&& !(PAD_ButtonsHeld(0) & PAD_BUTTON_A))
 			{ VIDEO_WaitVSync (); }
@@ -652,7 +655,7 @@ void DrawArgsSelector(char *fileName) {
 	while(1) {
 		doBackdrop();
 		DrawEmptyBox(20,60, vmode->fbWidth-20, 460, COLOR_BLACK);
-		sprintf(txtbuffer, "Paramètres de %s :", fileName);
+		sprintf(txtbuffer, gettext("%s Parameters:"), fileName);
 		WriteFontStyled(25, 62, txtbuffer, GetTextScaleToFitInWidth(txtbuffer, vmode->fbWidth-50), false, defaultColor);
 
 		int j = 0;
@@ -667,10 +670,10 @@ void DrawArgsSelector(char *fileName) {
 		}
 		// Write about the default if there is any
 		DrawTransparentBox( 35, 350, vmode->fbWidth-35, 400);
-		WriteFontStyled(33, 345, "Les valeurs par défaut seront utilisées par le DOL chargé", 0.8f, false, defaultColor);
-		WriteFontStyled(33, 365, "si un paramètre n'est pas activé. Veuillez consulter  la doc.", 0.8f, false, defaultColor);
-		WriteFontStyled(33, 385, "pour ce DOL si vous n'êtes pas certain des valeurs par défaut.", 0.8f, false, defaultColor);
-		WriteFontStyled(640/2, 440, "(A) Toggle Param - (Start) Charger le DOL", 1.0f, true, defaultColor); //todo
+		WriteFontStyled(33, 345, gettext("Default values will be used by the DOL being loaded if a"), 0.8f, false, defaultColor);
+		WriteFontStyled(33, 365, gettext("parameter is not enabled. Please check the documentation"), 0.8f, false, defaultColor);
+		WriteFontStyled(33, 385, gettext("for this DOL if you are unsure of the default values."), 0.8f, false, defaultColor);
+		WriteFontStyled(640/2, 440, gettext("(A) Toggle Param - (Start) Load the DOL"), 1.0f, true, defaultColor);
 		DrawFrameFinish();
 
 		while (!(PAD_ButtonsHeld(0) & (PAD_BUTTON_RIGHT|PAD_BUTTON_LEFT|PAD_BUTTON_UP|PAD_BUTTON_DOWN|PAD_BUTTON_START|PAD_BUTTON_A)))
@@ -724,7 +727,7 @@ void DrawCheatsSelector(char *fileName) {
 	while(1) {
 		doBackdrop();
 		DrawEmptyBox(20,60, vmode->fbWidth-20, 460, COLOR_BLACK);
-		sprintf(txtbuffer, "%s Cheats:", fileName);
+		sprintf(txtbuffer, gettext("%s Cheats:"), fileName);
 		WriteFontStyled(25, 62, txtbuffer, GetTextScaleToFitInWidth(txtbuffer, vmode->fbWidth-50), false, defaultColor);
 
 		int j = 0;
@@ -739,7 +742,7 @@ void DrawCheatsSelector(char *fileName) {
 		}
 		// Write about how many cheats are enabled
 		DrawTransparentBox( 35, 350, vmode->fbWidth-35, 410);
-		WriteFontStyled(33, 345, "Espace pris par les cheats:", 0.8f, false, defaultColor);
+		WriteFontStyled(33, 345, gettext("Space taken by cheats:"), 0.8f, false, defaultColor);
 		GXColor noColor = (GXColor) {0,0,0,0}; //blank
 		GXColor borderColor = (GXColor) {200,200,200,GUI_MSGBOX_ALPHA}; //silver
 		GXColor progressBarColor = (GXColor) {255,128,0,GUI_MSGBOX_ALPHA}; //orange
@@ -747,9 +750,9 @@ void DrawCheatsSelector(char *fileName) {
 		float multiplier = (float)getEnabledCheatsSize() / (float)kenobi_get_maxsize();
 		DrawSimpleBox( 33, 370, vmode->fbWidth-66, 20, 0, noColor, borderColor); 
 		DrawSimpleBox( 33, 370,	(int)((vmode->fbWidth-66)*multiplier), 20, 0, progressBarColor, noColor);
-		sprintf(txtbuffer, "Déboguage WiiRD %s", swissSettings.wiirdDebug ? "Activé":"Désactivé");
+		sprintf(txtbuffer, gettext("WiiRD Debug %s"), swissSettings.wiirdDebug ? gettext("Enabled"):gettext("Disabled"));
 		WriteFontStyled(33, 395, txtbuffer, 0.8f, false, defaultColor);
-		WriteFontStyled(640/2, 440, "(A) Toggle Cheat - (X) Déboguage WiiRD - (B) Retour", 0.9f, true, defaultColor);//todo
+		WriteFontStyled(640/2, 440, gettext("(A) Toggle Cheat - (X) WiiRD Debug - (B) Return"), 0.9f, true, defaultColor);
 		DrawFrameFinish();
 
 		while (!(PAD_ButtonsHeld(0) & (PAD_BUTTON_UP|PAD_BUTTON_DOWN|PAD_BUTTON_B|PAD_BUTTON_A|PAD_BUTTON_X)))

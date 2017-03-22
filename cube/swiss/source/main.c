@@ -1,7 +1,7 @@
 //translation by ketchu13 22.35-18.3.17 windows-1252
 #include <stdio.h>
-#include <gccore.h>		/*** Wrapper to include common libogc headers ***/
-#include <ogcsys.h>		/*** Needed for console support ***/
+#include <gccore.h>     /*** Wrapper to include common libogc headers ***/
+#include <ogcsys.h>     /*** Needed for console support ***/
 #include <ogc/color.h>
 #include <ogc/exi.h>
 #include <ogc/lwp.h>
@@ -29,6 +29,7 @@
 #include "wkf.h"
 #include "httpd.h"
 #include "config.h"
+#include "gettext.h"
 #include "gui/FrameBufferMagic.h"
 #include "gui/IPLFontWrite.h"
 #include "devices/deviceHandler.h"
@@ -40,401 +41,401 @@
 
 extern void __libogc_exit(int status);
 
-GXRModeObj *vmode = NULL;				//Graphics Mode Object
+GXRModeObj *vmode = NULL;               //Graphics Mode Object
 void *gp_fifo = NULL;
 u32 *xfb[2] = { NULL, NULL };   //Framebuffers
-int whichfb = 0;       		 	    //Frame buffer toggle
+int whichfb = 0;                    //Frame buffer toggle
 u8 driveVersion[8];
-file_handle* allFiles;   		//all the files in the current dir
+file_handle* allFiles;          //all the files in the current dir
 int curMenuLocation = ON_FILLIST; //where are we on the screen?
 int files = 0;                  //number of files in a directory
-int curMenuSelection = 0;	      //menu selection
-int curSelection = 0;		        //game selection
+int curMenuSelection = 0;         //menu selection
+int curSelection = 0;               //game selection
 int needsDeviceChange = 0;
 int needsRefresh = 0;
 SwissSettings swissSettings;
 
 int endsWith(char *str, char *end) {
-	if(strlen(str) < strlen(end))
-		return 0;
-	int i;
-	for(i = 0; i < strlen(end); i++)
-		if(tolower((int)str[strlen(str)-i]) != tolower((int)end[strlen(end)-i]))
-			return 0;
-	return 1;
+    if(strlen(str) < strlen(end))
+        return 0;
+    int i;
+    for(i = 0; i < strlen(end); i++)
+        if(tolower((int)str[strlen(str)-i]) != tolower((int)end[strlen(end)-i]))
+            return 0;
+    return 1;
 }
 
-static void ProperScanPADS()	{
-	PAD_ScanPads(); 
+static void ProperScanPADS()    {
+    PAD_ScanPads(); 
 }
 
 void populateVideoStr(GXRModeObj *vmode) {
-	switch(vmode->viTVMode) {
-		case VI_TVMODE_NTSC_INT:     videoStr = NtscIntStr;     break;
-		case VI_TVMODE_NTSC_DS:      videoStr = NtscDsStr;      break;
-		case VI_TVMODE_NTSC_PROG:    videoStr = NtscProgStr;    break;
-		case VI_TVMODE_PAL_INT:      videoStr = PalIntStr;      break;
-		case VI_TVMODE_PAL_DS:       videoStr = PalDsStr;       break;
-		case VI_TVMODE_PAL_PROG:     videoStr = PalProgStr;     break;
-		case VI_TVMODE_MPAL_INT:     videoStr = MpalIntStr;     break;
-		case VI_TVMODE_MPAL_DS:      videoStr = MpalDsStr;      break;
-		case VI_TVMODE_MPAL_PROG:    videoStr = MpalProgStr;    break;
-		case VI_TVMODE_EURGB60_INT:  videoStr = Eurgb60IntStr;  break;
-		case VI_TVMODE_EURGB60_DS:   videoStr = Eurgb60DsStr;   break;
-		case VI_TVMODE_EURGB60_PROG: videoStr = Eurgb60ProgStr; break;
-		default:                     videoStr = UnkStr;
-	}
+    switch(vmode->viTVMode) {
+        case VI_TVMODE_NTSC_INT:     videoStr = NtscIntStr;     break;
+        case VI_TVMODE_NTSC_DS:      videoStr = NtscDsStr;      break;
+        case VI_TVMODE_NTSC_PROG:    videoStr = NtscProgStr;    break;
+        case VI_TVMODE_PAL_INT:      videoStr = PalIntStr;      break;
+        case VI_TVMODE_PAL_DS:       videoStr = PalDsStr;       break;
+        case VI_TVMODE_PAL_PROG:     videoStr = PalProgStr;     break;
+        case VI_TVMODE_MPAL_INT:     videoStr = MpalIntStr;     break;
+        case VI_TVMODE_MPAL_DS:      videoStr = MpalDsStr;      break;
+        case VI_TVMODE_MPAL_PROG:    videoStr = MpalProgStr;    break;
+        case VI_TVMODE_EURGB60_INT:  videoStr = Eurgb60IntStr;  break;
+        case VI_TVMODE_EURGB60_DS:   videoStr = Eurgb60DsStr;   break;
+        case VI_TVMODE_EURGB60_PROG: videoStr = Eurgb60ProgStr; break;
+        default:                     videoStr = UnkStr;
+    }
 }
 
 void initialise_video(GXRModeObj *m) {
-	VIDEO_Configure (m);
-	if(xfb[0]) free(MEM_K1_TO_K0(xfb[0]));
-	if(xfb[1]) free(MEM_K1_TO_K0(xfb[1]));
-	xfb[0] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (m));
-	xfb[1] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (m));
-	VIDEO_ClearFrameBuffer (m, xfb[0], COLOR_BLACK);
-	VIDEO_ClearFrameBuffer (m, xfb[1], COLOR_BLACK);
-	VIDEO_SetNextFramebuffer (xfb[0]);
-	VIDEO_SetPostRetraceCallback (ProperScanPADS);
-	VIDEO_SetBlack (0);
-	VIDEO_Flush ();
-	VIDEO_WaitVSync ();
-	if (m->viTVMode & VI_NON_INTERLACE) VIDEO_WaitVSync();
-	else while (VIDEO_GetNextField())   VIDEO_WaitVSync();
-	
-	// setup the fifo and then init GX
-	if(gp_fifo == NULL) {
-		gp_fifo = MEM_K0_TO_K1 (memalign (32, DEFAULT_FIFO_SIZE));
-		memset (gp_fifo, 0, DEFAULT_FIFO_SIZE);
-		GX_Init (gp_fifo, DEFAULT_FIFO_SIZE);
-	}
-	// clears the bg to color and clears the z buffer
-	GX_SetCopyClear ((GXColor) {0, 0, 0, 0xFF}, GX_MAX_Z24);
-	// init viewport
-	GX_SetViewport (0, 0, m->fbWidth, m->efbHeight, 0, 1);
-	// Set the correct y scaling for efb->xfb copy operation
-	GX_SetDispCopyYScale ((f32) m->xfbHeight / (f32) m->efbHeight);
-	GX_SetDispCopySrc (0, 0, m->fbWidth, m->efbHeight);
-	GX_SetDispCopyDst (m->fbWidth, m->xfbHeight);
-	GX_SetCopyFilter (m->aa, m->sample_pattern, GX_TRUE, m->vfilter);
-	GX_SetFieldMode (m->field_rendering, ((m->viHeight == 2 * m->xfbHeight) ? GX_ENABLE : GX_DISABLE));
-	if (m->aa)
-		GX_SetPixelFmt(GX_PF_RGB565_Z16, GX_ZC_LINEAR);
-	else
-		GX_SetPixelFmt(GX_PF_RGB8_Z24, GX_ZC_LINEAR);
-	GX_SetCullMode (GX_CULL_NONE); // default in rsp init
-	GX_CopyDisp (xfb[0], GX_TRUE); // This clears the efb
-	GX_CopyDisp (xfb[0], GX_TRUE); // This clears the xfb
+    VIDEO_Configure (m);
+    if(xfb[0]) free(MEM_K1_TO_K0(xfb[0]));
+    if(xfb[1]) free(MEM_K1_TO_K0(xfb[1]));
+    xfb[0] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (m));
+    xfb[1] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (m));
+    VIDEO_ClearFrameBuffer (m, xfb[0], COLOR_BLACK);
+    VIDEO_ClearFrameBuffer (m, xfb[1], COLOR_BLACK);
+    VIDEO_SetNextFramebuffer (xfb[0]);
+    VIDEO_SetPostRetraceCallback (ProperScanPADS);
+    VIDEO_SetBlack (0);
+    VIDEO_Flush ();
+    VIDEO_WaitVSync ();
+    if (m->viTVMode & VI_NON_INTERLACE) VIDEO_WaitVSync();
+    else while (VIDEO_GetNextField())   VIDEO_WaitVSync();
+    
+    // setup the fifo and then init GX
+    if(gp_fifo == NULL) {
+        gp_fifo = MEM_K0_TO_K1 (memalign (32, DEFAULT_FIFO_SIZE));
+        memset (gp_fifo, 0, DEFAULT_FIFO_SIZE);
+        GX_Init (gp_fifo, DEFAULT_FIFO_SIZE);
+    }
+    // clears the bg to color and clears the z buffer
+    GX_SetCopyClear ((GXColor) {0, 0, 0, 0xFF}, GX_MAX_Z24);
+    // init viewport
+    GX_SetViewport (0, 0, m->fbWidth, m->efbHeight, 0, 1);
+    // Set the correct y scaling for efb->xfb copy operation
+    GX_SetDispCopyYScale ((f32) m->xfbHeight / (f32) m->efbHeight);
+    GX_SetDispCopySrc (0, 0, m->fbWidth, m->efbHeight);
+    GX_SetDispCopyDst (m->fbWidth, m->xfbHeight);
+    GX_SetCopyFilter (m->aa, m->sample_pattern, GX_TRUE, m->vfilter);
+    GX_SetFieldMode (m->field_rendering, ((m->viHeight == 2 * m->xfbHeight) ? GX_ENABLE : GX_DISABLE));
+    if (m->aa)
+        GX_SetPixelFmt(GX_PF_RGB565_Z16, GX_ZC_LINEAR);
+    else
+        GX_SetPixelFmt(GX_PF_RGB8_Z24, GX_ZC_LINEAR);
+    GX_SetCullMode (GX_CULL_NONE); // default in rsp init
+    GX_CopyDisp (xfb[0], GX_TRUE); // This clears the efb
+    GX_CopyDisp (xfb[0], GX_TRUE); // This clears the xfb
 }
 
 /* Initialise Video, PAD, DVD, Font */
 void* Initialise (void)
 {
-	VIDEO_Init ();
-	PAD_Init ();  
-	DVD_Init(); 
-	*(volatile unsigned long*)0xcc00643c = 0x00000000; //allow 32mhz exi bus
-	
-	// Disable IPL modchips to allow access to IPL ROM fonts
-	ipl_set_config(6); 
-	usleep(1000); //wait for modchip to disable (overkill)
-	
-	
-	__SYS_ReadROM(IPLInfo,256,0);	// Read IPL tag
+    VIDEO_Init ();
+    PAD_Init ();  
+    DVD_Init(); 
+    *(volatile unsigned long*)0xcc00643c = 0x00000000; //allow 32mhz exi bus
+    
+    // Disable IPL modchips to allow access to IPL ROM fonts
+    ipl_set_config(6); 
+    usleep(1000); //wait for modchip to disable (overkill)
+    
+    
+    __SYS_ReadROM(IPLInfo,256,0);   // Read IPL tag
 
-	// Wii has no IPL tags for "PAL" so let libOGC figure out the video mode
-	if(!is_gamecube()) {
-		vmode = VIDEO_GetPreferredMode(NULL); //Last mode used
-	}
-	else {	// Gamecube, determine based on IPL
-		int retPAD = 0, retCnt = 10000;
-		while(retPAD <= 0 && retCnt >= 0) { retPAD = PAD_ScanPads(); usleep(100); retCnt--; }
-		// L Trigger held down ignores the fact that there's a component cable plugged in.
-		if(VIDEO_HaveComponentCable() && !(PAD_ButtonsDown(0) & PAD_TRIGGER_L)) {
-			if(strstr(IPLInfo,"MPAL")!=NULL) {
-				swissSettings.sramVideo = 2;
-				vmode = &TVMpal480Prog; //Progressive 480p
-			}
-			else if((strstr(IPLInfo,"PAL")!=NULL)) {
-				swissSettings.sramVideo = 1;
-				vmode = &TVPal576ProgScale; //Progressive 576p
-			}
-			else {
-				swissSettings.sramVideo = 0;
-				vmode = &TVNtsc480Prog; //Progressive 480p
-			}
-		}
-		else {
-			//try to use the IPL region
-			if(strstr(IPLInfo,"MPAL")!=NULL) {
-				swissSettings.sramVideo = 2;
-				vmode = &TVMpal480IntDf;        //PAL-M
-			}
-			else if(strstr(IPLInfo,"PAL")!=NULL) {
-				swissSettings.sramVideo = 1;
-				vmode = &TVPal576IntDfScale;         //PAL
-			}
-			else {
-				swissSettings.sramVideo = 0;
-				vmode = &TVNtsc480IntDf;        //NTSC
-			}
-		}
-	}
-	initialise_video(vmode);
-	populateVideoStr(vmode);
+    // Wii has no IPL tags for "PAL" so let libOGC figure out the video mode
+    if(!is_gamecube()) {
+        vmode = VIDEO_GetPreferredMode(NULL); //Last mode used
+    }
+    else {  // Gamecube, determine based on IPL
+        int retPAD = 0, retCnt = 10000;
+        while(retPAD <= 0 && retCnt >= 0) { retPAD = PAD_ScanPads(); usleep(100); retCnt--; }
+        // L Trigger held down ignores the fact that there's a component cable plugged in.
+        if(VIDEO_HaveComponentCable() && !(PAD_ButtonsDown(0) & PAD_TRIGGER_L)) {
+            if(strstr(IPLInfo,"MPAL")!=NULL) {
+                swissSettings.sramVideo = 2;
+                vmode = &TVMpal480Prog; //Progressive 480p
+            }
+            else if((strstr(IPLInfo,"PAL")!=NULL)) {
+                swissSettings.sramVideo = 1;
+                vmode = &TVPal576ProgScale; //Progressive 576p
+            }
+            else {
+                swissSettings.sramVideo = 0;
+                vmode = &TVNtsc480Prog; //Progressive 480p
+            }
+        }
+        else {
+            //try to use the IPL region
+            if(strstr(IPLInfo,"MPAL")!=NULL) {
+                swissSettings.sramVideo = 2;
+                vmode = &TVMpal480IntDf;        //PAL-M
+            }
+            else if(strstr(IPLInfo,"PAL")!=NULL) {
+                swissSettings.sramVideo = 1;
+                vmode = &TVPal576IntDfScale;         //PAL
+            }
+            else {
+                swissSettings.sramVideo = 0;
+                vmode = &TVNtsc480IntDf;        //NTSC
+            }
+        }
+    }
+    initialise_video(vmode);
+    populateVideoStr(vmode);
 
-	init_font();
-	init_textures();
-	whichfb = 0;
-	
-	drive_version(&driveVersion[0]);
-	swissSettings.hasDVDDrive = *(u32*)&driveVersion[0] ? 1 : 0;
-	
-	if(!driveVersion[0]) {
-		// Reset DVD if there was a modchip
-		DrawFrameStart();
-		WriteFontStyled(640/2, 250, "Initialisation du DVD .. (Maintenez B si aucun lecteur DVD)", 0.75f, true, defaultColor);
-		DrawFrameFinish();
-		dvd_reset();	// low-level, basic
-		dvd_read_id();
-		if(!(PAD_ButtonsHeld(0) & PAD_BUTTON_B)) {
-			dvd_set_streaming(*(char*)0x80000008);
-		}
-		drive_version(&driveVersion[0]);
-		swissSettings.hasDVDDrive = *(u32*)&driveVersion[0] ? 1 : 0;
-		if(!swissSettings.hasDVDDrive) {
-			DrawFrameStart();
-			DrawMessageBox(D_INFO, "Pas de lecteur DVD détecté!!");
-			DrawFrameFinish();
-			sleep(2);
-		}
-	}
-	
-	return xfb[0];
+    init_font();
+    init_textures();
+    whichfb = 0;
+    
+    drive_version(&driveVersion[0]);
+    swissSettings.hasDVDDrive = *(u32*)&driveVersion[0] ? 1 : 0;
+    
+    if(!driveVersion[0]) {
+        // Reset DVD if there was a modchip
+        DrawFrameStart();
+        WriteFontStyled(640/2, 250, gettext("Initialise DVD .. (HOLD B if NO DVD Drive)"), 0.75f, true, defaultColor);
+        DrawFrameFinish();
+        dvd_reset();    // low-level, basic
+        dvd_read_id();
+        if(!(PAD_ButtonsHeld(0) & PAD_BUTTON_B)) {
+            dvd_set_streaming(*(char*)0x80000008);
+        }
+        drive_version(&driveVersion[0]);
+        swissSettings.hasDVDDrive = *(u32*)&driveVersion[0] ? 1 : 0;
+        if(!swissSettings.hasDVDDrive) {
+            DrawFrameStart();
+            DrawMessageBox(D_INFO, gettext("No DVD Drive Detected !!"));
+            DrawFrameFinish();
+            sleep(2);
+        }
+    }
+    
+    return xfb[0];
 }
 
 void load_auto_dol() {
-	sprintf(txtbuffer, "%sboot.dol", deviceHandler_initial->name);
-	FILE *fp = fopen(txtbuffer, "rb");
-	if (fp) {
-		fseek(fp, 0, SEEK_END);
-		int size = ftell(fp);
-		fseek(fp, 0, SEEK_SET);
-		if ((size > 0) && (size < (AR_GetSize() - (64*1024)))) {
-			u8 *dol = (u8*) memalign(32, size);
-			if (dol) {
-				fread(dol, 1, size, fp);
-				if (!memmem(dol, size, GITREVISION, sizeof(GITREVISION))) {
-					DOLtoARAM(dol, 0, NULL);
-				}
-			}
-		}
-		fclose(fp);
-	}
+    sprintf(txtbuffer, "%sboot.dol", deviceHandler_initial->name);
+    FILE *fp = fopen(txtbuffer, "rb");
+    if (fp) {
+        fseek(fp, 0, SEEK_END);
+        int size = ftell(fp);
+        fseek(fp, 0, SEEK_SET);
+        if ((size > 0) && (size < (AR_GetSize() - (64*1024)))) {
+            u8 *dol = (u8*) memalign(32, size);
+            if (dol) {
+                fread(dol, 1, size, fp);
+                if (!memmem(dol, size, GITREVISION, sizeof(GITREVISION))) {
+                    DOLtoARAM(dol, 0, NULL);
+                }
+            }
+        }
+        fclose(fp);
+    }
 }
 
 void load_config() {
 
-	// Try to open up the config .ini in case it hasn't been opened already (SD, IDE-EXI only)
-	if(!config_init()) {
-		if(curDevice == SD_CARD || curDevice == IDEEXI) {
-			if(!config_create()) {
-				DrawFrameStart();
-				DrawMessageBox(D_INFO,"Impossible de créer le fichier de configuration!");
-				DrawFrameFinish();
-				sleep(1);
-			}
-		}
-	}
-	else {
-		DrawFrameStart();
-		sprintf(txtbuffer,"%i entrées du fichier de configuration chargées",config_get_count());
-		DrawMessageBox(D_INFO,txtbuffer);
-		DrawFrameFinish();
-		memcpy(&swissSettings, config_get_swiss_settings(), sizeof(SwissSettings));
-	}
+    // Try to open up the config .ini in case it hasn't been opened already (SD, IDE-EXI only)
+    if(!config_init()) {
+        if(curDevice == SD_CARD || curDevice == IDEEXI) {
+            if(!config_create()) {
+                DrawFrameStart();
+                DrawMessageBox(D_INFO,gettext("Failed to create configuration file!"));
+                DrawFrameFinish();
+                sleep(1);
+            }
+        }
+    }
+    else {
+        DrawFrameStart();
+        sprintf(txtbuffer,gettext("Loaded %i entries from the config file"),config_get_count());
+        DrawMessageBox(D_INFO,txtbuffer);
+        DrawFrameFinish();
+        memcpy(&swissSettings, config_get_swiss_settings(), sizeof(SwissSettings));
+    }
 }
 
 int comp(const void *a1, const void *b1)
 {
-	const file_handle* a = a1;
-	const file_handle* b = b1;
-	
-	if(!a && b) return 1;
-	if(a && !b) return -1;
-	if(!a && !b) return 0;
-	
-	if((curDevice == DVD_DISC) && ((dvdDiscTypeInt == GAMECUBE_DISC) || (dvdDiscTypeInt == MULTIDISC_DISC)))
-	{
-		if(a->size == DISC_SIZE && a->fileBase == 0)
-			return -1;
-		if(b->size == DISC_SIZE && b->fileBase == 0)
-			return 1;
-	}
-	
-	if(a->fileAttrib == IS_DIR && b->fileAttrib == IS_FILE)
-		return -1;
-	if(a->fileAttrib == IS_FILE && b->fileAttrib == IS_DIR)
-		return 1;
+    const file_handle* a = a1;
+    const file_handle* b = b1;
+    
+    if(!a && b) return 1;
+    if(a && !b) return -1;
+    if(!a && !b) return 0;
+    
+    if((curDevice == DVD_DISC) && ((dvdDiscTypeInt == GAMECUBE_DISC) || (dvdDiscTypeInt == MULTIDISC_DISC)))
+    {
+        if(a->size == DISC_SIZE && a->fileBase == 0)
+            return -1;
+        if(b->size == DISC_SIZE && b->fileBase == 0)
+            return 1;
+    }
+    
+    if(a->fileAttrib == IS_DIR && b->fileAttrib == IS_FILE)
+        return -1;
+    if(a->fileAttrib == IS_FILE && b->fileAttrib == IS_DIR)
+        return 1;
 
-	return strcasecmp(a->name, b->name);
+    return strcasecmp(a->name, b->name);
 }
 
 void sortFiles(file_handle* dir, int num_files)
 {
-	if(num_files > 0) {
-		qsort(&dir[0],num_files,sizeof(file_handle),comp);
-	}
+    if(num_files > 0) {
+        qsort(&dir[0],num_files,sizeof(file_handle),comp);
+    }
 }
 
 void free_files() {
-	if(allFiles) {
-		int i;
-		for(i = 0; i < files; i++) {
-			if(allFiles[i].meta) {
-				if(allFiles[i].meta->banner) {
-					free(allFiles[i].meta->banner);
-					allFiles[i].meta->banner = NULL;
-				}
-				memset(allFiles[i].meta, 0, sizeof(file_meta));
-				meta_free(allFiles[i].meta);
-				allFiles[i].meta = NULL;
-			}
-		}
-		free(allFiles);
-		allFiles = NULL;
-		files = 0;
-	}
+    if(allFiles) {
+        int i;
+        for(i = 0; i < files; i++) {
+            if(allFiles[i].meta) {
+                if(allFiles[i].meta->banner) {
+                    free(allFiles[i].meta->banner);
+                    allFiles[i].meta->banner = NULL;
+                }
+                memset(allFiles[i].meta, 0, sizeof(file_meta));
+                meta_free(allFiles[i].meta);
+                allFiles[i].meta = NULL;
+            }
+        }
+        free(allFiles);
+        allFiles = NULL;
+        files = 0;
+    }
 }
 
 void main_loop()
 { 
-	
-	while(PAD_ButtonsHeld(0) & PAD_BUTTON_A) { VIDEO_WaitVSync (); }
-	// We don't care if a subsequent device is "default"
-	if(needsDeviceChange) {
-		free_files();
-		if(deviceHandler_deinit) {
-			deviceHandler_deinit(deviceHandler_initial);
-		}
-		curDevice = -1;
-		needsDeviceChange = 0;
-		deviceHandler_initial = NULL;
-		needsRefresh = 1;
-		curMenuLocation = ON_FILLIST;
-		select_device(0);
-		curMenuLocation = ON_OPTIONS;
-	}
-	pause_netinit_thread();
-	if(deviceHandler_initial) {
-		// If the user selected a device, make sure it's ready before we browse the filesystem
-		deviceHandler_deinit( deviceHandler_initial );
-		sdgecko_setSpeed(EXI_SPEED32MHZ);
-		if(!deviceHandler_init( deviceHandler_initial )) {
-			if(((deviceHandler_initial->name[0] == 's')&&(deviceHandler_initial->name[1] == 'd'))||(deviceHandler_initial->name[0] == 'i')) {
-				print_gecko("L'initialisation du périphérique SD/IDE-EXI a échoué à 32MHz! \r\nEssayez 16MHz ...\r\n");
-				sdgecko_setSpeed(EXI_SPEED16MHZ);
-				if(!deviceHandler_init(deviceHandler_initial)) {
-				// Try the alternate slot for SDGecko or IDE-EXI
-					if(deviceHandler_initial->name[0] == 's')
-						deviceHandler_initial = (deviceHandler_initial == &initial_SD0) ?
-												&initial_SD1:&initial_SD0;
-					else
-						deviceHandler_initial = (deviceHandler_initial == &initial_IDE0) ?
-												&initial_IDE1:&initial_IDE0;
-					memcpy(&curFile, deviceHandler_initial, sizeof(file_handle));
-				}
-				print_gecko("Essai d'une autre slot à 32MHz...\r\n");
-				sdgecko_setSpeed(EXI_SPEED32MHZ);
-				if(!deviceHandler_init( deviceHandler_initial )) {
-					print_gecko("L'autre slot a échoué à 16MHz... \r\n");
-					sdgecko_setSpeed(EXI_SPEED16MHZ);
-					if(!deviceHandler_init( deviceHandler_initial )) {
-						print_gecko("Echec sur les deux slots\r\n");
-						needsDeviceChange = 1;
-						return;
-					}
-				}
-			}
-		}
-		if(curDevice==SD_CARD || curDevice==WKF || curDevice==IDEEXI) { 
-			load_config();
-		}
-	}
-	else {
-		curMenuLocation=ON_OPTIONS;
-	}
-	// If a previously undetected device has been successfully init'd, mark it as available from now on
-	if(!deviceHandler_getDeviceAvailable(curDevice)) {
-		deviceHandler_setDeviceAvailable(curDevice, 1);
-	}
+    
+    while(PAD_ButtonsHeld(0) & PAD_BUTTON_A) { VIDEO_WaitVSync (); }
+    // We don't care if a subsequent device is "default"
+    if(needsDeviceChange) {
+        free_files();
+        if(deviceHandler_deinit) {
+            deviceHandler_deinit(deviceHandler_initial);
+        }
+        curDevice = -1;
+        needsDeviceChange = 0;
+        deviceHandler_initial = NULL;
+        needsRefresh = 1;
+        curMenuLocation = ON_FILLIST;
+        select_device(0);
+        curMenuLocation = ON_OPTIONS;
+    }
+    pause_netinit_thread();
+    if(deviceHandler_initial) {
+        // If the user selected a device, make sure it's ready before we browse the filesystem
+        deviceHandler_deinit( deviceHandler_initial );
+        sdgecko_setSpeed(EXI_SPEED32MHZ);
+        if(!deviceHandler_init( deviceHandler_initial )) {
+            if(((deviceHandler_initial->name[0] == 's')&&(deviceHandler_initial->name[1] == 'd'))||(deviceHandler_initial->name[0] == 'i')) {
+                print_gecko(gettext("SD/IDE-EXI Device Failed to initialize @ 32MHz!\r\nTrying again once @ 16MHz...\r\n"));
+                sdgecko_setSpeed(EXI_SPEED16MHZ);
+                if(!deviceHandler_init(deviceHandler_initial)) {
+                // Try the alternate slot for SDGecko or IDE-EXI
+                    if(deviceHandler_initial->name[0] == 's')
+                        deviceHandler_initial = (deviceHandler_initial == &initial_SD0) ?
+                                                &initial_SD1:&initial_SD0;
+                    else
+                        deviceHandler_initial = (deviceHandler_initial == &initial_IDE0) ?
+                                                &initial_IDE1:&initial_IDE0;
+                    memcpy(&curFile, deviceHandler_initial, sizeof(file_handle));
+                }
+                print_gecko(gettext("Trying alternate slot @ 32MHz...\r\n"));
+                sdgecko_setSpeed(EXI_SPEED32MHZ);
+                if(!deviceHandler_init( deviceHandler_initial )) {
+                    print_gecko(gettext("Alternate slot failed once @ 16MHz... \r\n"));
+                    sdgecko_setSpeed(EXI_SPEED16MHZ);
+                    if(!deviceHandler_init( deviceHandler_initial )) {
+                        print_gecko(gettext("Both slots failed twice\r\n"));
+                        needsDeviceChange = 1;
+                        return;
+                    }
+                }
+            }
+        }
+        if(curDevice==SD_CARD || curDevice==WKF || curDevice==IDEEXI) { 
+            load_config();
+        }
+    }
+    else {
+        curMenuLocation=ON_OPTIONS;
+    }
+    // If a previously undetected device has been successfully init'd, mark it as available from now on
+    if(!deviceHandler_getDeviceAvailable(curDevice)) {
+        deviceHandler_setDeviceAvailable(curDevice, 1);
+    }
 
-	resume_netinit_thread();
-	while(1) {
-		if(deviceHandler_initial && needsRefresh) {
-			curMenuLocation=ON_OPTIONS;
-			free_files();
-			curSelection=0; files=0; curMenuSelection=0;
-			// Read the directory/device TOC
-			if(allFiles){ free(allFiles); allFiles = NULL; }
-			print_gecko("Lecture du dossier: %s\r\n",curFile.name);
-			pause_netinit_thread();
-			files = deviceHandler_readDir(&curFile, &allFiles, -1);
-			resume_netinit_thread();
-			memcpy(&curDir, &curFile, sizeof(file_handle));
-			sortFiles(allFiles, files);
-			print_gecko("%i entrées trouvées\r\n",files);
-			if(files<1) { deviceHandler_deinit(deviceHandler_initial); needsDeviceChange=1; break;}
-			needsRefresh = 0;
-			curMenuLocation=ON_FILLIST;
-		}
-		while(PAD_ButtonsHeld(0) & PAD_BUTTON_A) { VIDEO_WaitVSync (); }
-		drawFiles(&allFiles, files);
+    resume_netinit_thread();
+    while(1) {
+        if(deviceHandler_initial && needsRefresh) {
+            curMenuLocation=ON_OPTIONS;
+            free_files();
+            curSelection=0; files=0; curMenuSelection=0;
+            // Read the directory/device TOC
+            if(allFiles){ free(allFiles); allFiles = NULL; }
+            print_gecko(gettext("Reading directory: %s\r\n"),curFile.name);
+            pause_netinit_thread();
+            files = deviceHandler_readDir(&curFile, &allFiles, -1);
+            resume_netinit_thread();
+            memcpy(&curDir, &curFile, sizeof(file_handle));
+            sortFiles(allFiles, files);
+            print_gecko(gettext("Found %i entries\r\n"),files);
+            if(files<1) { deviceHandler_deinit(deviceHandler_initial); needsDeviceChange=1; break;}
+            needsRefresh = 0;
+            curMenuLocation=ON_FILLIST;
+        }
+        while(PAD_ButtonsHeld(0) & PAD_BUTTON_A) { VIDEO_WaitVSync (); }
+        drawFiles(&allFiles, files);
 
-		u16 btns = PAD_ButtonsHeld(0);
-		if(curMenuLocation==ON_OPTIONS) {
-			if(btns & PAD_BUTTON_LEFT){	curMenuSelection = (--curMenuSelection < 0) ? (MENU_MAX-1) : curMenuSelection;}
-			else if(btns & PAD_BUTTON_RIGHT){curMenuSelection = (curMenuSelection + 1) % MENU_MAX;	}
-		}
-		if(deviceHandler_initial && ((btns & PAD_BUTTON_B)||(curMenuLocation==ON_FILLIST)))	{
-			while(PAD_ButtonsHeld(0) & PAD_BUTTON_B){ VIDEO_WaitVSync (); }
-			curMenuLocation=ON_FILLIST;
-			renderFileBrowser(&allFiles, files);
-		}
-		else if(btns & PAD_BUTTON_A) {
-			//handle menu event
-			switch(curMenuSelection) {
-				case 0:		// Device change
-					needsDeviceChange = 1;  //Change from SD->DVD or vice versa
-					break;
-				case 1:		// Settings
-					show_settings(NULL, NULL);
-					break;
-				case 2:		// Credits
-					show_info();
-					break;
-				case 3:
-					if(deviceHandler_initial) {
-						memcpy(&curFile, deviceHandler_initial, sizeof(file_handle));
-						if(curDevice == WKF) { 
-							wkfReinit(); deviceHandler_deinit(deviceHandler_initial);
-						}
-					}
-					needsRefresh=1;
-					break;
-				case 4:
-					__libogc_exit(0);
-					break;
-			}
-			
-		}
-		while (!(!(PAD_ButtonsHeld(0) & PAD_BUTTON_B) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_A) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_RIGHT) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_LEFT))) {
-			VIDEO_WaitVSync();
-		}
-		if(needsDeviceChange) {
-			break;
-		}
-	}
+        u16 btns = PAD_ButtonsHeld(0);
+        if(curMenuLocation==ON_OPTIONS) {
+            if(btns & PAD_BUTTON_LEFT){ curMenuSelection = (--curMenuSelection < 0) ? (MENU_MAX-1) : curMenuSelection;}
+            else if(btns & PAD_BUTTON_RIGHT){curMenuSelection = (curMenuSelection + 1) % MENU_MAX;  }
+        }
+        if(deviceHandler_initial && ((btns & PAD_BUTTON_B)||(curMenuLocation==ON_FILLIST))) {
+            while(PAD_ButtonsHeld(0) & PAD_BUTTON_B){ VIDEO_WaitVSync (); }
+            curMenuLocation=ON_FILLIST;
+            renderFileBrowser(&allFiles, files);
+        }
+        else if(btns & PAD_BUTTON_A) {
+            //handle menu event
+            switch(curMenuSelection) {
+                case 0:     // Device change
+                    needsDeviceChange = 1;  //Change from SD->DVD or vice versa
+                    break;
+                case 1:     // Settings
+                    show_settings(NULL, NULL);
+                    break;
+                case 2:     // Credits
+                    show_info();
+                    break;
+                case 3:
+                    if(deviceHandler_initial) {
+                        memcpy(&curFile, deviceHandler_initial, sizeof(file_handle));
+                        if(curDevice == WKF) { 
+                            wkfReinit(); deviceHandler_deinit(deviceHandler_initial);
+                        }
+                    }
+                    needsRefresh=1;
+                    break;
+                case 4:
+                    __libogc_exit(0);
+                    break;
+            }
+            
+        }
+        while (!(!(PAD_ButtonsHeld(0) & PAD_BUTTON_B) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_A) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_RIGHT) && !(PAD_ButtonsHeld(0) & PAD_BUTTON_LEFT))) {
+            VIDEO_WaitVSync();
+        }
+        if(needsDeviceChange) {
+            break;
+        }
+    }
 }
 
 
@@ -443,220 +444,221 @@ void main_loop()
 ****************************************************************************/
 int main () 
 {
-	// Setup defaults (if no config is found)
-	memset(&swissSettings, 0 , sizeof(SwissSettings));
-	
-	void *fb;
-	fb = Initialise();
-	if(!fb) {
-		return -1;
-	}
+    // Setup defaults (if no config is found)
+    memset(&swissSettings, 0 , sizeof(SwissSettings));
+    
+    void *fb;
+    fb = Initialise();
+    if(!fb) {
+        return -1;
+    }
 
-	// Sane defaults
-	refreshSRAM();
-	swissSettings.debugUSB = 0;
-	swissSettings.gameVMode = 0;	// Auto video mode
-	swissSettings.exiSpeed = 1;		// 32MHz
-	swissSettings.uiVMode = 0; 		// Auto UI mode
-	swissSettings.enableFileManagement = 0;
+    // Sane defaults
+    refreshSRAM();
+    swissSettings.debugUSB = 0;
+    swissSettings.gameVMode = 0;    // Auto video mode
+    swissSettings.exiSpeed = 1;     // 32MHz
+    swissSettings.uiVMode = 0;      // Auto UI mode
+    swissSettings.enableFileManagement = 0;
 
-	config_copy_swiss_settings(&swissSettings);
-	needsDeviceChange = 1;
-	needsRefresh = 1;
-	
+    config_copy_swiss_settings(&swissSettings);
+    needsDeviceChange = 1;
+    needsRefresh = 1;
+    LoadLanguage();
 
-	//debugging stuff
-	if(swissSettings.debugUSB) {
-		if(usb_isgeckoalive(1)) {
-			usb_flush(1);
-		}
-		print_gecko("Arena Size: %iKo\r\n",(SYS_GetArena1Hi()-SYS_GetArena1Lo())/1024);
-		print_gecko("Lecteur DVD présent? %s\r\n",swissSettings.hasDVDDrive?"Oui":"Non");
-		print_gecko("GIT Commit: %s\r\n", GITREVISION);
-		print_gecko("GIT Revision: %s\r\n", GITVERSION);
-	}
-	
-	curDevice = -1;
-	// Are we working with a Wiikey Fusion?
-	if(__wkfSpiReadId() != 0 && __wkfSpiReadId() != 0xFFFFFFFF) {
-		print_gecko("Wiikey Fusion détecté avec SPI Flash ID: %08X\r\n",__wkfSpiReadId());
-		curDevice = WKF;
-	}
-	else {
-		deviceHandler_setStatEnabled(0);
-		// Try to init SD cards here and load config
-		deviceHandler_initial = &initial_SD0;
-		deviceHandler_init		=  deviceHandler_FAT_init;
-		deviceHandler_deinit	=  deviceHandler_FAT_deinit;
-		if(deviceHandler_init(deviceHandler_initial)) {
-			print_gecko("SD GEcko détecté dans le Slot A\r\n");
-			load_auto_dol();
-			curDevice = SD_CARD;
-		}
-		else {
-			deviceHandler_initial = &initial_SD1;
-			if(deviceHandler_init(deviceHandler_initial)) {
-				print_gecko("SD GEcko detecte dans le Slot B\r\n");
-				load_auto_dol();
-				curDevice = SD_CARD;
-			}
-		}
-		deviceHandler_setStatEnabled(1);
-		// If there's still no device, try memory card
-		if(curDevice < 0) {
-			deviceHandler_initial = &initial_CARDA;
-			deviceHandler_init		=  deviceHandler_CARD_init;
-			deviceHandler_deinit	=  deviceHandler_CARD_deinit;
-			if(deviceHandler_init(deviceHandler_initial)) {
-				print_gecko("Memory Card détectée dans le Slot A\r\n");
-				curDevice = MEMCARD;
-			}
-			else {
-				deviceHandler_initial = &initial_CARDB;
-				if(deviceHandler_init(deviceHandler_initial)) {
-					print_gecko("Memory Card détectée dans le Slot B\r\n");
-					curDevice = MEMCARD;
-				}
-			}
-		}
-	}
-	
-	// If no device has been selected yet to browse ..
-	if(curDevice < 0) {
-		print_gecko("Aucun périphérique d'amorçage par défaut détecté, essai du DVD!\r\n");
-		// Do we have a DVD drive with a ready medium we can perhaps browse then?
-		u8 driveReallyExists[8];
-		drive_version(&driveReallyExists[0]);
-		if(*(u32*)&driveReallyExists[0]) {
-			dvd_read_id();
-			if(!dvd_get_error()) {
-				print_gecko("Le support DVD est disponible, il est utilisé comme périphérique par défaut\r\n");
-				curDevice = DVD_DISC;
-				
-				// If we have a GameCube (single image) bootable disc, show the banner screen here
-				dvdDiscTypeInt = gettype_disc();
-				if(dvdDiscTypeInt == GAMECUBE_DISC) {
-					select_device(1);
-					// Setup curFile and load it
-					memset(&curFile, 0, sizeof(file_handle));
-					strcpy(&curFile.name[0], "game.gcm");
-					curFile.size = DISC_SIZE;
-					curFile.fileAttrib = IS_FILE;
-					populate_meta(&curFile);
-					load_file();
-					curDevice = -1;
-					deviceHandler_initial = NULL;
-				}
-			}
-		}
-	}
-	// Default device detected, use it
-	if(curDevice >= 0) {
-		needsDeviceChange = 0;
-		select_device(1); // to setup deviceHandler_ ptrs
-		load_config();
-	}
-	// Scan here since some devices would already be initialised (faster)
-	populateDeviceAvailability();
+    //debugging stuff
+    if(swissSettings.debugUSB) {
+        if(usb_isgeckoalive(1)) {
+            usb_flush(1);
+        }
+        print_gecko(gettext("Arena Size: %iKb\r\n"),(SYS_GetArena1Hi()-SYS_GetArena1Lo())/1024);
+        print_gecko(gettext("DVD Drive Present? %s\r\n"),swissSettings.hasDVDDrive?gettext("Yes"):gettext("No"));
+        print_gecko(gettext("GIT Commit: %s\r\n"), GITREVISION);
+        print_gecko(gettext("GIT Revision: %s\r\n"), GITVERSION);
+    }
+    
+    curDevice = -1;
+    // Are we working with a Wiikey Fusion?
+    if(__wkfSpiReadId() != 0 && __wkfSpiReadId() != 0xFFFFFFFF) {
+        print_gecko(gettext("Detected Wiikey Fusion with SPI Flash ID: %08X\r\n"),__wkfSpiReadId());
+        curDevice = WKF;
+    }
+    else {
+        deviceHandler_setStatEnabled(0);
+        // Try to init SD cards here and load config
+        deviceHandler_initial = &initial_SD0;
+        deviceHandler_init      =  deviceHandler_FAT_init;
+        deviceHandler_deinit    =  deviceHandler_FAT_deinit;
+        if(deviceHandler_init(deviceHandler_initial)) {
+            print_gecko(gettext("Detected SDGecko in Slot A\r\n"));
+            load_auto_dol();
+            curDevice = SD_CARD;
+        }
+        else {
+            deviceHandler_initial = &initial_SD1;
+            if(deviceHandler_init(deviceHandler_initial)) {
+                print_gecko(gettext("Detected SDGecko in Slot B\r\n"));
+                load_auto_dol();
+                curDevice = SD_CARD;
+            }
+        }
+        deviceHandler_setStatEnabled(1);
+        // If there's still no device, try memory card
+        if(curDevice < 0) {
+            deviceHandler_initial = &initial_CARDA;
+            deviceHandler_init      =  deviceHandler_CARD_init;
+            deviceHandler_deinit    =  deviceHandler_CARD_deinit;
+            if(deviceHandler_init(deviceHandler_initial)) {
+                print_gecko(gettext("Detected Memory Card in Slot A\r\n"));
+                curDevice = MEMCARD;
+            }
+            else {
+                deviceHandler_initial = &initial_CARDB;
+                if(deviceHandler_init(deviceHandler_initial)) {
+                    print_gecko(gettext("Detected Memory Card in Slot B\r\n"));
+                    curDevice = MEMCARD;
+                }
+            }
+        }
+    }
+    
+    // If no device has been selected yet to browse ..
+    if(curDevice < 0) {
+        print_gecko(gettext("No default boot device detected, trying DVD!\r\n"));
+        // Do we have a DVD drive with a ready medium we can perhaps browse then?
+        u8 driveReallyExists[8];
+        drive_version(&driveReallyExists[0]);
+        if(*(u32*)&driveReallyExists[0]) {
+            dvd_read_id();
+            if(!dvd_get_error()) {
+                print_gecko(gettext("DVD Medium is up, using it as default device\r\n"));
+                curDevice = DVD_DISC;
+                
+                // If we have a GameCube (single image) bootable disc, show the banner screen here
+                dvdDiscTypeInt = gettype_disc();
+                if(dvdDiscTypeInt == GAMECUBE_DISC) {
+                    select_device(1);
+                    // Setup curFile and load it
+                    memset(&curFile, 0, sizeof(file_handle));
+                    strcpy(&curFile.name[0], "game.gcm");
+                    curFile.size = DISC_SIZE;
+                    curFile.fileAttrib = IS_FILE;
+                    populate_meta(&curFile);
+                    load_file();
+                    curDevice = -1;
+                    deviceHandler_initial = NULL;
+                }
+            }
+        }
+    }
+    // Default device detected, use it
+    if(curDevice >= 0) {
+        needsDeviceChange = 0;
+        select_device(1); // to setup deviceHandler_ ptrs
+        load_config();
+    }
+    // Scan here since some devices would already be initialised (faster)
+    populateDeviceAvailability();
 
-	// Start up the BBA if it exists
-	init_network_thread();
-	init_httpd_thread();
-	
-	// DVD Motor off
-	if(swissSettings.stopMotor && swissSettings.hasDVDDrive) {
-		dvd_motor_off();
-	}
+    // Start up the BBA if it exists
+    init_network_thread();
+    init_httpd_thread();
+    
+    // DVD Motor off
+    if(swissSettings.stopMotor && swissSettings.hasDVDDrive) {
+        dvd_motor_off();
+    }
 
-	// Swiss video mode force
-	GXRModeObj *forcedMode = getModeFromSwissSetting(swissSettings.uiVMode);
-	
-	if((forcedMode != NULL) && (forcedMode != vmode)) {
-		initialise_video(forcedMode);
-		vmode = forcedMode;
-	}
+    // Swiss video mode force
+    GXRModeObj *forcedMode = getModeFromSwissSetting(swissSettings.uiVMode);
+    
+    if((forcedMode != NULL) && (forcedMode != vmode)) {
+        initialise_video(forcedMode);
+        vmode = forcedMode;
+    }
 
-	while(1) {
-		main_loop();
-	}
-	return 0;
+    while(1) {
+        main_loop();
+    }
+    return 0;
 }
 
 GXRModeObj *getModeFromSwissSetting(int uiVMode) {
-	switch(uiVMode) {
-		case 1:
-			switch(swissSettings.sramVideo) {
-				case 2:  return &TVMpal480IntDf;
-				case 1:  return &TVEurgb60Hz480IntDf;
-				default: return &TVNtsc480IntDf;
-			}
-		case 2:
-			if(VIDEO_HaveComponentCable()) {
-				switch(swissSettings.sramVideo) {
-					case 2:  return &TVMpal480Prog;
-					case 1:  return &TVEurgb60Hz480Prog;
-					default: return &TVNtsc480Prog;
-				}
-			} else {
-				switch(swissSettings.sramVideo) {
-					case 2:  return &TVMpal480IntDf;
-					case 1:  return &TVEurgb60Hz480IntDf;
-					default: return &TVNtsc480IntDf;
-				}
-			}
-		case 3:
-			return &TVPal576IntDfScale;
-		case 4:
-			if(VIDEO_HaveComponentCable()) {
-				return &TVPal576ProgScale;
-			} else {
-				return &TVPal576IntDfScale;
-			}
-	}
-	return vmode;
+    switch(uiVMode) {
+        case 1:
+            switch(swissSettings.sramVideo) {
+                case 2:  return &TVMpal480IntDf;
+                case 1:  return &TVEurgb60Hz480IntDf;
+                default: return &TVNtsc480IntDf;
+            }
+        case 2:
+            if(VIDEO_HaveComponentCable()) {
+                switch(swissSettings.sramVideo) {
+                    case 2:  return &TVMpal480Prog;
+                    case 1:  return &TVEurgb60Hz480Prog;
+                    default: return &TVNtsc480Prog;
+                }
+            } else {
+                switch(swissSettings.sramVideo) {
+                    case 2:  return &TVMpal480IntDf;
+                    case 1:  return &TVEurgb60Hz480IntDf;
+                    default: return &TVNtsc480IntDf;
+                }
+            }
+        case 3:
+            return &TVPal576IntDfScale;
+        case 4:
+            if(VIDEO_HaveComponentCable()) {
+                return &TVPal576ProgScale;
+            } else {
+                return &TVPal576IntDfScale;
+            }
+    }
+    return vmode;
 }
 
 // Checks if devices are available, prints name of device being detected for slow init devices
 void populateDeviceAvailability() {
-	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Détection des périphériques  ...\nEvitable en pressant B au lancement");
-	DrawFrameFinish();
-	if(PAD_ButtonsHeld(0) & PAD_BUTTON_B) {
-		deviceHandler_setAllDevicesAvailable();
-		return;
-	}
-	const DISC_INTERFACE* carda = &__io_gcsda;
-	const DISC_INTERFACE* cardb = &__io_gcsdb;
-	// DVD
-	deviceHandler_setDeviceAvailable(DVD_DISC, swissSettings.hasDVDDrive);
-	// SD Gecko
-	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Détection des périphériques  [SD] ...\nEvitable en pressant B au lancement");
-	DrawFrameFinish();
-	deviceHandler_setDeviceAvailable(SD_CARD, carda->isInserted() || cardb->isInserted());
-	// IDE-EXI
-	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Détection des périphériques  [IDE-EXI] ...\nEvitable en pressant B au lancement");
-	DrawFrameFinish();
-	deviceHandler_setDeviceAvailable(IDEEXI, ide_exi_inserted(0) || ide_exi_inserted(1));
-	// Qoob
-	deviceHandler_setDeviceAvailable(QOOB_FLASH, 0);	// Hidden by default, add auto detect at some point
-	// WODE
-	deviceHandler_setDeviceAvailable(WODE, 0);	// Hidden by default, add auto detect at some point
-	// Memory card
-	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Détection des périphériques  [Memory Card] ...\nEvitable en pressant B au lancement");
-	DrawFrameFinish();
-	deviceHandler_setDeviceAvailable(MEMCARD, (initialize_card(0)==CARD_ERROR_READY) || (initialize_card(1)==CARD_ERROR_READY));
-	// WKF/WASP
-	DrawFrameStart();
-	DrawMessageBox(D_INFO, "Détection des périphériques  [WKF/WASP] ...\nEvitable en pressant B au lancement");
-	DrawFrameFinish();
-	deviceHandler_setDeviceAvailable(WKF, swissSettings.hasDVDDrive && (__wkfSpiReadId() != 0 && __wkfSpiReadId() != 0xFFFFFFFF));
-	// USB Gecko
-	deviceHandler_setDeviceAvailable(USBGECKO, usb_isgeckoalive(1));
-	// BBA/SAMBA
-	deviceHandler_setDeviceAvailable(SAMBA, exi_bba_exists());
-	// System, always there
-	deviceHandler_setDeviceAvailable(SYS, 1);
+    DrawFrameStart();
+    DrawMessageBox(D_INFO, gettext("Detecting devices ...\nThis can be skipped by holding B next time"));
+    DrawFrameFinish();
+    if(PAD_ButtonsHeld(0) & PAD_BUTTON_B) {
+        deviceHandler_setAllDevicesAvailable();
+        return;
+    }
+    const DISC_INTERFACE* carda = &__io_gcsda;
+    const DISC_INTERFACE* cardb = &__io_gcsdb;
+    // DVD
+    deviceHandler_setDeviceAvailable(DVD_DISC, swissSettings.hasDVDDrive);
+    // SD Gecko
+    DrawFrameStart();
+    DrawMessageBox(D_INFO, gettext("Detecting devices [SD] ...\nThis can be skipped by holding B next time"));
+    DrawFrameFinish();
+    deviceHandler_setDeviceAvailable(SD_CARD, carda->isInserted() || cardb->isInserted());
+    // IDE-EXI
+    DrawFrameStart();
+    DrawMessageBox(D_INFO, gettext("Detecting devices [IDE-EXI] ...\nThis can be skipped by holding B next time"));
+    DrawFrameFinish();
+    deviceHandler_setDeviceAvailable(IDEEXI, ide_exi_inserted(0) || ide_exi_inserted(1));
+    // Qoob
+    deviceHandler_setDeviceAvailable(QOOB_FLASH, 0);    // Hidden by default, add auto detect at some point
+    // WODE
+    deviceHandler_setDeviceAvailable(WODE, 0);  // Hidden by default, add auto detect at some point
+    // Memory card
+    DrawFrameStart();
+    DrawMessageBox(D_INFO, gettext("Detecting devices [Memory Card] ...\nThis can be skipped by holding B next time"));
+    DrawFrameFinish();
+    deviceHandler_setDeviceAvailable(MEMCARD, (initialize_card(0)==CARD_ERROR_READY) || (initialize_card(1)==CARD_ERROR_READY));
+    // WKF/WASP
+    DrawFrameStart();
+    DrawMessageBox(D_INFO, gettext("Detecting devices [WKF/WASP] ...\nThis can be skipped by holding B next time"));
+    DrawFrameFinish();
+    deviceHandler_setDeviceAvailable(WKF, swissSettings.hasDVDDrive && (__wkfSpiReadId() != 0 && __wkfSpiReadId() != 0xFFFFFFFF));
+    // USB Gecko
+    deviceHandler_setDeviceAvailable(USBGECKO, usb_isgeckoalive(1));
+    // BBA/SAMBA
+    deviceHandler_setDeviceAvailable(SAMBA, exi_bba_exists());
+    // System, always there
+    deviceHandler_setDeviceAvailable(SYS, 1);
 }
+

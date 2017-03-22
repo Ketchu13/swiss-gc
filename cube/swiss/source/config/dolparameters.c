@@ -11,6 +11,9 @@
 #include <malloc.h>
 #include "swiss.h"
 #include "dolparameters.h"
+#include "gettext.h"
+
+
 
 static Parameters _parameters;
 
@@ -32,14 +35,14 @@ Values={1, 1}, {2, 2}, {3, 3}
 
 void printParams(Parameters *params) {
 	int i = 0, j = 0;
-	print_gecko("%i paramètres existants\r\n", params->num_params);
+	print_gecko(gettext("There are %i parameters\r\n"), params->num_params);
 	for(i = 0; i < params->num_params; i++) {
 		Parameter *param = &params->parameters[i];
 		ParameterValue *arg = &param->arg;
-		print_gecko("Argument: (%s) [%s]\r\n", arg->value, arg->name);
-		print_gecko("Ce paramètre a %i valeurs\r\n", param->num_values);
+		print_gecko(gettext("Argument: (%s) [%s]\r\n"), arg->value, arg->name);
+		print_gecko(gettext("This parameter has %i values\r\n"), param->num_values);
 		for(j = 0; j < params->parameters[i].num_values; j++) {
-			print_gecko("Valeur: (%s) [%s]\r\n", params->parameters[i].values[j].value, params->parameters[i].values[j].name);
+			print_gecko(gettext("Value: (%s) [%s]\r\n"), params->parameters[i].values[j].value, params->parameters[i].values[j].name);
 		}
 	}
 }
@@ -127,7 +130,7 @@ Parameters* getParameters() {
 void populateArgv(int *argc, char *argv[], char *filename) {
 	int i = 0;
 	Parameters* params = getParameters();
-	print_gecko("%i paramètres existants\r\n", params->num_params);
+	print_gecko(gettext("There are %i parameters\r\n"), params->num_params);
 	for(i = 0; i < params->num_params; i++) {
 		Parameter *param = &params->parameters[i];
 		if(param->enable) {
@@ -145,11 +148,13 @@ void populateArgv(int *argc, char *argv[], char *filename) {
 			if(!arg->value[0])
 				sprintf(argvEntry, "%s", val->value);
 			else
-				sprintf(argvEntry, "%s=%s", arg->value, val->value);
-			print_gecko("Argv entry: [%s]\r\n", argvEntry);
+				sprintf(argvEntry,"%s=%s", arg->value, val->value);
+			print_gecko(gettext("Argv entry: [%s]\r\n"), argvEntry);
 			argv[*argc] = argvEntry;
 			*argc+=1;
 		}
 	}
-	print_gecko("Nombre d'Arg.: %i\r\n", *argc);
+	print_gecko(gettext("Arg count: %i\r\n"), *argc);
 }
+
+

@@ -71,3 +71,4 @@ void init_network_thread() {
 		LWP_CreateThread (&initnetthread, init_network, NULL, NULL, 0, 40);
 	}
 }
+

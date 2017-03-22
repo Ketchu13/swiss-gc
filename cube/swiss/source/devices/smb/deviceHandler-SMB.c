@@ -31,11 +31,14 @@
 #include <fat.h>
 #include "swiss.h"
 #include "main.h"
+#include "gettext.h"
 #include "gui/FrameBufferMagic.h"
 #include "gui/IPLFontWrite.h"
 #include "deviceHandler.h"
 #include "deviceHandler-FAT.h"
 #include "deviceHandler-SMB.h"
+
+
 
 /* SMB Globals */
 extern int net_initialized;
@@ -65,7 +68,7 @@ void readDeviceInfoSMB() {
 	struct statvfs buf;
 	memset(&buf, 0, sizeof(statvfs));
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Reading filesystem info for smb:/");
+	DrawMessageBox(D_INFO,gettext("Reading filesystem info for smb:/"));
 	DrawFrameFinish();
 	
 	int res = statvfs("smb:/", &buf);
@@ -96,7 +99,7 @@ int deviceHandler_SMB_readDir(file_handle* ffile, file_handle** dir, unsigned in
 	// We need at least a share name and ip addr in the settings filled out
 	if(!strlen(&swissSettings.smbShare[0]) || !strlen(&swissSettings.smbServerIp[0])) {
 		DrawFrameStart();
-		sprintf(txtbuffer, "Check Samba Configuration");
+		sprintf(txtbuffer, gettext("Check Samba Configuration"));
 		DrawMessageBox(D_FAIL,txtbuffer);
 		DrawFrameFinish();
 		wait_press_A();
@@ -105,7 +108,7 @@ int deviceHandler_SMB_readDir(file_handle* ffile, file_handle** dir, unsigned in
 
 	if(!net_initialized) {       //Init if we have to
 		DrawFrameStart();
-		sprintf(txtbuffer, "Network has not been initialised");
+		sprintf(txtbuffer, gettext("Network has not been initialised"));
 		DrawMessageBox(D_FAIL,txtbuffer);
 		DrawFrameFinish();
 		wait_press_A();
@@ -116,7 +119,7 @@ int deviceHandler_SMB_readDir(file_handle* ffile, file_handle** dir, unsigned in
 		init_samba();
 		if(!smb_initialized) {
 			DrawFrameStart();
-			sprintf(txtbuffer, "Error initialising Samba");
+			sprintf(txtbuffer, gettext("Error initialising Samba"));
 			DrawMessageBox(D_FAIL,txtbuffer);
 			DrawFrameFinish();
 			wait_press_A();
@@ -203,7 +206,7 @@ int deviceHandler_SMB_deinit(file_handle* file) {
 	}
 	if(file) {
 		char *mountPath = getDeviceMountPath(file->name);
-		print_gecko("Unmounting [%s]\r\n", mountPath);
+		print_gecko(gettext("Unmounting [%s]\r\n"), mountPath);
 		fatUnmount(mountPath);
 		free(mountPath);
 	}

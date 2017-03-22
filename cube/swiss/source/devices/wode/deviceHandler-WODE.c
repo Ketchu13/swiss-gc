@@ -15,6 +15,9 @@
 #include "main.h"
 #include "dvd.h"
 #include "WodeInterface.h"
+#include "gettext.h"
+
+
 
 char wode_regions[]  = {'J','E','P','U','K'};
 char disktype[] = {'?', 'G','W','W','I' };
@@ -37,7 +40,7 @@ device_info initial_WODE_info = {
 int startupWode() {
 	if(OpenWode() == 0) {
 		DrawFrameStart();
-		DrawMessageBox(D_FAIL,"Aucun Wode trouvé! Appuyer sur A");
+		DrawMessageBox(D_FAIL,gettext("No Wode found! Press A"));
 		DrawFrameFinish();
 		wait_press_A();
 		return -1;
@@ -53,7 +56,7 @@ int deviceHandler_WODE_readDir(file_handle* ffile, file_handle** dir, unsigned i
 
 	if(!wodeInited) return 0;
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Lecture WODE en cours");
+	DrawMessageBox(D_INFO,gettext("Reading WODE"));
 	DrawFrameFinish();
 	
 	//we don't care about partitions, just files!
@@ -78,7 +81,7 @@ int deviceHandler_WODE_readDir(file_handle* ffile, file_handle** dir, unsigned i
 				(*dir)[num_entries].fileAttrib = IS_FILE;
 				memcpy(&(*dir)[num_entries].other, &tmp, sizeof(ISOInfo_t));
 				num_entries++;
-				print_gecko("Adding WODE entry: %s part:%08X iso:%08X region:%08X\r\n",
+				print_gecko(gettext("Adding WODE entry: %s part:%08X iso:%08X region:%08X\r\n"),
 					&tmp.name[0], tmp.iso_partition, tmp.iso_number, tmp.iso_region);
 			}
 		}
@@ -127,3 +130,4 @@ char wodeRegionToChar(int region) {
 int deviceHandler_WODE_closeFile(file_handle* file) {
     return 0;
 }
+

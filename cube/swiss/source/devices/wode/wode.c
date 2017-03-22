@@ -1,5 +1,3 @@
-
-
 #include <gccore.h>        // Wrapper to include common libogc headers
 #include <ogcsys.h>
 #include <stdio.h>

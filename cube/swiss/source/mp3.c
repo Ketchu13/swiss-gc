@@ -5,8 +5,11 @@
 #include "main.h"
 #include "swiss.h"
 #include "mp3.h"
+#include "gettext.h"
+
 #include "gui/FrameBufferMagic.h"
 #include "gui/IPLFontWrite.h"
+
 
 static int useShuffle = 0;
 static int volume = 255;
@@ -21,7 +24,7 @@ s32 mp3Reader(void *cbdata, void *dst, s32 size) {
 void updatescreen_mp3(file_handle *file, int state, int numFiles, int curMP3) {
 	DrawFrameStart();
 	DrawEmptyBox(10,100, vmode->fbWidth-10, 400, COLOR_BLACK);
-	sprintf(txtbuffer, "%s -  Volume (%i%%)", (state == PLAYER_PAUSE ? "Paused":"Playing"), (int)(((float)volume/(float)255)*100));
+	sprintf(txtbuffer, gettext("%s -  Volume (%i%%)"), (state == PLAYER_PAUSE ? gettext("Paused"):gettext("Playing")), (int)(((float)volume/(float)255)*100));
 	WriteFontStyled(640/2, 130, txtbuffer, 1.0f, true, defaultColor);
 	sprintf(txtbuffer, "(%i/%i) %s",curMP3, numFiles,getRelativeName(file->name));
 	float scale = GetTextScaleToFitInWidth(txtbuffer, vmode->fbWidth-10-10);
@@ -31,9 +34,9 @@ void updatescreen_mp3(file_handle *file, int state, int numFiles, int curMP3) {
 	float percentPlayed = (float)(((float)file->offset / (float)file->size) * 30);
 	txtbuffer[(int)percentPlayed] = '*';
 	WriteFontStyled(640/2, 210, txtbuffer, 1.0f, true, defaultColor);
-	WriteFontStyled(640/2, 300, "(<-) Rewind (->) Forward (X) Vol+ (Y) Vol-", 1.0f, true, defaultColor);
-	WriteFontStyled(640/2, 330, "(B) Stop (L) Prev (R) Next (Start) Pause", 1.0f, true, defaultColor);
-	sprintf(txtbuffer, "Shuffle is currently %s press (Z) to toggle", (useShuffle ? "on":"off"));
+	WriteFontStyled(640/2, 300, gettext("(<-) Rewind (->) Forward (X) Vol+ (Y) Vol-"), 1.0f, true, defaultColor);
+	WriteFontStyled(640/2, 330, gettext("(B) Stop (L) Prev (R) Next (Start) Pause"), 1.0f, true, defaultColor);
+	sprintf(txtbuffer, gettext("Shuffle is currently %s press (Z) to toggle"), (useShuffle ? gettext("on"):gettext("off")));
 	WriteFontStyled(640/2, 360, txtbuffer, 1.0f, true, defaultColor);
 	DrawFrameFinish();	
 	VIDEO_WaitVSync();

@@ -20,6 +20,7 @@
 #include "ata.h"
 #include "frag.h"
 #include "patcher.h"
+#include "gettext.h"
 
 const DISC_INTERFACE* carda = &__io_gcsda;
 const DISC_INTERFACE* cardb = &__io_gcsdb;
@@ -85,7 +86,7 @@ void readDeviceInfo(file_handle* file) {
 		
 		memset(&buf, 0, sizeof(statvfs));
 		DrawFrameStart();
-		sprintf(txtbuffer, "Lecture informations du système de fichiers pour %s%s:/",isSDCard ? "sd":"ide", slot ? "b":"a");
+		sprintf(txtbuffer, gettext("Reading filesystem info for %s%s:/"),isSDCard ? "sd":"ide", slot ? "b":"a");
 		DrawMessageBox(D_INFO,txtbuffer);
 		DrawFrameFinish();
 		
@@ -193,24 +194,24 @@ int deviceHandler_FAT_writeFile(file_handle* file, void* buffer, unsigned int le
 }
 
 void print_frag_list(int hasDisc2) {
-	print_gecko("== Liste des fragments ==\r\n");
+	print_gecko(gettext("== Fragments List ==\r\n"));
 	u32 *fragList = (u32*)VAR_FRAG_LIST;
 	int maxFrags = hasDisc2 ? ((VAR_FRAG_SIZE/12)/2) : (VAR_FRAG_SIZE/12), i = 0;
 	for(i = 0; i < maxFrags; i++) {
 		if(!fragList[(i*3)+1]) break;
 		
-		print_gecko("Disque 1 Frag %i: ofs dans le fichier: [0x%08X] long. [0x%08X] LBA sur disque [0x%08X]\r\n", 
+		print_gecko(gettext("Disc 1 Frag %i: ofs in file: [0x%08X] len [0x%08X] LBA on disk [0x%08X]\r\n"), 
 					i, fragList[(i*3)+0], fragList[(i*3)+1], fragList[(i*3)+2]);
 	}
 	if(hasDisc2) {
 		for(i = 0; i < maxFrags; i++) {
 			if(!fragList[(i*3)+1+(maxFrags*3)]) break;
 		
-			print_gecko("Disque 2 Frag %i: ofs dans le fichier: [0x%08X] long. [0x%08X] LBA sur disque [0x%08X]\r\n", 
+			print_gecko(gettext("Disc 2 Frag %i: ofs in file: [0x%08X] len [0x%08X] LBA on disk [0x%08X]\r\n"), 
 					i, fragList[(i*3)+0+(maxFrags*3)], fragList[(i*3)+1+(maxFrags*3)], fragList[(i*3)+2+(maxFrags*3)]);
 		}
 	}
-	print_gecko("== Fin de la liste ==\r\n");
+	print_gecko(gettext("== Fragments End ==\r\n"));
 }
 
 int deviceHandler_FAT_setupFile(file_handle* file, file_handle* file2) {
@@ -246,7 +247,7 @@ int deviceHandler_FAT_setupFile(file_handle* file, file_handle* file2) {
 		deviceHandler_seekFile(&patchFile,fstat.st_size-16,DEVICE_HANDLER_SEEK_SET);
 		if((deviceHandler_readFile(&patchFile, &patchInfo, 16) == 16) && (patchInfo[2] == SWISS_MAGIC)) {
 			get_frag_list(&patchFile.name[0]);
-			print_gecko("%i fichier(s) patch trouvé(s) ofs 0x%08X len 0x%08X base 0x%08X (%i pièces)\r\n", 
+			print_gecko(gettext("Found patch file %i ofs 0x%08X len 0x%08X base 0x%08X (%i pieces)\r\n"), 
 							i, patchInfo[0], patchInfo[1], frag_list->frag[0].sector,frag_list->num );
 			fclose(patchFile.fp);
 			int j = 0;
@@ -274,7 +275,7 @@ int deviceHandler_FAT_setupFile(file_handle* file, file_handle* file2) {
 	
 	// If disc 1 is fragmented, make a note of the fragments and their sizes
 	get_frag_list(file->name);
-	print_gecko("Found disc 1 [%s] %i fragments\r\n",file->name, frag_list->num);//td
+	print_gecko(gettext("Found disc 1 [%s] %i fragments\r\n"),file->name, frag_list->num);
 	if(frag_list->num < maxFrags) {
 		for(i = 0; i < frag_list->num; i++) {
 			fragList[patches*3] = frag_list->frag[i].offset*512;
@@ -295,7 +296,7 @@ int deviceHandler_FAT_setupFile(file_handle* file, file_handle* file2) {
 			return 0;
 		}
 		get_frag_list(file2->name);
-		print_gecko("Found disc 2 [%s] %i fragments\r\n",file2->name, frag_list->num);//td
+		print_gecko(gettext("Found disc 2 [%s] %i fragments\r\n"),file2->name, frag_list->num);
 		patches = 0;	// This breaks 2 disc games with patches (do any exist?)
 		if(frag_list->num < maxFrags) {
 			for(i = 0; i < frag_list->num; i++) {
@@ -354,7 +355,7 @@ int deviceHandler_FAT_init(file_handle* file) {
 	int slot = isSDCard ? (file->name[2] == 'b') : (file->name[3] == 'b');
 	int ret = 0;
 	DrawFrameStart();
-	sprintf(txtbuffer, "Lecture %s dans le slot %s en cours", isSDCard ? "SD":"IDE-EXI", !slot ? "A":"B");
+	sprintf(txtbuffer, gettext("Reading %s in slot %s"), isSDCard ? "SD":"IDE-EXI", !slot ? "A":"B");
 	DrawMessageBox(D_INFO,txtbuffer);
 	DrawFrameFinish();
 	
@@ -407,7 +408,7 @@ int deviceHandler_FAT_deinit(file_handle* file) {
 	}
 	if(file) {
 		char *mountPath = getDeviceMountPath(file->name);
-		print_gecko("Démontage [%s]\r\n", mountPath);
+		print_gecko(gettext("Unmounting [%s]\r\n"), mountPath);
 		fatUnmount(mountPath);
 		free(mountPath);
 	}
@@ -430,3 +431,4 @@ int deviceHandler_FAT_closeFile(file_handle* file) {
 	}
 	return ret;
 }
+

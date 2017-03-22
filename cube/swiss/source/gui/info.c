@@ -1,4 +1,3 @@
-//Todo add replace éèêç
 //translation by ketchu13 4.07-18.3.17 windows-1252
 #include <stdio.h>
 #include <stdint.h>
@@ -17,25 +16,27 @@
 #include "exi.h"
 #include "bba.h"
 #include "wkf.h"
+#include "gettext.h"
+
 
 char topStr[256];
 
 char *getSramLang(u8 lang) {
 	switch(lang) {
 		case 5:
-			return "Hollandais";
+			return gettext("Dutch");
 		case 4:
-			return "Italien";
+			return gettext("Italian");
 		case 3:
-			return "Espagnol";
+			return gettext("Spanish");
 		case 2:
-			return "Français";
+			return gettext("French");
 		case 1:
-			return "Allemand";
+			return gettext("German");
 		case 0:
-			return "Anglais";
+			return gettext("English");
 	}
-	return "Inconnu";
+	return gettext("Unknown");
 }
 
 void info_draw_page(int page_num) {
@@ -46,7 +47,7 @@ void info_draw_page(int page_num) {
 	
 	// System Info (Page 1/3)
 	if(!page_num) {
-		WriteFontStyled(30, 65, "Info Système (1/3):",1.0f, false, redColor);
+		WriteFontStyled(30, 65, gettext("System Info (1/3):"),1.0f, false, redColor);
 		// Model
 		if(is_gamecube()) {
 			if(*(u32*)&driveVersion[0] == 0x20010831) {
@@ -72,7 +73,7 @@ void info_draw_page(int page_num) {
 		// IPL version string
 		if(is_gamecube()) {
 			if(!IPLInfo[0x55]) {
-				sprintf(topStr, "NTSC Révision 1.0");//accent
+				sprintf(topStr, "NTSC Revision 1.0");
 			}
 			else {
 				sprintf(topStr, "%s", &IPLInfo[0x55]);
@@ -84,88 +85,88 @@ void info_draw_page(int page_num) {
 		WriteFontStyled(640/2, 140, topStr, 1.0f, true, defaultColor);
 		if(swissSettings.hasDVDDrive) {
 			if((!__wkfSpiReadId() || (__wkfSpiReadId() == 0xFFFFFFFF))) {
-				sprintf(topStr, "Lecteur DVD %02X %02X%02X/%02X (%02X)",driveVersion[2],driveVersion[0],driveVersion[1],driveVersion[3],driveVersion[4]);
+				sprintf(topStr, gettext("DVD Drive %02X %02X%02X/%02X (%02X)"),driveVersion[2],driveVersion[0],driveVersion[1],driveVersion[3],driveVersion[4]);
 			} else {
-				sprintf(topStr, "WKF num. de serie: %s",wkfGetSerial());
+				sprintf(topStr, gettext("WKF Serial %s"),wkfGetSerial());
 			}
 		}
 		else
-			sprintf(topStr, "Aucun Lecteur DVD présent");
+			sprintf(topStr, gettext("No DVD Drive present"));
 		WriteFontStyled(640/2, 170, topStr, 1.0f, true, defaultColor);
 		sprintf(topStr, "%s",videoStr);
 		WriteFontStyled(640/2, 200, topStr, 1.0f, true, defaultColor);
-		sprintf(topStr,"%s / %s",getSramLang(sram->lang), sram->flags&4 ? "Stereo":"Mono");
+		sprintf(topStr,"%s / %s",getSramLang(sram->lang), sram->flags&4 ? gettext("Stereo"):gettext("Mono"));
 		WriteFontStyled(640/2, 230, topStr, 1.0f, true, defaultColor);
 		sprintf(topStr,"PVR %08lX ECID %08lX:%08lX:%08lX",mfpvr(),mfspr(0x39C),mfspr(0x39D),mfspr(0x39E));
 		WriteFontStyled(640/2, 260, topStr, 0.75f, true, defaultColor);
 	}
 	else if(page_num == 1) {
-		WriteFont(30, 65, "Info Périphérique (2/3):");
-		sprintf(topStr,"BBA: %s", bba_exists ? "Instalé":"Absent");
+		WriteFont(30, 65, gettext("Device Info (2/3):"));
+		sprintf(topStr,"BBA: %s", bba_exists ? gettext("Installed"):gettext("Not Present"));
 		WriteFont(30, 110, topStr);
 		if(exi_bba_exists()) {
-			sprintf(topStr,"IP: %s", net_initialized ? bba_ip:"Non Disponible");
+			sprintf(topStr,"IP: %s", net_initialized ? bba_ip:gettext("Not Available"));
 		}
 		else {
-			sprintf(topStr,"IP: Non Disponible");
+			sprintf(topStr,gettext("IP: Not Available"));
 		}
 		WriteFont(270, 110, topStr);
-		sprintf(topStr,"Câble Composite connecté: %s",VIDEO_HaveComponentCable()?"Oui":"Non");
+		sprintf(topStr,gettext("Component Cable Plugged in: %s"),VIDEO_HaveComponentCable()?gettext("Yes"):gettext("No"));
 		WriteFont(30, 140, topStr);
 		if(usb_isgeckoalive(0)||usb_isgeckoalive(1)) {
-			sprintf(topStr,"USB Gecko: Instalé dans %s",usb_isgeckoalive(0)?"Slot A":"Slot B");
+			sprintf(topStr,gettext("USB Gecko: Installed in %s"),usb_isgeckoalive(0)?gettext("Slot A"):gettext("Slot B"));
 		}
 		else {
-			sprintf(topStr,"USB Gecko: Absent");
+			sprintf(topStr,gettext("USB Gecko: Not Present"));
 		}
 		WriteFont(30, 170, topStr);
 		if (!deviceHandler_initial) {
-			sprintf(topStr, "Périph. actuel: aucun périphérique sélectionné");//accent
+			sprintf(topStr, gettext("Current Device: No Device Selected"));
 		}
 		else if(deviceHandler_initial == &initial_SD0 || deviceHandler_initial == &initial_SD1) {
 			int slot = (deviceHandler_initial->name[2] == 'b');
-			sprintf(topStr, "Périph. actuel: %s Carte %s @ %s",!SDHCCard?"SDHC":"SD",!slot?"Slot A":"Slot B",!swissSettings.exiSpeed?"16Mhz":"32Mhz");
+			sprintf(topStr, gettext("Current Device: %s Card in %s @ %s"),!SDHCCard?"SDHC":"SD",!slot?"Slot A":"Slot B",!swissSettings.exiSpeed?gettext("16Mhz"):gettext("32Mhz"));
 		}
 		else if(deviceHandler_initial == &initial_DVD) {
-			sprintf(topStr, "Périph. actuel: %s Disque DVD ",dvdDiscTypeStr);
+			sprintf(topStr, gettext("Current Device: %s DVD Disc"),dvdDiscTypeStr);
 		}
 		else if(deviceHandler_initial == &initial_IDE0 || deviceHandler_initial == &initial_IDE1) {
 			int slot = (deviceHandler_initial->name[3] == 'b');
-			sprintf(topStr, "Périph. actuel: %ld Go HDD %s",ataDriveInfo.sizeInGigaBytes,!slot?"Slot A":"Slot B");
+			sprintf(topStr, gettext("Current Device: %ld GB HDD in %s"),ataDriveInfo.sizeInGigaBytes,!slot?gettext("Slot A"):gettext("Slot B"));
 		}
 		else if(deviceHandler_initial == &initial_Qoob) {
-			sprintf(topStr, "Périph. actuel: Qoob IPL Replacement");
+			sprintf(topStr, gettext("Current Device: Qoob IPL Replacement"));
 		}
 		else if(deviceHandler_initial == &initial_WODE) {
-			sprintf(topStr, "Périph. actuel: Wode Jukebox");
+			sprintf(topStr, gettext("Current Device: Wode Jukebox"));
 		}
 		else if(deviceHandler_initial == &initial_CARDA || deviceHandler_initial == &initial_CARDB) {
-			sprintf(topStr, "Périph. actuel: Memory Card %s",!deviceHandler_initial->fileBase?"Slot A":"Slot B");
+			sprintf(topStr, gettext("Current Device: Memory Card in %s"),!deviceHandler_initial->fileBase?gettext("Slot A"):gettext("Slot B"));
 		}
 		else if(deviceHandler_initial == &initial_USBGecko) {
-			sprintf(topStr, "Périph. actuel: USB Gecko");
+			sprintf(topStr, gettext("Current Device: USB Gecko"));
 		}
 		else if(deviceHandler_initial == &initial_WKF) {
-			sprintf(topStr, "Périph. actuel: Wiikey Fusion");
+			sprintf(topStr, gettext("Current Device: Wiikey Fusion"));
 		}
 		else if(deviceHandler_initial == &initial_SYS) {
-			sprintf(topStr, "Périph. actuel: Système");
+			sprintf(topStr, gettext("Current Device: System"));
 		}
 		WriteFont(30, 200, topStr);
 	}
-	else if(page_num == 2) { //todo rewrite
-		WriteFont(30, 65, "Credits (3/3):");
-		WriteFontStyled(640/2, 115, "Swiss ver 0.4 France", 1.0f, true, defaultColor);
-		WriteFontStyled(640/2, 140, "by emu_kidid 2017 (Trad Fr by Ketchu13)", 0.75f, true, defaultColor);
+	else if(page_num == 2) {
+		WriteFont(30, 65, gettext("Credits (3/3):"));
+		WriteFontStyled(640/2, 115, "Swiss ver 0.4 i18n", 1.0f, true, defaultColor);
+		WriteFontStyled(640/2, 140, gettext("by emu_kidid 2017 (i18n by Ketchu13)"), 0.75f, true, defaultColor);
 		sprintf(txtbuffer, "Commit %s Revision %s", GITREVISION, GITVERSION);
 		WriteFontStyled(640/2, 165, txtbuffer, 0.75f, true, defaultColor);
-		WriteFontStyled(640/2, 210, "Thanks to", 0.75f, true, defaultColor);
-		WriteFontStyled(640/2, 228, "Testers & libOGC/dkPPC authors", 0.75f, true, defaultColor);
-		WriteFontStyled(640/2, 246, "sepp256 for GX / FIX94 for Audio Streaming", 0.75f, true, defaultColor);
-		WriteFontStyled(640/2, 264, "Extrems for video patches / Megalomaniac for builds", 0.75f, true, defaultColor);
+		WriteFontStyled(640/2, 210, gettext("Thanks to"), 0.75f, true, defaultColor);
+		WriteFontStyled(640/2, 228, gettext("Testers & libOGC/dkPPC authors"), 0.75f, true, defaultColor);
+		WriteFontStyled(640/2, 246, gettext("sepp256 for GX / FIX94 for Audio Streaming"), 0.75f, true, defaultColor);
+		WriteFontStyled(640/2, 264, gettext("Extrems for video patches / Megalomaniac for builds"), 0.75f, true, defaultColor);
 		WriteFontStyled(640/2, 300, "Web/Support http://www.gc-forever.com/", 0.75f, true, defaultColor);
 		WriteFontStyled(640/2, 318, "Source at https://github.com/emukidid/swiss-gc", 0.75f, true, defaultColor);
-		WriteFontStyled(640/2, 354, "Visit us at #gc-forever on EFNet", 0.75f, true, defaultColor);
+		WriteFontStyled(640/2, 354, gettext("Visit us at #gc-forever on EFNet"), 0.75f, true, defaultColor);
 	}
 	if(page_num != 2) {
 		WriteFont(520, 390, "->");
@@ -173,7 +174,7 @@ void info_draw_page(int page_num) {
 	if(page_num != 0) {
 		WriteFont(100, 390, "<-");
 	}
-	WriteFontStyled(640/2, 400, "Appuyez sur A pour quitter", 1.0f, true, defaultColor);
+	WriteFontStyled(640/2, 400, gettext("Press A to return"), 1.0f, true, defaultColor);
 	DrawFrameFinish();
 }
 
@@ -206,3 +207,4 @@ void show_info() {
 	}
 	while (PAD_ButtonsHeld(0) & PAD_BUTTON_A){ VIDEO_WaitVSync (); }
 }
+

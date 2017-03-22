@@ -17,6 +17,7 @@
 #include "swiss.h"
 #include "main.h"
 #include "exi.h"
+#include "gettext.h"
 
 char iplBlock[256] __attribute__((aligned(32)));
 
@@ -100,7 +101,7 @@ int deviceHandler_Qoob_setupFile(file_handle* file, file_handle* file2) {
 int deviceHandler_Qoob_init(file_handle* file){
 		
 	DrawFrameStart();
-	DrawMessageBox(D_INFO,"Lecture de Qoob en cours..");
+	DrawMessageBox(D_INFO,gettext("Reading Qoob"));
 	DrawFrameFinish();
 	ipl_set_config(0);
 	return 1;

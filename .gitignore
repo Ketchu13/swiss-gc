@@ -27,3 +27,8 @@ pc/usbgecko/core.*
 /cube/swiss/.idea/workspace.xml
 /cube/swiss/CMakeLists.txt
 /cube/swiss/movetoSD.bat
+/cube/swiss/source/lang/Untitled-1
+/cube/swiss/source/lang/Untitled-2
+/cube/swiss/source/lang/fr_FR.mo
+/cube/swiss/source/lang/fr_FR.po
+/cube/swiss/source/lang/monsite.pot

@@ -4,7 +4,7 @@
  * Based loosely on code written by Dampro
  * Re-written by emu_kidid
 **/
-
+//**i18n by ketchu13
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/
@@ -20,6 +20,9 @@
 #include "swiss.h"
 #include "gui/FrameBufferMagic.h"
 #include "gui/IPLFontWrite.h"
+#include "gettext.h"
+
+
 
 #define IDE_EXI_V1 0
 #define IDE_EXI_V2 1
@@ -184,11 +187,11 @@ int _ideExiVersion(int chn) {
 	u32 cid = exi_get_id(chn,EXI_DEVICE_0);
 	print_gecko("IDE-EXI ID: %08X\r\n",cid);
 	if(cid==EXI_IDEEXIV2_ID) {
-		print_gecko("IDE-EXI v2 détecté\r\n");
+		print_gecko(gettext("IDE-EXI v2 detected\r\n"));
 		return IDE_EXI_V2;
 	}
 	else {
-		print_gecko("Unknown - assume IDE-EXI v1\r\n");
+		print_gecko(gettext("Unknown - assume IDE-EXI v1\r\n"));
 		return IDE_EXI_V1;
 	}
 }
@@ -213,11 +216,11 @@ u32 _ataDriveIdentify(int chn) {
 		tmp = ataReadStatusReg(chn);
 		usleep(100000);	//sleep for 0.1 seconds
 		retries--;
-		print_gecko("(%08X) Waiting for BSY to clear..\r\n", tmp);
+		print_gecko(gettext("(%08X) Waiting for BSY to clear..\r\n"), tmp);
 	}
 	while((tmp & ATA_SR_BSY) && retries);
 	if(!retries) {
-		print_gecko("Exceeded retries..\r\n");
+		print_gecko(gettext("Exceeded retries..\r\n"));
 		return -1;
 	}
     
@@ -230,11 +233,11 @@ u32 _ataDriveIdentify(int chn) {
 		tmp = ataReadStatusReg(chn); 
 		usleep(100000);	//sleep for 0.1 seconds
 		retries--;
-		print_gecko("(%08X) Waiting for DRQ to toggle..\r\n", tmp);
+		print_gecko(gettext("(%08X) Waiting for DRQ to toggle..\r\n"), tmp);
 	}
 	while((!(tmp & ATA_SR_DRQ)) && retries);
 	if(!retries) {
-		print_gecko("(%08X) Drive did not respond in time, failing IDE-EXI init..\r\n", tmp);
+		print_gecko(gettext("(%08X) Drive did not respond in time, failing IDE-EXI init..\r\n"), tmp);
 		return -1;
 	}
 	usleep(2000);
@@ -285,15 +288,15 @@ u32 _ataDriveIdentify(int chn) {
 		i--;
 	}
 	
-	print_gecko("%d Go HDD Connecté\r\n", ataDriveInfo.sizeInGigaBytes);
-	print_gecko("LBA 48-Bit Mode %s\r\n", ataDriveInfo.lba48Support ? "Supporté" : "Non Supporté");
+	print_gecko(gettext("%d GB HDD Connected\r\n"), ataDriveInfo.sizeInGigaBytes);
+	print_gecko(gettext("LBA 48-Bit Mode %s\r\n"), ataDriveInfo.lba48Support ? gettext("Supported") : gettext("Not Supported"));
 	if(!ataDriveInfo.lba48Support) {
-		print_gecko("Cylinders: %i\r\n",ataDriveInfo.cylinders);
-		print_gecko("Heads Per Cylinder: %i\r\n",ataDriveInfo.heads);
-		print_gecko("Sectors Per Track: %i\r\n",ataDriveInfo.sectors);
+		print_gecko(gettext("Cylinders: %i\r\n"),ataDriveInfo.cylinders);
+		print_gecko(gettext("Heads Per Cylinder: %i\r\n"),ataDriveInfo.heads);
+		print_gecko(gettext("Sectors Per Track: %i\r\n"),ataDriveInfo.sectors);
 	}
-	print_gecko("Model: %s\r\n",ataDriveInfo.model);
-	print_gecko("Serial: %s\r\n",ataDriveInfo.serial); 
+	print_gecko(gettext("Model: %s\r\n"),ataDriveInfo.model);
+	print_gecko(gettext("Serial: %s\r\n"),ataDriveInfo.serial); 
 	//print_hdd_sector(&buffer);
 	
 	//int unlockStatus = ataUnlock(chn, 1, "password\0", ATA_CMD_UNLOCK);
@@ -319,11 +322,11 @@ int ataUnlock(int chn, int useMaster, char *password, int command)
 		tmp = ataReadStatusReg(chn);
 		usleep(100000);	//sleep for 0.1 seconds
 		retries--;
-		print_gecko("UNLOCK (%08X) Waiting for BSY to clear..\r\n", tmp);
+		print_gecko(gettext("UNLOCK (%08X) Waiting for BSY to clear..\r\n"), tmp);
 	}
 	while((tmp & ATA_SR_BSY) && retries);
 	if(!retries) {
-		print_gecko("UNLOCK Exceeded retries..\r\n");
+		print_gecko(gettext("UNLOCK Exceeded retries..\r\n"));
 		return -1;
 	}
     
@@ -336,11 +339,11 @@ int ataUnlock(int chn, int useMaster, char *password, int command)
 		tmp = ataReadStatusReg(chn); 
 		usleep(100000);	//sleep for 0.1 seconds
 		retries--;
-		print_gecko("UNLOCK (%08X) Waiting for DRQ to toggle..\r\n", tmp);
+		print_gecko(gettext("UNLOCK (%08X) Waiting for DRQ to toggle..\r\n"), tmp);
 	}
 	while((!(tmp & ATA_SR_DRQ)) && retries);
 	if(!retries) {
-		print_gecko("UNLOCK (%08X) Drive did not respond in time, failing IDE-EXI init..\r\n", tmp);
+		print_gecko(gettext("UNLOCK (%08X) Drive did not respond in time, failing IDE-EXI init..\r\n"), tmp);
 		return -1;
 	}
 	usleep(2000);
@@ -364,7 +367,7 @@ int ataUnlock(int chn, int useMaster, char *password, int command)
 	
 	// If the error bit was set, fail.
 	if(temp & ATA_SR_ERR) {
-		print_gecko("Erreur: %02X\r\n", ataReadErrorReg(chn));
+		print_gecko(gettext("Error: %02X\r\n"), ataReadErrorReg(chn));
 		return 1;
 	}
 	
@@ -416,7 +419,7 @@ int _ataReadSector(int chn, u64 lba, u32 *Buffer)
 	
 	// If the error bit was set, fail.
 	if(temp & ATA_SR_ERR) {
-		print_gecko("Erreur: %02X", ataReadErrorReg(chn));
+		print_gecko(gettext("Error: %02X"), ataReadErrorReg(chn));
 		return 1;
 	}
 
@@ -479,7 +482,7 @@ int _ataWriteSectors(int chn, u64 lba, u16 numsectors, u32 *Buffer)
 	
 	// If the error bit was set, fail.
 	if(temp & ATA_SR_ERR) {
-		print_gecko("Erreur: %02X", ataReadErrorReg(chn));
+		print_gecko(gettext("Error: %02X"), ataReadErrorReg(chn));
 		return 1;
 	}
 	// Wait for drive to request data transfer
@@ -524,7 +527,7 @@ int ataReadSectors(int chn, u64 sector, unsigned int numSectors, unsigned char *
 	while(numSectors) {
 		//print_gecko("Reading, sec %08X, numSectors %i, dest %08X ..\r\n", (u32)(sector&0xFFFFFFFF),numSectors, (u32)dest);
 		if((ret=_ataReadSector(chn,sector,(u32*)dest))) {
-			print_gecko("(%08X) Lecture impossible!..\r\n", ret);
+			print_gecko(gettext("(%08X) Failed to read!..\r\n"), ret);
 			return -1;
 		}
 		//print_hdd_sector((u32*)dest);
@@ -543,7 +546,7 @@ int ataWriteSectors(int chn, u64 sector,unsigned int numSectors, unsigned char *
 	int sectorchunks = 1;
 	while(numSectors > sectorchunks) {
 		if((ret=_ataWriteSectors(chn,sector,sectorchunks,(u32*)src))) {
-			print_gecko("(%08X) Ecriture impossible!..\r\n", ret);
+			print_gecko(gettext("(%08X) Failed to write!..\r\n"), ret);
 			return -1;
 		}
 		src+=(sectorchunks*512);
@@ -657,3 +660,4 @@ const DISC_INTERFACE __io_atab = {
 	(FN_MEDIUM_CLEARSTATUS)&__atab_clearStatus,
 	(FN_MEDIUM_SHUTDOWN)&__atab_shutdown
 } ;
+

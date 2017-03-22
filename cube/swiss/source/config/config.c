@@ -1,4 +1,3 @@
-//translation by ketchu13 13.50-19.3.17 windows-1252
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -12,6 +11,9 @@
 #include "main.h"
 #include "config.h"
 #include "settings.h"
+#include "gettext.h"
+
+
 
 // This is an example Swiss settings entry (sits at the top of swiss.ini)
 //!!Swiss Settings Start!!
@@ -97,39 +99,39 @@ int config_update_file() {
 	FILE *fp = fopen( txtbuffer, "wb" );
 	if(fp) {
 		// Write out header every time
-		char *str = "# Swiss Configuration File!\r\n# Anything written in here will be lost!\r\n\r\n#!!Swiss Settings Start!!\r\n";
+		char *str = gettext("# Swiss Configuration File!\r\n# Anything written in here will be lost!\r\n\r\n#!!Swiss Settings Start!!\r\n");
 		fwrite(str, 1, strlen(str), fp);
 		
 		// Write out Swiss settings
-		sprintf(txtbuffer, "SD/IDE Speed=%s\r\n",(configSwissSettings.exiSpeed ? "32MHz":"16MHz"));
+		sprintf(txtbuffer, gettext("SD/IDE Speed=%s\r\n"),(configSwissSettings.exiSpeed ? gettext("32MHz"):gettext("16MHz")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Swiss Video Mode=%s\r\n",(uiVModeStr[configSwissSettings.uiVMode]));
+		sprintf(txtbuffer, gettext("Swiss Video Mode=%s\r\n"),(uiVModeStr[configSwissSettings.uiVMode]));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Enable Debug=%s\r\n",(configSwissSettings.debugUSB ? "Oui":"Non"));
+		sprintf(txtbuffer, gettext("Enable Debug=%s\r\n"),(configSwissSettings.debugUSB ? gettext("Yes"):gettext("No")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Force No DVD Drive Mode=%s\r\n",(configSwissSettings.hasDVDDrive ? "Non":"Oui"));
+		sprintf(txtbuffer, gettext("Force No DVD Drive Mode=%s\r\n"),(configSwissSettings.hasDVDDrive ? gettext("No"):gettext("Yes")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Hide Unknown file types=%s\r\n",(configSwissSettings.hideUnknownFileTypes ? "Oui":"Non"));
+		sprintf(txtbuffer, gettext("Hide Unknown file types=%s\r\n"),(configSwissSettings.hideUnknownFileTypes ? gettext("Yes"):gettext("No")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Stop DVD Motor on startup=%s\r\n",(configSwissSettings.stopMotor ? "Oui":"Non"));
+		sprintf(txtbuffer, gettext("Stop DVD Motor on startup=%s\r\n"),(configSwissSettings.stopMotor ? gettext("Yes"):gettext("No")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Enable WiiRD debug=%s\r\n",(configSwissSettings.wiirdDebug ? "Oui":"Non"));
+		sprintf(txtbuffer, gettext("Enable WiiRD debug=%s\r\n"),(configSwissSettings.wiirdDebug ? gettext("Yes"):gettext("No")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "Enable File Management=%s\r\n",(configSwissSettings.enableFileManagement ? "Oui":"Non"));
+		sprintf(txtbuffer, gettext("Enable File Management=%s\r\n"),(configSwissSettings.enableFileManagement ? gettext("Yes"):gettext("No")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "SMBUserName=%s\r\n",configSwissSettings.smbUser);
+		sprintf(txtbuffer, gettext("SMBUserName=%s\r\n"),configSwissSettings.smbUser);
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "SMBPassword=%s\r\n",configSwissSettings.smbPassword);
+		sprintf(txtbuffer, gettext("SMBPassword=%s\r\n"),configSwissSettings.smbPassword);
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "SMBShareName=%s\r\n",configSwissSettings.smbShare);
+		sprintf(txtbuffer, gettext("SMBShareName=%s\r\n"),configSwissSettings.smbShare);
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "SMBHostIP=%s\r\n",configSwissSettings.smbServerIp);
+		sprintf(txtbuffer, gettext("SMBHostIP=%s\r\n"),configSwissSettings.smbServerIp);
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "AutoCheats=%s\r\n", (configSwissSettings.autoCheats ? "Oui":"Non"));
+		sprintf(txtbuffer, gettext("AutoCheats=%s\r\n"), (configSwissSettings.autoCheats ? gettext("Yes"):gettext("No")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "IGRType=%s\r\n", (igrTypeStr[swissSettings.igrType]));
+		sprintf(txtbuffer, gettext("IGRType=%s\r\n"), (igrTypeStr[swissSettings.igrType]));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-		sprintf(txtbuffer, "#!!Swiss Settings End!!\r\n\r\n");
+		sprintf(txtbuffer, gettext("#!!Swiss Settings End!!\r\n\r\n"));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		
 		
@@ -142,33 +144,33 @@ int config_update_file() {
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
 			strnscpy(buffer, &configEntries[i].game_name[0], 32);
-			sprintf(txtbuffer, "Name=%s\r\n",buffer);
+			sprintf(txtbuffer, gettext("Name=%s\r\n"),buffer);
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
 			strnscpy(buffer, &configEntries[i].comment[0], 128);
-			sprintf(txtbuffer, "Comment=%s\r\n",buffer);
+			sprintf(txtbuffer, gettext("Comment=%s\r\n"),buffer);
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
 			strnscpy(buffer, &configEntries[i].status[0], 32);
-			sprintf(txtbuffer, "Status=%s\r\n",buffer);
+			sprintf(txtbuffer, gettext("Status=%s\r\n"),buffer);
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
-			sprintf(txtbuffer, "Force Video Mode=%s\r\n",gameVModeStr[configEntries[i].gameVMode]);
+			sprintf(txtbuffer, gettext("Force Video Mode=%s\r\n"),gameVModeStr[configEntries[i].gameVMode]);
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
-			sprintf(txtbuffer, "Soft Progressive=%s\r\n",softProgressiveStr[configEntries[i].softProgressive]);
+			sprintf(txtbuffer, gettext("Soft Progressive=%s\r\n"),softProgressiveStr[configEntries[i].softProgressive]);
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
-			sprintf(txtbuffer, "Mute Audio Streaming=%s\r\n",(configEntries[i].muteAudioStreaming ? "Oui":"Non"));
-			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
-					
-			sprintf(txtbuffer, "Force Widescreen=%s\r\n",forceWidescreenStr[configEntries[i].forceWidescreen]);
+			sprintf(txtbuffer, gettext("Mute Audio Streaming=%s\r\n"),(configEntries[i].muteAudioStreaming ? gettext("Yes"):gettext("No")));
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 			
-			sprintf(txtbuffer, "Force Anisotropy=%s\r\n",(configEntries[i].forceAnisotropy ? "Oui":"Non"));
+			sprintf(txtbuffer, gettext("Force Widescreen=%s\r\n"),forceWidescreenStr[configEntries[i].forceWidescreen]);
+			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
+			
+			sprintf(txtbuffer, gettext("Force Anisotropy=%s\r\n"),(configEntries[i].forceAnisotropy ? gettext("Yes"):gettext("No")));
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 	
-			sprintf(txtbuffer, "Force Encoding=%s\r\n\r\n\r\n",forceEncodingStr[configEntries[i].forceEncoding]);
+			sprintf(txtbuffer, gettext("Force Encoding=%s\r\n\r\n\r\n"),forceEncodingStr[configEntries[i].forceEncoding]);
 			fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		}
 		fclose(fp);
@@ -202,8 +204,8 @@ void config_parse(char *configData) {
 					strncpy(&configEntries[configEntriesCount].game_id[0], value, 4);
 					first = 0;
 					// Fill this entry with defaults incase some values are missing..
-					strcpy(&configEntries[configEntriesCount].comment[0],"No Comment");
-					strcpy(&configEntries[configEntriesCount].status[0],"Unknown");
+					strcpy(&configEntries[configEntriesCount].comment[0],gettext("No Comment"));
+					strcpy(&configEntries[configEntriesCount].status[0],gettext("Unknown"));
 					configEntries[configEntriesCount].gameVMode = 0;
 					configEntries[configEntriesCount].softProgressive = 0;
 					configEntries[configEntriesCount].muteAudioStreaming = 1;
@@ -211,16 +213,16 @@ void config_parse(char *configData) {
 					configEntries[configEntriesCount].forceAnisotropy = 0;
 					configEntries[configEntriesCount].forceEncoding = 0;
 				}
-				else if(!strcmp("Name", name)) {
+				else if(!strcmp(gettext("Name"), name)) {
 					strncpy(&configEntries[configEntriesCount].game_name[0], value, 64);
 				}
-				else if(!strcmp("Comment", name)) {
+				else if(!strcmp(gettext("Comment"), name)) {
 					strncpy(&configEntries[configEntriesCount].comment[0], value, 128);
 				}
-				else if(!strcmp("Status", name)) {
+				else if(!strcmp(gettext("Status"), name)) {
 					strncpy(&configEntries[configEntriesCount].status[0], value, 32);
 				}
-				else if(!strcmp("Force Video Mode", name)) {
+				else if(!strcmp(gettext("Force Video Mode"), name)) {
 					if(!strcmp(gameVModeStr[0], value))
 						configEntries[configEntriesCount].gameVMode = 0;
 					else if(!strcmp(gameVModeStr[1], value))
@@ -244,7 +246,7 @@ void config_parse(char *configData) {
 					else if(!strcmp(gameVModeStr[10], value))
 						configEntries[configEntriesCount].gameVMode = 10;
 				}
-				else if(!strcmp("Soft Progressive", name)) {
+				else if(!strcmp(gettext("Soft Progressive"), name)) {
 					if(!strcmp(softProgressiveStr[0], value))
 						configEntries[configEntriesCount].softProgressive = 0;
 					else if(!strcmp(softProgressiveStr[1], value))
@@ -252,10 +254,10 @@ void config_parse(char *configData) {
 					else if(!strcmp(softProgressiveStr[2], value))
 						configEntries[configEntriesCount].softProgressive = 2;
 				}
-				else if(!strcmp("Mute Audio Streaming", name)) {
-					configEntries[configEntriesCount].muteAudioStreaming = !strcmp("Oui", value) ? 1:0;
+				else if(!strcmp(gettext("Mute Audio Streaming"), name)) {
+					configEntries[configEntriesCount].muteAudioStreaming = !strcmp(gettext("Yes"), value) ? 1:0;
 				}
-				else if(!strcmp("Force Widescreen", name)) {
+				else if(!strcmp(gettext("Force Widescreen"), name)) {
 					if(!strcmp(forceWidescreenStr[0], value))
 						configEntries[configEntriesCount].forceWidescreen = 0;
 					else if(!strcmp(forceWidescreenStr[1], value))
@@ -263,10 +265,10 @@ void config_parse(char *configData) {
 					else if(!strcmp(forceWidescreenStr[2], value))
 						configEntries[configEntriesCount].forceWidescreen = 2;
 				}
-				else if(!strcmp("Force Anisotropy", name)) {
-					configEntries[configEntriesCount].forceAnisotropy = !strcmp("Oui", value) ? 1:0;
+				else if(!strcmp(gettext("Force Anisotropy"), name)) {
+					configEntries[configEntriesCount].forceAnisotropy = !strcmp(gettext("Yes"), value) ? 1:0;
 				}
-				else if(!strcmp("Force Encoding", name)) {
+				else if(!strcmp(gettext("Force Encoding"), name)) {
 					if(!strcmp(forceEncodingStr[0], value))
 						configEntries[configEntriesCount].forceEncoding = 0;
 					else if(!strcmp(forceEncodingStr[1], value))
@@ -276,28 +278,28 @@ void config_parse(char *configData) {
 				}
 				
 				// Swiss settings
-				else if(!strcmp("SD/IDE Speed", name)) {
-					configSwissSettings.exiSpeed = !strcmp("32MHz", value) ? 1:0;
+				else if(!strcmp(gettext("SD/IDE Speed"), name)) {
+					configSwissSettings.exiSpeed = !strcmp(gettext("32MHz"), value) ? 1:0;
 				}
-				else if(!strcmp("Enable Debug", name)) {
-					configSwissSettings.debugUSB = !strcmp("Oui", value) ? 1:0;
+				else if(!strcmp(gettext("Enable Debug"), name)) {
+					configSwissSettings.debugUSB = !strcmp(gettext("Yes"), value) ? 1:0;
 				}
-				else if(!strcmp("Force No DVD Drive Mode", name)) {
-					configSwissSettings.hasDVDDrive = !strcmp("Non", value) ? 1:0;
+				else if(!strcmp(gettext("Force No DVD Drive Mode"), name)) {
+					configSwissSettings.hasDVDDrive = !strcmp(gettext("No"), value) ? 1:0;
 				}
-				else if(!strcmp("Hide Unknown file types", name)) {
-					configSwissSettings.hideUnknownFileTypes = !strcmp("Oui", value) ? 1:0;
+				else if(!strcmp(gettext("Hide Unknown file types"), name)) {
+					configSwissSettings.hideUnknownFileTypes = !strcmp(gettext("Yes"), value) ? 1:0;
 				}
-				else if(!strcmp("Stop DVD Motor on startup", name)) {
-					configSwissSettings.stopMotor = !strcmp("Oui", value) ? 1:0;
+				else if(!strcmp(gettext("Stop DVD Motor on startup"), name)) {
+					configSwissSettings.stopMotor = !strcmp(gettext("Yes"), value) ? 1:0;
 				}
-				else if(!strcmp("Enable WiiRD debug", name)) {
-					configSwissSettings.wiirdDebug = !strcmp("Oui", value) ? 1:0;
+				else if(!strcmp(gettext("Enable WiiRD debug"), name)) {
+					configSwissSettings.wiirdDebug = !strcmp(gettext("Yes"), value) ? 1:0;
 				}
-				else if(!strcmp("Enable File Management", name)) {
-					configSwissSettings.enableFileManagement = !strcmp("Oui", value) ? 1:0;
+				else if(!strcmp(gettext("Enable File Management"), name)) {
+					configSwissSettings.enableFileManagement = !strcmp(gettext("Yes"), value) ? 1:0;
 				}
-				else if(!strcmp("Swiss Video Mode", name)) {
+				else if(!strcmp(gettext("Swiss Video Mode"), name)) {
 					if(!strcmp(uiVModeStr[0], value))
 						configSwissSettings.uiVMode = 0;
 					else if(!strcmp(uiVModeStr[1], value))
@@ -309,22 +311,22 @@ void config_parse(char *configData) {
 					else if(!strcmp(uiVModeStr[4], value))
 						configSwissSettings.uiVMode = 4;
 				}
-				else if(!strcmp("SMBUserName", name)) {
+				else if(!strcmp(gettext("SMBUserName"), name)) {
 					strncpy(configSwissSettings.smbUser, value, 20);
 				}
-				else if(!strcmp("SMBPassword", name)) {
+				else if(!strcmp(gettext("SMBPassword"), name)) {
 					strncpy(configSwissSettings.smbPassword, value, 16);
 				}
-				else if(!strcmp("SMBShareName", name)) {
+				else if(!strcmp(gettext("SMBShareName"), name)) {
 					strncpy(configSwissSettings.smbShare, value, 80);
 				}
-				else if(!strcmp("SMBHostIP", name)) {
+				else if(!strcmp(gettext("SMBHostIP"), name)) {
 					strncpy(configSwissSettings.smbServerIp, value, 80);
 				}
-				else if(!strcmp("AutoCheats", name)) {
-					configSwissSettings.autoCheats = !strcmp("Oui", value) ? 1:0;
+				else if(!strcmp(gettext("AutoCheats"), name)) {
+					configSwissSettings.autoCheats = !strcmp(gettext("Yes"), value) ? 1:0;
 				}
-				else if(!strcmp("IGRType", name)) {
+				else if(!strcmp(gettext("IGRType"), name)) {
 					if(!strcmp(igrTypeStr[0], value))
 						configSwissSettings.igrType = 0;
 					else if(!strcmp(igrTypeStr[1], value))
@@ -343,7 +345,7 @@ void config_parse(char *configData) {
 	if(configEntriesCount > 0 || !first)
 		configEntriesCount++;
 	
-	 print_gecko("%i entrées trouvées dans le fichier de configuration\r\n",configEntriesCount);
+	 print_gecko(gettext("Found %i entries in the config file\r\n"),configEntriesCount);
 }
 
 void config_find(ConfigEntry *entry) {
@@ -358,8 +360,8 @@ void config_find(ConfigEntry *entry) {
 		}
 	}
 	// Didn't find it, setup defaults and add this entry
-	strcpy(entry->comment,"No Comment");
-	strcpy(entry->status,"Unknown");
+	strcpy(entry->comment,gettext("No Comment"));
+	strcpy(entry->status,gettext("Unknown"));
 	entry->gameVMode = 0;
 	entry->softProgressive = 0;
 	entry->muteAudioStreaming = 0;
@@ -396,3 +398,4 @@ void config_copy_swiss_settings(SwissSettings *settings) {
 SwissSettings *config_get_swiss_settings() {
 	return &configSwissSettings;
 }
+

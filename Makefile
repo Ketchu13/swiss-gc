@@ -68,7 +68,6 @@ build:
 	@$(DOLXZ) $(DIST)/DOL/$(SVN_REVISION).dol $(DIST)/DOL/$(SVN_REVISION)-compressed.dol -cube
 	@cp $(DIST)/DOL/$(SVN_REVISION)-compressed.dol $(DIST)/ActionReplay/swiss-xz.dol
 	@cp $(DIST)/DOL/$(SVN_REVISION)-compressed.dol $(DIST)/ISO/DOL/$(SVN_REVISION)-compressed.dol
-	# make ISOs and WKF firmware
 	# NTSC
 	@$(MKISOFS) -R -J -G $(BUILDTOOLS)/iso/eltorito-u.hdr -no-emul-boot -b $(SVN_REVISION)-compressed.dol -o $(DIST)/ISO/$(SVN_REVISION)"(ntsc-u)".iso $(DIST)/ISO/DOL/
 	## NTSC-J
@@ -91,11 +90,14 @@ recovery-iso:
 	# merge bootloader and swiss
 	@dd if=$(DIST)/WiikeyFusion/RecoveryISO/pal.iso of=$(DIST)/WiikeyFusion/RecoveryISO/$(SVN_REVISION)"_Recovery".iso bs=1 seek=65536
 	@rm -rf $(DIST)/WiikeyFusion/RecoveryISO/pal.iso
-
+	# Skip to make ISOs and WKF firmware
+	
 #------------------------------------------------------------------
 
-package:   # create distribution package
+package:
+    # create distribution package
 	@mkdir $(SVN_REVISION)
+	#Move DOL
 	@mv $(DIST)/DOL $(SVN_REVISION)
 	@mv $(DIST)/GCI $(SVN_REVISION)
 	@mv $(DIST)/ISO $(SVN_REVISION)
@@ -133,6 +135,7 @@ build-gci: # make GCI for memory cards
 
 
 build-geckoserver:
+	# Build geckoserver
 	@cd $(GECKOSERVER) && make
 	@mkdir $(DIST)/USBGeckoRemoteServer
 	@mv $(GECKOSERVER)/swissserver* $(DIST)/USBGeckoRemoteServer/

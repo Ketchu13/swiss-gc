@@ -1,5 +1,6 @@
 /* DOL Patching code by emu_kidid */
-//translation by ketchu13 13.50-19.3.17 windows-1252
+
+
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/
@@ -18,6 +19,8 @@
 #include "elf.h"
 #include "ata.h"
 #include "cheats.h"
+#include "gettext.h"
+
 
 static u32 top_addr = VAR_PATCHES_BASE;
 
@@ -59,7 +62,7 @@ int install_code()
 	// Pokemon XD / Colosseum tiny stub for memset testing
 	if(!strncmp((char*)0x80000000, "GXX", 3) || !strncmp((char*)0x80000000, "GC6", 3)) 
 	{
-		print_gecko("Patch:[Pokemon memset] appliqué\r\n");
+		print_gecko(gettext("Patch:[Pokemon memset] applied\r\n"));
 		// patch in test < 0x3000 function at an empty spot in RAM
 		*(u32*)0x80000088 = 0x3D008000;
 		*(u32*)0x8000008C = 0x61083000;
@@ -73,32 +76,32 @@ int install_code()
   	if(deviceHandler_initial == &initial_IDE0 || deviceHandler_initial == &initial_IDE1) {	
 		patch = (!_ideexi_version)?&ideexi_v1_bin[0]:&ideexi_v2_bin[0]; 
 		patchSize = (!_ideexi_version)?ideexi_v1_bin_size:ideexi_v2_bin_size;
-		print_gecko("Installation du patch pour IDE-EXI\r\n");
+		print_gecko(gettext("Installing Patch for IDE-EXI\r\n"));
   	}
 	// SD Gecko
 	else if(deviceHandler_initial == &initial_SD0 || deviceHandler_initial == &initial_SD1) {
 		patch = &sd_bin[0]; patchSize = sd_bin_size;
-		print_gecko("Installation du patch pour SD Gecko\r\n");
+		print_gecko(gettext("Installing Patch for SD Gecko\r\n"));
 	}
 	// DVD 2 disc code
 	else if(deviceHandler_initial == &initial_DVD) {
 		patch = &dvd_bin[0]; patchSize = dvd_bin_size;
 		location = (void*)LO_RESERVE_DVD;
-		print_gecko("Installation du patch pour DVD\r\n");
+		print_gecko(gettext("Installing Patch for DVD\r\n"));
 	}
 	// USB Gecko
 	else if(deviceHandler_initial == &initial_USBGecko) {
 		patch = &usbgecko_bin[0]; patchSize = usbgecko_bin_size;
-		print_gecko("Installation du patch pour USB Gecko\r\n");
+		print_gecko(gettext("Installing Patch for USB Gecko\r\n"));
 	}
 	// Wiikey Fusion
 	else if(deviceHandler_initial == &initial_WKF) {
 		location = (void*)LO_RESERVE_DVD;
 		patch = &wkf_bin[0]; patchSize = wkf_bin_size;
-		print_gecko("Installation du patch pour WKF\r\n");
+		print_gecko(gettext("Installing Patch for WKF\r\n"));
 	}
-	print_gecko("Espace pour patch restant: %i\r\n",top_addr - LO_RESERVE);
-	print_gecko("Espace utilisé par les patchs vars/vidéo: %i\r\n",VAR_PATCHES_BASE-top_addr);
+	print_gecko(gettext("Space for patch remaining: %i\r\n"),top_addr - LO_RESERVE);
+	print_gecko(gettext("Space taken by vars/video patches: %i\r\n"),VAR_PATCHES_BASE-top_addr);
 	if(top_addr - LO_RESERVE < patchSize)
 		return 0;
 	memcpy(location,patch,patchSize);
@@ -215,12 +218,12 @@ int find_pattern( u8 *data, u32 length, FuncPattern *functionPattern )
 	FP.Length = i;
 
 	if(!functionPattern) {
-		print_gecko("Longueur: 0x%02X\r\n", FP.Length );
-		print_gecko("Loads : %d\r\n", FP.Loads );
-		print_gecko("Stores: %d\r\n", FP.Stores );
-		print_gecko("FCalls: %d\r\n", FP.FCalls );
-		print_gecko("Branch : %d\r\n", FP.Branch);
-		print_gecko("Moves: %d\r\n", FP.Moves);
+		print_gecko(gettext("Length: 0x%02X\r\n"), FP.Length );
+		print_gecko(gettext("Loads : %d\r\n"), FP.Loads );
+		print_gecko(gettext("Stores: %d\r\n"), FP.Stores );
+		print_gecko(gettext("FCalls: %d\r\n"), FP.FCalls );
+		print_gecko(gettext("Branch : %d\r\n"), FP.Branch);
+		print_gecko(gettext("Moves: %d\r\n"), FP.Moves);
 		return 0;
 	}
 	
@@ -373,7 +376,7 @@ void PatchDVDInterface( u8 *dst, u32 Length, int dataType )
 		}
 	}
 
-	print_gecko("Patch:[DI] appliqué %u fois\r\n", DIPatched);
+	print_gecko(gettext("Patch:[DI] applied %u times\r\n"), DIPatched);
 }
 
 int PatchDetectLowMemUsage( u8 *dst, u32 Length, int dataType )
@@ -418,7 +421,7 @@ int PatchDetectLowMemUsage( u8 *dst, u32 Length, int dataType )
 			if( regs[src][REG_0x8000] && (((val & 0xFFFF) >= 0x1000) && ((val & 0xFFFF) < 0x3000))) // case with load in our range(rZ)
 			{
 				u32 properAddress = Calc_ProperAddress(dst, dataType, (u32)(dst + i)-(u32)(dst));
-				print_gecko("LowMem:[%08X] %08X: mem r%u, %04X\r\n", properAddress, *(u32*)(dst + i), src, *(u32*)(dst + i) &0xFFFF);
+				print_gecko(gettext("LowMem:[%08X] %08X: mem r%u, %04X\r\n"), properAddress, *(u32*)(dst + i), src, *(u32*)(dst + i) &0xFFFF);
 				*(u32*)(dst + i) = 0x60000000;	// We could redirect ...
 				regs[src][REG_INUSE]=1;	// was used in a 0x80001000->0x80003000 load/store
 				LowMemPatched++;
@@ -431,7 +434,7 @@ int PatchDetectLowMemUsage( u8 *dst, u32 Length, int dataType )
 		}
 	}
 
-	print_gecko("Patch:[LowMem] appliqué %u fois\r\n", LowMemPatched);
+	print_gecko(gettext("Patch:[LowMem] applied %u times\r\n"), LowMemPatched);
 	return LowMemPatched;
 }
 
@@ -450,19 +453,19 @@ u32 Patch_DVDLowLevelReadForWKF(void *addr, u32 length, int dataType) {
 		if(compare_pattern(&fp, &ReadCommon)) {
 			// Overwrite the DI start to go to our code that will manipulate offsets for frag'd files.
 			u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr + i + 0x84)-(u32)(addr));
-			print_gecko("Trouvé:[%s] @ %08X for WKF\r\n", ReadCommon.Name, properAddress - 0x84);
+			print_gecko(gettext("Found:[%s] @ %08X for WKF\r\n"), ReadCommon.Name, properAddress - 0x84);
 			*(u32*)(addr + i + 0x84) = branchAndLink(ADJUST_LBA_OFFSET, properAddress);
 			return 1;
 		}
 		if(compare_pattern(&fp, &ReadDebug)) {	// As above, for debug read now.
 			u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr + i + 0x88)-(u32)(addr));
-			print_gecko("Trouvé:[%s] @ %08X for WKF\r\n", ReadDebug.Name, properAddress - 0x88);
+			print_gecko(gettext("Found:[%s] @ %08X for WKF\r\n"), ReadDebug.Name, properAddress - 0x88);
 			*(u32*)(addr + i + 0x88) = branchAndLink(ADJUST_LBA_OFFSET, properAddress);
 			return 1;
 		}
 		if(compare_pattern(&fp, &ReadUncommon)) {	// Same, for the less common read type.
 			u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr + i + 0x7C)-(u32)(addr));
-			print_gecko("Trouvé:[%s] @ %08X for WKF\r\n", ReadUncommon.Name, properAddress - 0x7C);
+			print_gecko(gettext("Found:[%s] @ %08X for WKF\r\n"), ReadUncommon.Name, properAddress - 0x7C);
 			*(u32*)(addr + i + 0x7C) = branchAndLink(ADJUST_LBA_OFFSET, properAddress);
 			return 1;
 		}
@@ -492,19 +495,19 @@ u32 Patch_DVDLowLevelReadForDVD(void *addr, u32 length, int dataType) {
 		if(compare_pattern(&fp, &ReadCommon)) {
 			// Overwrite the DI start to go to our code that will manipulate offsets for frag'd files.
 			u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr + i + 0x84)-(u32)(addr));
-			print_gecko("Trouvé:[%s] @ %08X for DVD\r\n", ReadCommon.Name, properAddress - 0x84);
+			print_gecko(gettext("Found:[%s] @ %08X for DVD\r\n"), ReadCommon.Name, properAddress - 0x84);
 			*(u32*)(addr + i + 0x84) = branchAndLink(READ_REAL_OR_PATCHED, properAddress);
 			return 1;
 		}
 		if(compare_pattern(&fp, &ReadDebug)) {	// As above, for debug read now.
 			u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr + i + 0x88)-(u32)(addr));
-			print_gecko("Trouvé:[%s] @ %08X for DVD\r\n", ReadDebug.Name, properAddress - 0x88);
+			print_gecko(gettext("Found:[%s] @ %08X for DVD\r\n"), ReadDebug.Name, properAddress - 0x88);
 			*(u32*)(addr + i + 0x88) = branchAndLink(READ_REAL_OR_PATCHED, properAddress);
 			return 1;
 		}
 		if(compare_pattern(&fp, &ReadUncommon)) {	// Same, for the less common read type.
 			u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr + i + 0x7C)-(u32)(addr));
-			print_gecko("Trouvé:[%s] @ %08X for DVD\r\n", ReadUncommon.Name, properAddress - 0x7C);
+			print_gecko(gettext("Found:[%s] @ %08X for DVD\r\n"), ReadUncommon.Name, properAddress - 0x7C);
 			*(u32*)(addr + i + 0x7C) = branchAndLink(READ_REAL_OR_PATCHED, properAddress);
 			return 1;
 		}
@@ -524,7 +527,7 @@ u32 Patch_DVDLowLevelRead(void *addr, u32 length, int dataType) {
 			if( find_pattern( (u8*)(addr_start), length, &OSExceptionInitSig ) )
 			{
 				u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr_start + 472)-(u32)(addr));
-				print_gecko("Trouvé:[OSExceptionInit] @ %08X\r\n", properAddress);
+				print_gecko(gettext("Found:[OSExceptionInit] @ %08X\r\n"), properAddress);
 				*(u32*)(addr_start + 472) = branchAndLink(PATCHED_MEMCPY, properAddress);
 				patched |= 0x100;
 			}
@@ -532,7 +535,7 @@ u32 Patch_DVDLowLevelRead(void *addr, u32 length, int dataType) {
 			else if( find_pattern( (u8*)(addr_start), length, &OSExceptionInitSigDBG ) )
 			{
 				u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr_start + 512)-(u32)(addr));
-				print_gecko("Trouvé:[OSExceptionInitDBG] @ %08X\r\n", properAddress);
+				print_gecko(gettext("Found:[OSExceptionInitDBG] @ %08X\r\n"), properAddress);
 				*(u32*)(addr_start + 512) = branchAndLink(PATCHED_MEMCPY_DBG, properAddress);
 				patched |= 0x100;
 			}
@@ -541,7 +544,7 @@ u32 Patch_DVDLowLevelRead(void *addr, u32 length, int dataType) {
 			{	
 				if(strncmp((const char*)0x80000000, "PZL", 3)) {	// ZeldaCE uses a special case for MM
 					u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr_start+0xF8)-(u32)(addr));
-					print_gecko("Trouvé:[__DSPHandler] @ %08X\r\n", properAddress);
+					print_gecko(gettext("Found:[__DSPHandler] @ %08X\r\n"), properAddress);
 					*(u32*)(addr_start+0xF8) = branchAndLink(DSP_HANDLER_HOOK, properAddress);
 				}
 			}
@@ -555,7 +558,7 @@ u32 Patch_DVDLowLevelRead(void *addr, u32 length, int dataType) {
 				u32 iEnd = 4;
 				while(*(u32*)(addr_start + iEnd) != 0x4E800020) iEnd += 4;	// branch relative from the end
 				u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr_start + iEnd)-(u32)(addr));
-				print_gecko("Trouvé:[Read] @ %08X\r\n", properAddress-iEnd);
+				print_gecko(gettext("Found:[Read] @ %08X\r\n"), properAddress-iEnd);
 				*(u32*)(addr_start + iEnd) = branch(READ_TRIGGER_INTERRUPT, properAddress);
 				patched |= 0x10;
 			}
@@ -568,14 +571,14 @@ u32 Patch_DVDLowLevelRead(void *addr, u32 length, int dataType) {
 			u32 iEnd = 12;
 			while(*(u32*)(addr_start + iEnd) != 0x4E800020) iEnd += 4;	// branch relative from the end
 			u32 properAddress = Calc_ProperAddress(addr, dataType, (u32)(addr_start+iEnd)-(u32)(addr));
-			print_gecko("Trouvé:[__DVDInterruptHandler] end @ %08X\r\n", properAddress );
+			print_gecko(gettext("Found:[__DVDInterruptHandler] end @ %08X\r\n"), properAddress );
 			*(u32*)(addr_start+iEnd) = branch(STOP_DI_IRQ, properAddress);
 			patched |= 0x1;
 		}
 		addr_start += 4;
 	}
 	if(patched != READ_PATCHED_ALL) {
-		print_gecko("Impossible de trouver tous les correctifs requis\r\n");
+		print_gecko(gettext("Failed to find all required patches\r\n"));
 	}
 	// Replace all 0xCC0060xx references to VAR_AREA references
 	PatchDVDInterface(addr, length, dataType);
@@ -641,14 +644,14 @@ void Patch_VidTiming(void *addr, u32 length) {
 	while(addr_start<addr_end) {
 		if(memcmp(addr_start,video_timing_480i,sizeof(video_timing_480i))==0)
 		{
-			print_gecko("PAL entrelacé patché\n");
+			print_gecko(gettext("Patched PAL Interlaced timing\n"));
 			memcpy(addr_start, video_timing_576i, sizeof(video_timing_576i));
 			addr_start += sizeof(video_timing_576i);
 			continue;
 		}
 		if(memcmp(addr_start,video_timing_480p,sizeof(video_timing_480p))==0)
 		{
-			print_gecko("PAL Progressif patché\n");
+			print_gecko(gettext("Patched PAL Progressive timing\n"));
 			memcpy(addr_start, video_timing_576p, sizeof(video_timing_576p));
 			addr_start += sizeof(video_timing_576p);
 			break;
@@ -672,7 +675,7 @@ static u32 patch_locations[PATCHES_MAX];
 
 void checkPatchAddr() {
 	if(top_addr < 0x80001800) {
-		print_gecko("Trop de correctifs appliqués, top_addr est proche de la zone réservée\r\n");
+		print_gecko(gettext("Too many patches applied, top_addr has gone below the reserved area\r\n"));
 		// Display something on screen
 		while(1);
 	}
@@ -735,14 +738,14 @@ u32 installPatch(int patchId) {
 	top_addr -= patchSize;
 	checkPatchAddr();
 	memcpy((void*)top_addr, patchLocation, patchSize);
-	print_gecko("Patch installé %i sur %08X\r\n", patchId, top_addr);
+	print_gecko(gettext("Installed patch %i to %08X\r\n"), patchId, top_addr);
 	return top_addr;
 }
 
 // See patchIds enum in patcher.h
 u32 getPatchAddr(int patchId) {
 	if(patchId > PATCHES_MAX || patchId < 0) {
-		print_gecko("Emplacement du correctif demandé non valide\r\n");
+		print_gecko(gettext("Invalid Patch location requested\r\n"));
 		return -1;
 	}
 	if(!patch_locations[patchId]) {
@@ -827,7 +830,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 			{
 				u32 __VIRetraceHandlerAddr = Calc_ProperAddress(data, dataType, i);
 				if(__VIRetraceHandlerAddr) {
-					print_gecko("Trouvé:[%s] @ %08X\n", __VIRetraceHandlerSigs[j].Name, __VIRetraceHandlerAddr);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), __VIRetraceHandlerSigs[j].Name, __VIRetraceHandlerAddr);
 					switch(j) {
 						case 0:
 						case 1: getCurrentFieldEvenOddSigs[0].offsetFoundAt = branchResolve(data, i + 240); break;
@@ -856,7 +859,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 		{
 			u32 VIWaitForRetraceAddr = Calc_ProperAddress(data, dataType, i);
 			if(VIWaitForRetraceAddr) {
-				print_gecko("Trouvé:[%s] @ %08X\n", VIWaitForRetraceSig.Name, VIWaitForRetraceAddr);
+				print_gecko(gettext("Found:[%s] @ %08X\n"), VIWaitForRetraceSig.Name, VIWaitForRetraceAddr);
 				if((swissSettings.gameVMode == 2) || (swissSettings.gameVMode == 7)) {
 					for( k=0; k < sizeof(getCurrentFieldEvenOddSigs)/sizeof(FuncPattern); k++ )
 					{
@@ -864,7 +867,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 						{
 							u32 getCurrentFieldEvenOddAddr = Calc_ProperAddress(data, dataType, getCurrentFieldEvenOddSigs[k].offsetFoundAt);
 							if(getCurrentFieldEvenOddAddr) {
-								print_gecko("Trouvé:[%s] @ %08X\n", getCurrentFieldEvenOddSigs[k].Name, getCurrentFieldEvenOddAddr);
+								print_gecko(gettext("Found:[%s] @ %08X\n"), getCurrentFieldEvenOddSigs[k].Name, getCurrentFieldEvenOddAddr);
 								*(u32*)(data+i+24) = *(u32*)(data+i+28);
 								*(u32*)(data+i+28) = 0x4800000C;	// b		+12
 								*(u32*)(data+i+40) = branchAndLink(getCurrentFieldEvenOddAddr, VIWaitForRetraceAddr + 40);
@@ -885,41 +888,41 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 				u32 VIConfigureAddr = Calc_ProperAddress(data, dataType, i);
 				u32 VIConfigurePatchAddr = 0;
 				if(VIConfigureAddr) {
-					print_gecko("Trouvé:[%s] @ %08X\n", VIConfigureSigs[j].Name, VIConfigureAddr);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), VIConfigureSigs[j].Name, VIConfigureAddr);
 					switch(swissSettings.gameVMode) {
 						case 1:
 						case 2:
-							print_gecko("Patché NTSC Interlaced mode\n");
+							print_gecko(gettext("Patched NTSC Interlaced mode\n"));
 							VIConfigurePatchAddr = getPatchAddr(VI_CONFIGURE480I);
 							break;
 						case 3:
-							print_gecko("Patché NTSC Double-Strike mode\n");
+							print_gecko(gettext("Patched NTSC Double-Strike mode\n"));
 							VIConfigurePatchAddr = getPatchAddr(VI_CONFIGURE240P);
 							break;
 						case 4:
-							print_gecko("Patché NTSC Field Rendering mode\n");
+							print_gecko(gettext("Patched NTSC Field Rendering mode\n"));
 							VIConfigurePatchAddr = getPatchAddr(VI_CONFIGURE960I);
 							break;
 						case 5:
-							print_gecko("Patché NTSC Progressive mode\n");
+							print_gecko(gettext("Patched NTSC Progressive mode\n"));
 							VIConfigurePatchAddr = getPatchAddr(VI_CONFIGURE480P);
 							break;
 						case 6:
 						case 7:
-							print_gecko("Patché PAL Interlaced mode\n");
+							print_gecko(gettext("Patched PAL Interlaced mode\n"));
 							VIConfigurePatchAddr = getPatchAddr(VI_CONFIGURE576I);
 							break;
 						case 8:
-							print_gecko("Patché PAL Double-Strike mode\n");
+							print_gecko(gettext("Patched PAL Double-Strike mode\n"));
 							VIConfigurePatchAddr = getPatchAddr(VI_CONFIGURE288P);
 							break;
 						case 9:
-							print_gecko("Patché PAL Field Rendering mode\n");
+							print_gecko(gettext("Patched PAL Field Rendering mode\n"));
 							VIConfigurePatchAddr = getPatchAddr(VI_CONFIGURE1152I);
 							Patch_VidTiming(data, length);
 							break;
 						case 10:
-							print_gecko("Patché PAL Progressive mode\n");
+							print_gecko(gettext("Patched PAL Progressive mode\n"));
 							VIConfigurePatchAddr = getPatchAddr(VI_CONFIGURE576P);
 							Patch_VidTiming(data, length);
 							break;
@@ -1072,7 +1075,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 			u32 VIConfigurePanAddr = Calc_ProperAddress(data, dataType, i);
 			u32 VIConfigurePanPatchAddr = 0;
 			if(VIConfigurePanAddr) {
-				print_gecko("Trouvé:[%s] @ %08X\n", VIConfigurePanSig.Name, VIConfigurePanAddr);
+				print_gecko(gettext("Found:[%s] @ %08X\n"), VIConfigurePanSig.Name, VIConfigurePanAddr);
 				if((swissSettings.gameVMode == 3) || (swissSettings.gameVMode == 8)) {
 					VIConfigurePanPatchAddr = getPatchAddr(VI_CONFIGUREPANHOOKDS);
 				} else {
@@ -1089,7 +1092,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 			{
 				u32 __GXInitGXAddr = Calc_ProperAddress(data, dataType, i);
 				if(__GXInitGXAddr) {
-					print_gecko("Trouvé:[%s] @ %08X\n", __GXInitGXSigs[j].Name, __GXInitGXAddr);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), __GXInitGXSigs[j].Name, __GXInitGXAddr);
 					switch(j) {
 						case 0:
 							GXSetCopyFilterSigs[0].offsetFoundAt = branchResolve(data, i + 3764);
@@ -1150,7 +1153,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 			{
 				u32 GXGetYScaleFactorAddr = Calc_ProperAddress(data, dataType, i);
 				if(GXGetYScaleFactorAddr) {
-					print_gecko("Trouvé:[%s] @ %08X\n", GXGetYScaleFactorSigs[j].Name, GXGetYScaleFactorAddr);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), GXGetYScaleFactorSigs[j].Name, GXGetYScaleFactorAddr);
 					if((swissSettings.gameVMode >= 1) && (swissSettings.gameVMode <= 5)) {
 						top_addr -= GXGetYScaleFactorHook_length;
 						checkPatchAddr();
@@ -1172,7 +1175,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 			{
 				u32 GXSetCopyFilterAddr = Calc_ProperAddress(data, dataType, i);
 				if(GXSetCopyFilterAddr) {
-					print_gecko("Trouvé:[%s] @ %08X\n", GXSetCopyFilterSigs[j].Name, GXSetCopyFilterAddr);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), GXSetCopyFilterSigs[j].Name, GXSetCopyFilterAddr);
 					switch(j) {
 						case 0:
 							*(u32*)(data+i+388) = 0x38000000 | vfilter[0];
@@ -1214,7 +1217,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 			{
 				u32 GXSetViewportAddr = Calc_ProperAddress(data, dataType, i);
 				if(GXSetViewportAddr) {
-					print_gecko("Trouvé:[%s] @ %08X\n", GXSetViewportSigs[j].Name, GXSetViewportAddr);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), GXSetViewportSigs[j].Name, GXSetViewportAddr);
 					switch(j) {
 						case 0: GXSetViewportJitterSigs[0].offsetFoundAt = branchResolve(data, i + 16); break;
 						case 1: GXSetViewportJitterSigs[1].offsetFoundAt = branchResolve(data, i + 16); break;
@@ -1230,7 +1233,7 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 			{
 				u32 GXSetViewportJitterAddr = Calc_ProperAddress(data, dataType, i);
 				if(GXSetViewportJitterAddr) {
-					print_gecko("Trouvé:[%s] @ %08X\n", GXSetViewportJitterSigs[j].Name, GXSetViewportJitterAddr);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), GXSetViewportJitterSigs[j].Name, GXSetViewportJitterAddr);
 					switch(j) {
 						case 0:
 							memmove(data+i+36, data+i+52, 104);
@@ -1264,14 +1267,14 @@ void Patch_VidMode(u8 *data, u32 length, int dataType) {
 			{
 				u32 setFbbRegsAddr = Calc_ProperAddress(data, dataType, i);
 				if(setFbbRegsAddr) {
-					print_gecko("Trouvé:[%s] @ %08X\n", setFbbRegsSigs[j].Name, setFbbRegsAddr);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), setFbbRegsSigs[j].Name, setFbbRegsAddr);
 					for( k=0; k < sizeof(getCurrentFieldEvenOddSigs)/sizeof(FuncPattern); k++ )
 					{
 						if( getCurrentFieldEvenOddSigs[k].offsetFoundAt )
 						{
 							u32 getCurrentFieldEvenOddAddr = Calc_ProperAddress(data, dataType, getCurrentFieldEvenOddSigs[k].offsetFoundAt);
 							if(getCurrentFieldEvenOddAddr) {
-								print_gecko("Trouvé:[%s] @ %08X\n", getCurrentFieldEvenOddSigs[k].Name, getCurrentFieldEvenOddAddr);
+								print_gecko(gettext("Found:[%s] @ %08X\n"), getCurrentFieldEvenOddSigs[k].Name, getCurrentFieldEvenOddAddr);
 								top_addr -= setFbbRegsHook_length;
 								checkPatchAddr();
 								memcpy((void*)top_addr, setFbbRegsHook, setFbbRegsHook_length);
@@ -1319,7 +1322,7 @@ void Patch_WideAspect(u8 *data, u32 length, int dataType) {
 		{
 			u32 properAddress = Calc_ProperAddress(data, dataType, i);
 			if(properAddress) {
-				print_gecko("Trouvé:[%s] @ %08X\n", MTXFrustumSig.Name, properAddress);
+				print_gecko(gettext("Found:[%s] @ %08X\n"), MTXFrustumSig.Name, properAddress);
 				top_addr -= MTXFrustumHook_length;
 				checkPatchAddr();
 				memcpy((void*)top_addr, MTXFrustumHook, MTXFrustumHook_length);
@@ -1339,7 +1342,7 @@ void Patch_WideAspect(u8 *data, u32 length, int dataType) {
 		{
 			u32 properAddress = Calc_ProperAddress(data, dataType, i);
 			if(properAddress) {
-				print_gecko("Trouvé:[%s] @ %08X\n", MTXLightFrustumSig.Name, properAddress);
+				print_gecko(gettext("Found:[%s] @ %08X\n"), MTXLightFrustumSig.Name, properAddress);
 				top_addr -= MTXLightFrustumHook_length;
 				checkPatchAddr();
 				memcpy((void*)top_addr, MTXLightFrustumHook, MTXLightFrustumHook_length);
@@ -1358,7 +1361,7 @@ void Patch_WideAspect(u8 *data, u32 length, int dataType) {
 		{
 			u32 properAddress = Calc_ProperAddress(data, dataType, i);
 			if(properAddress) {
-				print_gecko("Trouvé:[%s] @ %08X\n", MTXPerspectiveSig.Name, properAddress);
+				print_gecko(gettext("Found:[%s] @ %08X\n"), MTXPerspectiveSig.Name, properAddress);
 				top_addr -= MTXPerspectiveHook_length;
 				checkPatchAddr();
 				memcpy((void*)top_addr, MTXPerspectiveHook, MTXPerspectiveHook_length);
@@ -1378,7 +1381,7 @@ void Patch_WideAspect(u8 *data, u32 length, int dataType) {
 		{
 			u32 properAddress = Calc_ProperAddress(data, dataType, i);
 			if(properAddress) {
-				print_gecko("Trouvé:[%s] @ %08X\n", MTXLightPerspectiveSig.Name, properAddress);
+				print_gecko(gettext("Found:[%s] @ %08X\n"), MTXLightPerspectiveSig.Name, properAddress);
 				top_addr -= MTXLightPerspectiveHook_length;
 				checkPatchAddr();
 				memcpy((void*)top_addr, MTXLightPerspectiveHook, MTXLightPerspectiveHook_length);
@@ -1398,7 +1401,7 @@ void Patch_WideAspect(u8 *data, u32 length, int dataType) {
 			{
 				u32 properAddress = Calc_ProperAddress(data, dataType, i);
 				if(properAddress) {
-					print_gecko("Trouvé:[%s] @ %08X\n", MTXOrthoSig.Name, properAddress);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), MTXOrthoSig.Name, properAddress);
 					top_addr -= MTXOrthoHook_length;
 					checkPatchAddr();
 					memcpy((void*)top_addr, MTXOrthoHook, MTXOrthoHook_length);
@@ -1423,7 +1426,7 @@ void Patch_WideAspect(u8 *data, u32 length, int dataType) {
 				if( compare_pattern( &fp, &(GXSetScissorSigs[j]) ) ) {
 					u32 properAddress = Calc_ProperAddress(data, dataType, i);
 					if(properAddress) {
-						print_gecko("Trouvé:[%s] @ %08X\n", GXSetScissorSigs[j].Name, properAddress);
+						print_gecko(gettext("Found:[%s] @ %08X\n"), GXSetScissorSigs[j].Name, properAddress);
 						top_addr -= GXSetScissorHook_length;
 						checkPatchAddr();
 						memcpy((void*)top_addr, GXSetScissorHook, GXSetScissorHook_length);
@@ -1452,7 +1455,7 @@ void Patch_WideAspect(u8 *data, u32 length, int dataType) {
 				{
 					u32 properAddress = Calc_ProperAddress(data, dataType, i);
 					if(properAddress) {
-						print_gecko("Trouvé:[%s] @ %08X\n", GXSetProjectionSigs[j].Name, properAddress);
+						print_gecko(gettext("Found:[%s] @ %08X\n"), GXSetProjectionSigs[j].Name, properAddress);
 						top_addr -= GXSetProjectionHook_length;
 						checkPatchAddr();
 						memcpy((void*)top_addr, GXSetProjectionHook, GXSetProjectionHook_length);
@@ -1490,7 +1493,7 @@ int Patch_TexFilt(u8 *data, u32 length, int dataType)
 			{
 				u32 properAddress = Calc_ProperAddress(data, dataType, i);
 				if(properAddress) {
-					print_gecko("Trouvé:[%s] @ %08X\n", GXInitTexObjLODSigs[j].Name, properAddress);
+					print_gecko(gettext("Found:[%s] @ %08X\n"), GXInitTexObjLODSigs[j].Name, properAddress);
 					top_addr -= GXInitTexObjLODHook_length;
 					checkPatchAddr();
 					memcpy((void*)top_addr, GXInitTexObjLODHook, GXInitTexObjLODHook_length);
@@ -1564,7 +1567,7 @@ int Patch_DVDReset(void *addr,u32 length)
 			// Adjust the offset of where to jump to
 			u32 *ptr = (addr_start+0x18);
 			ptr[1] = _dvdlowreset_new[1] | (ENABLE_BACKUP_DISC&0xFFFF);
-			print_gecko("Trouvé:[DVDLowReset] @ 0x%08X\r\n", (u32)ptr);
+			print_gecko(gettext("Found:[DVDLowReset] @ 0x%08X\r\n"), (u32)ptr);
 			return 1;
 		}
 		addr_start += 4;
@@ -1648,19 +1651,19 @@ int Patch_Fwrite(void *addr, u32 length) {
 	{
 		if(memcmp(addr_start,&sig_fwrite[0],sizeof(sig_fwrite))==0) 
 		{
-			print_gecko("Trouvé:[fwrite]\r\n");
+			print_gecko(gettext("Found:[fwrite]\r\n"));
  			memcpy(addr_start,&geckoPatch[0],sizeof(geckoPatch));	
 			return 1;
 		}
 		if(memcmp(addr_start,&sig_fwrite_alt[0],sizeof(sig_fwrite_alt))==0) 
 		{
-			print_gecko("Trouvé:[fwrite1]\r\n");
+			print_gecko(gettext("Found:[fwrite1]\r\n"));
  			memcpy(addr_start,&geckoPatch[0],sizeof(geckoPatch));	
 			return 1;
 		}
 		if(memcmp(addr_start,&sig_fwrite_alt2[0],sizeof(sig_fwrite_alt2))==0) 
 		{
-			print_gecko("Trouvé:[fwrite2]\r\n");
+			print_gecko(gettext("Found:[fwrite2]\r\n"));
  			memcpy(addr_start,&geckoPatch[0],sizeof(geckoPatch));
 			return 1;
 		}
@@ -1733,13 +1736,13 @@ int Patch_GameSpecific(void *addr, u32 length, const char* gameID, int dataType)
 			if(mode == 1 && memcmp(addr_start,GXSETVAT_PAL_orig,sizeof(GXSETVAT_PAL_orig))==0) 
 			{
 				memcpy(addr_start, GXSETVAT_PAL_patched, sizeof(GXSETVAT_PAL_patched));
-				print_gecko("Patché:[__GXSetVAT] PAL\r\n");
+				print_gecko(gettext("Patched:[__GXSetVAT] PAL\r\n"));
 				patched=1;
 			}
 			if(mode == 2 && memcmp(addr_start,GXSETVAT_NTSC_orig,sizeof(GXSETVAT_NTSC_orig))==0) 
 			{
 				memcpy(addr_start, GXSETVAT_NTSC_patched, sizeof(GXSETVAT_NTSC_patched));
-				print_gecko("Patché:[__GXSetVAT] NTSC\r\n");
+				print_gecko(gettext("Patched:[__GXSetVAT] NTSC\r\n"));
 				patched=1;
 			}
 			addr_start += 4;
@@ -1747,7 +1750,7 @@ int Patch_GameSpecific(void *addr, u32 length, const char* gameID, int dataType)
 	}
 	else if(!strncmp(gameID, "GXX", 3) || !strncmp(gameID, "GC6", 3))
 	{
-		print_gecko("Patché:[Pokemon memset]\r\n");
+		print_gecko(gettext("Patched:[Pokemon memset]\r\n"));
 		// patch out initial memset(0x1800, 0, 0x1800)
 		if(gameID[3] == 'J' )	// JAP
 			*(u32*)(addr+0x260C) = 0x60000000;
@@ -1764,7 +1767,7 @@ int Patch_GameSpecific(void *addr, u32 length, const char* gameID, int dataType)
 	{
 		if(*(u32*)(addr+0xDE6D8) == 0x2F6D616A) // PAL
 		{
-			print_gecko("Patché:[Majoras Mask (Zelda CE) PAL]\r\n");
+			print_gecko(gettext("Patched:[Majoras Mask (Zelda CE) PAL]\r\n"));
 			//save up regs
 			u32 patchAddr = getPatchAddr(MAJORA_SAVEREGS);
 			*(u32*)(addr+0x1A6B4) = branch(patchAddr, Calc_ProperAddress(addr, dataType, 0x1A6B4));
@@ -1784,7 +1787,7 @@ int Patch_GameSpecific(void *addr, u32 length, const char* gameID, int dataType)
 		}
 		else if(*(u32*)(addr+0xEF78C) == 0x2F6D616A) // NTSC-U
 		{
-			print_gecko("Patché:[Majoras Mask (Zelda CE) NTSC-U]\r\n");
+			print_gecko(gettext("Patched:[Majoras Mask (Zelda CE) NTSC-U]\r\n"));
 			//save up regs
 			u32 patchAddr = getPatchAddr(MAJORA_SAVEREGS);
 			*(u32*)(addr+0x19DD4) = branch(patchAddr, Calc_ProperAddress(addr, dataType, 0x19DD4));
@@ -1804,7 +1807,7 @@ int Patch_GameSpecific(void *addr, u32 length, const char* gameID, int dataType)
 		}
 		else if(*(u32*)(addr+0xF324C) == 0x2F6D616A) // NTSC-J
 		{
-			print_gecko("Patché:[Majoras Mask (Zelda CE) NTSC-J]\r\n");
+			print_gecko(gettext("Patched:[Majoras Mask (Zelda CE) NTSC-J]\r\n"));
 			//save up regs
 			u32 patchAddr = getPatchAddr(MAJORA_SAVEREGS);
 			*(u32*)(addr+0x1A448) = branch(patchAddr, Calc_ProperAddress(addr, dataType, 0x1A448));
@@ -1832,7 +1835,7 @@ int Patch_GameSpecific(void *addr, u32 length, const char* gameID, int dataType)
 			*(u32*)(addr+0xF03D8) = branch(Calc_ProperAddress(addr, dataType, 0xF6E80), Calc_ProperAddress(addr, dataType, 0xF03D8));
 			//Call AXQuit after DVDCancelStreamAsync
 			*(u32*)(addr+0xF0494) = branch(Calc_ProperAddress(addr, dataType, 0xF6EB4), Calc_ProperAddress(addr, dataType, 0xF0494));
-			print_gecko("Patché:[Powerpuff Girls NTSC-U]\r\n");
+			print_gecko(gettext("Patched:[Powerpuff Girls NTSC-U]\r\n"));
 			patched=1;
 		}
 		else if(*(u32*)(addr+0xF0EC0) == 0x4E800020 && *(u32*)(addr+0xF0F7C) == 0x4E800020)
@@ -1841,7 +1844,7 @@ int Patch_GameSpecific(void *addr, u32 length, const char* gameID, int dataType)
 			*(u32*)(addr+0xF0EC0) = branch(Calc_ProperAddress(addr, dataType, 0xF8340), Calc_ProperAddress(addr, dataType, 0xF0EC0));
 			//Call AXQuit after DVDCancelStreamAsync
 			*(u32*)(addr+0xF0F7C) = branch(Calc_ProperAddress(addr, dataType, 0xF83B0), Calc_ProperAddress(addr, dataType, 0xF0F7C));
-			print_gecko("Patché:[Powerpuff Girls PAL]\r\n");
+			print_gecko(gettext("Patched:[Powerpuff Girls PAL]\r\n"));
 			patched=1;
 		}
 	}
@@ -1864,7 +1867,7 @@ int Patch_IGR(void *data, u32 length, int dataType) {
 		if(!memcmp((void*)(data+i),SPEC2_MakeStatusA,sizeof(SPEC2_MakeStatusA)))
 		{
 			u32 properAddress = Calc_ProperAddress(data, dataType, (u32)(data + i + 0x46C) -(u32)(data));
-			print_gecko("Trouvé:[SPEC2_MakeStatusA] @ %08X (%08X)\n", properAddress, i +0x46C);
+			print_gecko(gettext("Found:[SPEC2_MakeStatusA] @ %08X (%08X)\n"), properAddress, i +0x46C);
 			*(u32*)(data+i+0x46C) = branch(IGR_CHECK, properAddress);
 			return 1;
 		}
@@ -1879,7 +1882,7 @@ u32 Calc_ProperAddress(u8 *data, u32 type, u32 offsetFoundAt) {
 
 		// Doesn't look valid
 		if (hdr->textOffset[0] != DOLHDRLENGTH) {
-			print_gecko("Le header du DOL ne semble pas valide %08X\r\n",hdr->textOffset[0]);
+			print_gecko(gettext("DOL Header doesn't look valid %08X\r\n"),hdr->textOffset[0]);
 			return 0;
 		}
 
@@ -1937,7 +1940,7 @@ u32 Calc_ProperAddress(u8 *data, u32 type, u32 offsetFoundAt) {
 	else if(type == PATCH_LOADER) {
 		return offsetFoundAt+0x81300000;
 	}
-	print_gecko("Aucun cas ne correspond, renvoyant 0 pour l'adresse appropriée\r\n");
+	print_gecko(gettext("No cases matched, returning 0 for proper address\r\n"));
 	return 0;
 }
 
@@ -1961,7 +1964,7 @@ int Patch_CheatsHook(u8 *data, u32 length, u32 type) {
 			// we'll need to work out where it will end up when it does get placed in memory to write the relative branch.
 			u32 properAddress = Calc_ProperAddress(data, type, i+j);
 			if(properAddress) {
-				print_gecko("Trouvé:[Hook:OSSleepThread] @ %08X\n", properAddress );
+				print_gecko(gettext("Found:[Hook:OSSleepThread] @ %08X\n"), properAddress );
 				u32 newval = (u32)(CHEATS_ENGINE_START - properAddress);
 				newval&= 0x03FFFFFC;
 				newval|= 0x48000000;
@@ -1999,7 +2002,7 @@ int Patch_CheatsHook(u8 *data, u32 length, u32 type) {
 			// we'll need to work out where it will end up when it does get placed in memory to write the relative branch.
 			u32 properAddress = Calc_ProperAddress(data, type, i+j);
 			if(properAddress) {
-				print_gecko("Trouvé:[Hook:GXDrawDone] @ %08X\n", properAddress );
+				print_gecko(gettext("Found:[Hook:GXDrawDone] @ %08X\n"), properAddress );
 				u32 newval = (u32)(CHEATS_ENGINE_START - properAddress);
 				newval&= 0x03FFFFFC;
 				newval|= 0x48000000;
@@ -2010,5 +2013,4 @@ int Patch_CheatsHook(u8 *data, u32 length, u32 type) {
 	}
 	return 0;
 }
-
 

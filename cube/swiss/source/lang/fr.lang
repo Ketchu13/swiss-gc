@@ -1,0 +1,1267 @@
+msgid "&"
+msgstr "&"
+
+msgid "Global Settings (1/3):"
+msgstr "Paramètres Globaux (1/3):"
+
+msgid "Global Settings (1/3):"
+msgstr "Paramètres (1/3):"
+
+msgid "IPL/Game Language:"
+msgstr "IPL/Language:"
+
+msgid "IPL/Game Audio:"
+msgstr "IPL/Mode Audio:"
+
+msgid "Stereo"
+msgstr ""
+
+msgid "Mono"
+msgstr ""
+
+msgid "SD/IDE Speed:"
+msgstr "Vitesse SD/IDE:"
+
+msgid "32 MHz"
+msgstr "32 MHz"
+
+msgid "16 MHz"
+msgstr "16 MHz"
+
+msgid "Swiss Video Mode:"
+msgstr "Mode Vidéo de Swiss:"
+
+msgid "In-Game-Reset:"
+msgstr ""
+
+msgid "Advanced Settings (2/3):"
+msgstr "Paramètres Avancés (2/3):"
+
+msgid "Enable USB Gecko Debug via Slot B:"
+msgstr "Activer le deboguage USB Gecko par Slot B"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Force No DVD Drive Mode:"
+msgstr "Désactiver le lecteur DVD:"
+
+msgid "Hide Unknown file types:"
+msgstr "Masquer les fichiers de type inconnus:"
+
+msgid "Stop DVD Motor on startup:"
+msgstr "Arreter le moteur du DVD:"
+
+msgid "Enable WiiRD debugging in Games:"
+msgstr "Activer le débogage WiiRD en jeux:"
+
+msgid "Enable File Management:"
+msgstr "Activer la gestion des fichiers:"
+
+msgid "Auto-load all cheats:"
+msgstr "Chargement auto de tous les cheats:"
+
+#: todo
+msgid "Current Game Settings (3/3):"
+msgstr "Options pour le jeu (3/3):"
+
+msgid "Force Video Mode:"
+msgstr "Forcer le Mode Vidéo:"
+
+msgid "If Progressive, Soften:"
+msgstr "Si Progressif, adoucir:"
+
+msgid "Force Widescreen:"
+msgstr "Ecran large:"
+
+msgid "Force Anisotropy:"
+msgstr "Filtrage Anisotrope:"
+
+msgid "Disable Audio Streaming:"
+msgstr "Désactiver le streaming audio:"
+
+msgid "Force Encoding:"
+msgstr "Encodage:"
+
+msgid "Back"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Save & Exit"
+msgstr "Enregistrer et Quitter"
+
+msgid "Discard & Exit"
+msgstr "Annuler et Quitter"
+
+msgid "Saving changes!"
+msgstr "Enregistrement des modifications!"
+
+msgid "Saving Config ..."
+msgstr "Enregistrement de la Configuration ..."
+
+msgid "Config Saved Successfully!"
+msgstr "Configuration Enregistrée avec Succés!"
+
+msgid "Config Failed to Save!"
+msgstr "Échec de la sauvegarde de la configuration!"
+
+msgid "Failed to read Apploader info"
+msgstr ""
+
+msgid "No writable device present\nA SD Gecko must be inserted in\n order to utilise patches for this game."
+msgstr "Aucun périphérique inscriptible présent\nUn SD Gecko doit être inséré\nafin d'utiliser les correctifs pour ce jeu."
+
+msgid "Patch dir will be: %s if required\r\n"
+msgstr "Le répertoire des correctifs sera: %s si requis\r\n"
+
+msgid "Patching File %i/%i"
+msgstr "Application du correctif %i/%i"
+
+#: todo
+msgid "Skipping %s %iKB too large\r\n"
+msgstr "Skipping %s %iKo trop lourd\r\n"
+
+msgid "Checking %s %iKb\r\n"
+msgstr "Vérification %s %iKo\r\n"
+
+#: todo
+msgid "Read from %08X Size %08X - Result: %08X\r\n"
+msgstr "Read from %08X Size %08X - Resultat: %08X\r\n"
+
+msgid "Failed to read!"
+msgstr "Lecture impossible!"
+
+msgid "Failed to find necessary functions for patching!"
+msgstr "Impossible de trouver les fonctions nécessaires au correctif!"
+
+msgid "CRC matched, no need to patch again\r\n"
+msgstr "Le CRC correspond, pas besoin de patcher à nouveau\r\n"
+
+msgid "CRC mismatch, writing patch again\r\n"
+msgstr "Le CRC ne correspond pas, réécriture du correctif en cours\r\n"
+
+msgid "Writing patch file: %s %i bytes (disc offset %08X)\r\n"
+msgstr "Écriture du fichier patch: %s %i octets (offset du disque %08X)\r\n"
+
+msgid "Read dir for directory: %s\r\n"
+msgstr "Lire le dossier pour le répertoire: %s\r\n"
+
+msgid "Initialise DVD .. (HOLD B if NO DVD Drive)"
+msgstr "Initialisation du DVD .. (Maintenez B si aucun lecteur DVD)"
+
+msgid "No DVD Drive Detected !!"
+msgstr "Pas de lecteur DVD détecté!!"
+
+msgid "Failed to create configuration file!"
+msgstr "Impossible de créer le fichier de configuration!"
+
+msgid "Loaded %i entries from the config file"
+msgstr "%i entrées du fichier de configuration chargées"
+
+msgid "SD/IDE-EXI Device Failed to initialize @ 32MHz!\r\nTrying again once @ 16MHz...\r\n"
+msgstr "L'initialisation du périphérique SD/IDE-EXI a échoué à 32MHz! \r\nEssayez 16MHz ...\r\n"
+
+msgid "Trying alternate slot @ 32MHz...\r\n"
+msgstr "Essai d'un autre slot à 32MHz...\r\n"
+
+msgid "Alternate slot failed once @ 16MHz... \r\n"
+msgstr "L'autre slot a échoué à 16MHz... \r\n"
+
+msgid "Both slots failed twice\r\n"
+msgstr "Echec sur les deux slots\r\n"
+
+msgid "Reading directory: %s\r\n"
+msgstr "Lecture du dossier: %s\r\n"
+
+msgid "Found %i entries\r\n"
+msgstr "%i entrées trouvées\r\n"
+
+msgid "Arena Size: %iKb\r\n"
+msgstr "Arena Size: %iKo\r\n"
+
+msgid "DVD Drive Present? %s\r\n"
+msgstr "Lecteur DVD présent? %s\r\n"
+
+msgid "GIT Commit: %s\r\n"
+msgstr "GIT Commit: %s\r\n"
+
+msgid "GIT Revision: %s\r\n"
+msgstr "GIT Revision: %s\r\n"
+
+msgid "Detected Wiikey Fusion with SPI Flash ID: %08X\r\n"
+msgstr "Wiikey Fusion détecté avec SPI Flash ID: %08X\r\n"
+
+msgid "Detected SDGecko in Slot A\r\n"
+msgstr "SD GEcko détecté dans le Slot A\r\n"
+
+msgid "Detected SDGecko in Slot B\r\n"
+msgstr "SD GEcko detecte dans le Slot B\r\n"
+
+msgid "Detected Memory Card in Slot A\r\n"
+msgstr "Memory Card détectée dans le Slot A\r\n"
+
+msgid "Detected Memory Card in Slot B\r\n"
+msgstr "Memory Card détectée dans le Slot B\r\n"
+
+msgid "No default boot device detected, trying DVD!\r\n"
+msgstr "Aucun périph. d'amorçage par défaut détecté, essai du DVD!\r\n"
+
+msgid "DVD Medium is up, using it as default device\r\n"
+msgstr "Le support DVD est disponible et utilisé comme périph. par défaut\r\n"
+
+msgid "Detecting devices ...\nThis can be skipped by holding B next time"
+msgstr "Détection des périphériques...\nEvitable en pressant B au lancement"
+
+msgid "Detecting devices [SD] ...\nThis can be skipped by holding B next time"
+msgstr "Détection des périphériques  [SD] ...\nEvitable en pressant B au lancement"
+
+msgid "Detecting devices [IDE-EXI] ...\nThis can be skipped by holding B next time"
+msgstr "Détection des périphériques  [IDE-EXI] ...\nEvitable en pressant B au lancement"
+
+msgid "Detecting devices [Memory Card] ...\nThis can be skipped by holding B next time"
+msgstr "Détection des périphériques  [Memory Card] ...\nEvitable en pressant B au lancement"
+
+msgid "Detecting devices [WKF/WASP] ...\nThis can be skipped by holding B next time"
+msgstr "Détection des périphériques  [WKF/WASP] ...\nEvitable en pressant B au lancement"
+
+#: j:\vb6_extract_string\i18n\swiss\source\mp3.c:27
+#: todo
+msgid "%s -  Volume (%i%%)"
+msgstr "%s -  Volume (%i%%)"
+
+#: j:\vb6_extract_string\i18n\swiss\source\mp3.c:27
+msgid "Paused"
+msgstr "Pause"
+
+#: j:\vb6_extract_string\i18n\swiss\source\mp3.c:27
+#: todo
+msgid "Playing"
+msgstr "Lecture"
+
+#: j:\vb6_extract_string\i18n\swiss\source\mp3.c:37
+msgid "(<-) Rewind (->) Forward (X) Vol+ (Y) Vol-"
+msgstr "(<-) Rewind (->) Forward (X) Vol+ (Y) Vol-"
+
+#: j:\vb6_extract_string\i18n\swiss\source\mp3.c:38
+msgid "(B) Stop (L) Prev (R) Next (Start) Pause"
+msgstr "(B) Stop (L) Prev (R) Next (Start) Pause"
+
+#: j:\vb6_extract_string\i18n\swiss\source\mp3.c:39
+
+msgid "Shuffle is currently %s press (Z) to toggle"
+msgstr "Shuffle is currently %s press (Z) to toggle"
+
+#: j:\vb6_extract_string\i18n\swiss\source\mp3.c:39
+msgid "on"
+msgstr "on"
+
+#: j:\vb6_extract_string\i18n\swiss\source\mp3.c:39
+msgid "off"
+msgstr ""
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:65
+msgid "Patch:[Pokemon memset] applied\r\n"
+msgstr "Patch:[Pokemon memset] appliqué\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:79
+msgid "Installing Patch for IDE-EXI\r\n"
+msgstr "Installation du patch pour IDE-EXI\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:84
+msgid "Installing Patch for SD Gecko\r\n"
+msgstr "Installation du patch pour SD Gecko\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:90
+msgid "Installing Patch for DVD\r\n"
+msgstr "Installation du patch pour DVD\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:95
+msgid "Installing Patch for USB Gecko\r\n"
+msgstr "Installation du patch pour USB Gecko\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:101
+msgid "Installing Patch for WKF\r\n"
+msgstr "Installation du patch pour WKF\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:103
+msgid "Space for patch remaining: %i\r\n"
+msgstr "Espace pour patch restant: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:104
+msgid "Space taken by vars/video patches: %i\r\n"
+msgstr "Espace utilisé par les patchs vars/vidéo: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:221
+msgid "Length: 0x%02X\r\n"
+msgstr "Longueur: 0x%02X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:222
+#: todo
+msgid "Loads : %d\r\n"
+msgstr "Loads : %d\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:223
+#: todo
+msgid "Stores: %d\r\n"
+msgstr "Stores: %d\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:224
+#: todo
+msgid "FCalls: %d\r\n"
+msgstr "FCalls: %d\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:225
+#: todo
+msgid "Branch : %d\r\n"
+msgstr "Branch : %d\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:226
+#: todo
+msgid "Moves: %d\r\n"
+msgstr "Moves: %d\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:379
+msgid "Patch:[DI] applied %u times\r\n"
+msgstr "Patch:[DI] appliqué %u fois\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:424
+#: todo
+msgid "LowMem:[%08X] %08X: mem r%u, %04X\r\n"
+msgstr "LowMem:[%08X] %08X: mem r%u, %04X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:437
+msgid "Patch:[LowMem] applied %u times\r\n"
+msgstr "Patch:[LowMem] appliqué %u fois\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:456
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:462
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:468
+msgid "Found:[%s] @ %08X for WKF\r\n"
+msgstr "Trouvé:[%s] @ %08X for WKF\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:498
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:504
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:510
+msgid "Found:[%s] @ %08X for DVD\r\n"
+msgstr "Trouvé:[%s] @ %08X for DVD\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:530
+msgid "Found:[OSExceptionInit] @ %08X\r\n"
+msgstr "Trouvé:[OSExceptionInit] @ %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:538
+msgid "Found:[OSExceptionInitDBG] @ %08X\r\n"
+msgstr "Trouvé:[OSExceptionInitDBG] @ %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:547
+msgid "Found:[__DSPHandler] @ %08X\r\n"
+msgstr "Trouvé:[__DSPHandler] @ %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:561
+#: todo
+msgid "Found:[Read] @ %08X\r\n"
+msgstr "Trouvé:[Read] @ %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:574
+msgid "Found:[__DVDInterruptHandler] end @ %08X\r\n"
+msgstr "Trouvé:[__DVDInterruptHandler] end @ %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:581
+msgid "Failed to find all required patches\r\n"
+msgstr "Impossible de trouver tous les correctifs requis\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:647
+msgid "Patched PAL Interlaced timing\n"
+msgstr "PAL entrelacé patché\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:654
+msgid "Patched PAL Progressive timing\n"
+msgstr "PAL Progressif patché\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:678
+msgid "Too many patches applied, top_addr has gone below the reserved area\r\n"
+msgstr "Trop de correctifs appliqués, top_addr est proche de la zone réservée\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:741
+msgid "Installed patch %i to %08X\r\n"
+msgstr "Patch installé %i sur %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:748
+msgid "Invalid Patch location requested\r\n"
+msgstr "Emplacement du correctif demandé non valide\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:833
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:862
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:870
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:891
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1078
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1095
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1156
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1178
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1220
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1236
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1270
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1277
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1325
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1345
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1364
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1384
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1404
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1429
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1458
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1496
+msgid "Found:[%s] @ %08X\n"
+msgstr "Trouvé:[%s] @ %08X\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:895
+msgid "Patched NTSC Interlaced mode\n"
+msgstr "Patché NTSC mode Interlacé\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:899
+#: todo
+msgid "Patched NTSC Double-Strike mode\n"
+msgstr "Patché NTSC Double-Strike mode\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:903
+msgid "Patched NTSC Field Rendering mode\n"
+msgstr "Patché NTSC Field Rendering mode\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:907
+msgid "Patched NTSC Progressive mode\n"
+msgstr "Patché NTSC mode Progressif\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:912
+msgid "Patched PAL Interlaced mode\n"
+msgstr "Patché PAL mode Interlacé\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:916
+msgid "Patched PAL Double-Strike mode\n"
+msgstr ""
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:920
+msgid "Patched PAL Field Rendering mode\n"
+msgstr "Patché PAL Double-Strike mode\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:925
+msgid "Patched PAL Progressive mode\n"
+msgstr "Patché PAL mode Progressif\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1570
+msgid "Found:[DVDLowReset] @ 0x%08X\r\n"
+msgstr "Trouvé:[DVDLowReset] @ 0x%08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1654
+msgid "Found:[fwrite]\r\n"
+msgstr "Trouvé:[fwrite]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1660
+msgid "Found:[fwrite1]\r\n"
+msgstr "Trouvé:[fwrite1]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1666
+msgid "Found:[fwrite2]\r\n"
+msgstr "Trouvé:[fwrite2]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1739
+msgid "Patched:[__GXSetVAT] PAL\r\n"
+msgstr "Patché:[__GXSetVAT] PAL\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1745
+msgid "Patched:[__GXSetVAT] NTSC\r\n"
+msgstr "Patché:[__GXSetVAT] NTSC\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1753
+msgid "Patched:[Pokemon memset]\r\n"
+msgstr "Patché:[Pokemon memset]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1770
+msgid "Patched:[Majoras Mask (Zelda CE) PAL]\r\n"
+msgstr "Patché:[Majoras Mask (Zelda CE) PAL]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1790
+msgid "Patched:[Majoras Mask (Zelda CE) NTSC-U]\r\n"
+msgstr "Patché:[Majoras Mask (Zelda CE) NTSC-U]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1810
+msgid "Patched:[Majoras Mask (Zelda CE) NTSC-J]\r\n"
+msgstr "Patché:[Majoras Mask (Zelda CE) NTSC-J]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1838
+msgid "Patched:[Powerpuff Girls NTSC-U]\r\n"
+msgstr "Patché:[Powerpuff Girls NTSC-U]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1847
+msgid "Patched:[Powerpuff Girls PAL]\r\n"
+msgstr "Patché:[Powerpuff Girls PAL]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1870
+msgid "Found:[SPEC2_MakeStatusA] @ %08X (%08X)\n"
+msgstr "Trouvé:[SPEC2_MakeStatusA] @ %08X (%08X)\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1885
+msgid "DOL Header doesn't look valid %08X\r\n"
+msgstr "Le header du DOL ne semble pas valide %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1943
+msgid "No cases matched, returning 0 for proper address\r\n"
+msgstr "Aucun cas ne correspond, renvoyant 0 pour l'adresse appropriée\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:1967
+msgid "Found:[Hook:OSSleepThread] @ %08X\n"
+msgstr "Trouvé:[Hook:OSSleepThread] @ %08X\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\patcher.c:2005
+msgid "Found:[Hook:GXDrawDone] @ %08X\n"
+msgstr "Trouvé:[Hook:GXDrawDone] @ %08X\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\cheats\cheats.c:33
+msgid "There are %i cheats\r\n"
+msgstr "Nombre de cheats: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\cheats\cheats.c:36
+msgid "Cheat: (%i codes) %s\r\n"
+msgstr "Cheat: (%i codes) %s\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\cheats\cheats.c:160
+msgid "Copying kenobi%s to %08X\r\n"
+msgstr "Copie de kenobi%s vers %08X en cours\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\cheats\cheats.c:168
+msgid "Copying %i bytes of cheats to %08X\r\n"
+msgstr "Copie de %i octets de cheats sur %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\cheats\cheats.c:202
+#: j:\vb6_extract_string\i18n\swiss\source\cheats\cheats.c:221
+msgid "Looking for cheats file @ %s\r\n"
+msgstr "Recherche de fichier cheats @ %s\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\cheats\cheats.c:235
+msgid "No cheats file found.\nPress A to continue."
+msgstr "Pas de fichier cheats trouvé.\nAppuyer sur A pour continuer."
+
+#: j:\vb6_extract_string\i18n\swiss\source\cheats\cheats.c:244
+msgid "Cheats file found with size %i\r\n"
+msgstr "Fichier cheat trouvé avec pour taille %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\config.c:208
+#: j:\vb6_extract_string\i18n\swiss\source\config\config.c:364
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:155
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:39
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\config.c:216
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:101
+msgid "Name"
+msgstr "Nom"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:38
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:133
+msgid "There are %i parameters\r\n"
+msgstr "%i paramètres existants\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:42
+msgid "Argument: (%s) [%s]\r\n"
+msgstr "Argument: (%s) [%s]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:43
+msgid "This parameter has %i values\r\n"
+msgstr "Ce paramètre a %i valeurs\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:45
+msgid "Value: (%s) [%s]\r\n"
+msgstr "Valeur: (%s) [%s]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:108
+msgid "Values"
+msgstr "Valeurs"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:152
+msgid "Argv entry: [%s]\r\n"
+msgstr "Argv entry: [%s]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\config\dolparameters.c:157
+msgid "Arg count: %i\r\n"
+msgstr "Arg count: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:64
+msgid "Lid open"
+msgstr "Couvercle ouvert"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:67
+msgid "No disk/Disk changed"
+msgstr "No disk/Disk changed"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:70
+msgid "No disk"
+msgstr "Pas de Disque"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:73
+msgid "Motor off"
+msgstr "Moteur éteint"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:76
+msgid "Disk not initialized"
+msgstr "Disque non initialisé"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:83
+msgid " Motor Stopped"
+msgstr " Moteur arrêté"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:86
+msgid " Disk ID not read"
+msgstr " ID du disque non lu"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:89
+msgid " Medium not present / Cover opened"
+msgstr " Support non présent / couvercle ouvert"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:92
+msgid " No Seek complete"
+msgstr " Pas de recherche terminée"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:95
+msgid " UnRecoverd read error"
+msgstr " Erreur de lecture non récupérée"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:98
+msgid " Transfer protocol error"
+msgstr " Erreur de protocole de transfert"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:101
+msgid " Invalid command operation code"
+msgstr " Code d'opération de commande non valide"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:104
+msgid " Audio Buffer not set"
+msgstr " Buffer audio non défini"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:107
+msgid " Logical block address out of range"
+msgstr " Adresse de bloc logique hors limites"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:110
+msgid " Invalid Field in command packet"
+msgstr " Champ non valide dans le paquet de commande"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:113
+msgid " Invalid audio command"
+msgstr " Commande audio non valide"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:116
+msgid " Configuration out of permitted period"
+msgstr " Configuration hors période autorisée"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:119
+msgid " DVD-R"
+msgstr " DVD-R"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:122
+msgid " Wrong Read Type"
+msgstr " Type de lecture incorrect"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:125
+msgid " End of user area encountered on this track"
+msgstr " Fin de la zone utilisateur rencontrée sur cette piste"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:128
+msgid " Medium may have changed"
+msgstr " Le support peut avoir changé"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:131
+msgid " Operator medium removal request"
+msgstr " Demande de retrait du support d'opérateur"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:135
+msgid "Unknown %08X"
+msgstr "%08X Incconu"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:142
+msgid "DVD Is Initializing"
+msgstr "Initialisation du DVD.."
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:150
+msgid "WKF RESET\r\n"
+msgstr "WKF RESET\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:155
+msgid "Resetting DVD drive - Detect Media"
+msgstr "Réinit. du lecteur de DVD - Détection du support"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:162
+msgid "Possible DVD Backup - Enabling Patches"
+msgstr "Possible sauvegarde de DVD - Activation des patchs"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:172
+msgid "Error %s. Press A."
+msgstr "Erreur %s. Appuyer sur A"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:199
+msgid "Error: %s"
+msgstr "Erreur %s"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:207
+msgid "Initialization Complete"
+msgstr "Initialisation Terminée"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:397
+msgid "One moment, setting up audio streaming."
+msgstr "Veuillez patienter, mise en place du streaming audio en cours."
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:400
+msgid "Set extension %08X\r\n"
+msgstr "Définir extension %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:402
+msgid "Set extension - done\r\nUnlock %08X\r\n"
+msgstr "Définir extension - terminé\r\nUnlock %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:404
+msgid "Unlock - done\r\nDebug Motor On %08X\r\n"
+msgstr "Unlock - terminé\r\nDéboguage Moteur allumé %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:406
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:304
+msgid "Debug Motor On - done\r\nSet Status %08X\r\n"
+msgstr "Déboguage Moteur allumé - terminé\r\nDéfinition du statut %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:408
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:306
+msgid "Set Status - done %08X\r\n"
+msgstr "Définition du statut - terminé %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:410
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:308
+msgid "Read ID %08X\r\n"
+msgstr "ID lu %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:416
+
+msgid "Streaming %s %08X\r\n"
+msgstr "Streaming %s %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:416
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:753
+msgid "Enabled"
+msgstr "Activé"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:416
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:753
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:420
+msgid "Save Patch device found\r\n"
+msgstr "Enregistre le périphérique de Patch trouvé\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:446
+msgid "Found patch file %i ofs 0x%08X len 0x%08X base 0x%08X\r\n"
+msgstr "%i fichiers patch trouvés ofs 0x%08X len 0x%08X base 0x%08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\deviceHandler-DVD.c:481
+msgid "Failed to mount DVD. Press A"
+msgstr "Impossible de monter le DVD. Appuyer sur A"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:96
+msgid "XenoGC offset set\r\n"
+msgstr "XenoGC offset set\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:293
+msgid "Drive date %08X\r\nUnlocking DVD\r\n"
+msgstr "Drive date %08X\r\nDéblocage du DVD en cours\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:295
+msgid "Unlocking DVD - done\r\nWrite patch\r\n"
+msgstr "Déblocage du DVD - terminé\r\nEcriture du patch en cours\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:298
+msgid "Write patch - done\r\nSet extension %08X\r\n"
+msgstr "Ecriture du patch terminée\r\nDéfinition extension en cours %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:300
+msgid "Set extension - done\r\nUnlock again %08X\r\n"
+msgstr "Définition extension - terminé\r\nDébloquer à nouveau %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\dvd\dvd.c:302
+msgid "Unlock again - done\r\nDebug Motor On %08X\r\n"
+msgstr "Débloquage - terminé\r\nDéboguage Moteur allumé %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:188
+msgid "IDE-EXI ID: %08X\r\n"
+msgstr "IDE-EXI ID: %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:190
+msgid "IDE-EXI v2 detected\r\n"
+msgstr "IDE-EXI v2 détecté\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:194
+msgid "Unknown - assume IDE-EXI v1\r\n"
+msgstr "Unknown - assume IDE-EXI v1\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:219
+msgid "(%08X) Waiting for BSY to clear..\r\n"
+msgstr "(%08X) Waiting for BSY to clear..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:223
+msgid "Exceeded retries..\r\n"
+msgstr "Exceeded retries..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:236
+msgid "(%08X) Waiting for DRQ to toggle..\r\n"
+msgstr "(%08X) Waiting for DRQ to toggle..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:240
+msgid "(%08X) Drive did not respond in time, failing IDE-EXI init..\r\n"
+msgstr "(%08X) Drive did not respond in time, failing IDE-EXI init..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:291
+msgid "%d GB HDD Connected\r\n"
+msgstr "%d Go HDD Connecté\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:292
+msgid "LBA 48-Bit Mode %s\r\n"
+msgstr "LBA 48-Bit Mode %s\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:292
+msgid "Supported"
+msgstr "Supporté"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:292
+msgid "Not Supported"
+msgstr "Non Supporté"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:294
+
+msgid "Cylinders: %i\r\n"
+msgstr "Cylindres: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:295
+msgid "Heads Per Cylinder: %i\r\n"
+msgstr "Heads Per Cylinder: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:296
+msgid "Sectors Per Track: %i\r\n"
+msgstr "Secteurs par piste: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:298
+msgid "Model: %s\r\n"
+msgstr "Modèle: %s\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:299
+msgid "Serial: %s\r\n"
+msgstr ""
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:325
+msgid "UNLOCK (%08X) Waiting for BSY to clear..\r\n"
+msgstr "UNLOCK (%08X) Waiting for BSY to clear..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:329
+msgid "UNLOCK Exceeded retries..\r\n"
+msgstr "UNLOCK Exceeded retries..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:342
+msgid "UNLOCK (%08X) Waiting for DRQ to toggle..\r\n"
+msgstr "UNLOCK (%08X) Waiting for DRQ to toggle..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:346
+msgid "UNLOCK (%08X) Drive did not respond in time, failing IDE-EXI init..\r\n"
+msgstr "UNLOCK (%08X) Drive did not respond in time, failing IDE-EXI init..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:370
+msgid "Error: %02X\r\n"
+msgstr "Erreur: %02X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:422
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:485
+msgid "Error: %02X"
+msgstr "Erreur: %02X"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:530
+msgid "(%08X) Failed to read!..\r\n"
+msgstr "(%08X) Lecture impossible!..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\ata.c:549
+msgid "(%08X) Failed to write!..\r\n"
+msgstr "(%08X) Ecriture impossible!..\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:89
+msgid "Reading filesystem info for %s%s:/"
+msgstr "Lecture informations du système de fichiers pour %s%s:/"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:197
+msgid "== Fragments List ==\r\n"
+msgstr "== Liste des fragments ==\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:203
+msgid "Disc 1 Frag %i: ofs in file: [0x%08X] len [0x%08X] LBA on disk [0x%08X]\r\n"
+msgstr "Disque 1 Frag %i: ofs dans le fichier: [0x%08X] long. [0x%08X] LBA sur disque [0x%08X]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:210
+msgid "Disc 2 Frag %i: ofs in file: [0x%08X] len [0x%08X] LBA on disk [0x%08X]\r\n"
+msgstr "Disque 2 Frag %i: ofs dans le fichier: [0x%08X] long. [0x%08X] LBA sur disque [0x%08X]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:214
+msgid "== Fragments End ==\r\n"
+msgstr "== Fin de la liste ==\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:250
+msgid "Found patch file %i ofs 0x%08X len 0x%08X base 0x%08X (%i pieces)\r\n"
+msgstr "%i fichier(s) patch trouvé(s) ofs 0x%08X len 0x%08X base 0x%08X (%i pièces)\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:278
+msgid "Found disc 1 [%s] %i fragments\r\n"
+msgstr "Found disc 1 [%s] %i fragments\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:299
+msgid "Found disc 2 [%s] %i fragments\r\n"
+msgstr "Found disc 2 [%s] %i fragments\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:358
+msgid "Reading %s in slot %s"
+msgstr "Lecture %s dans le slot %s en cours"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\deviceHandler-FAT.c:411
+#: j:\vb6_extract_string\i18n\swiss\source\devices\smb\deviceHandler-SMB.c:209
+msgid "Unmounting [%s]\r\n"
+msgstr "Démontage [%s]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\frag.c:40
+msgid "frag list: %d %d %x\r\n"
+msgstr "Liste des fragments: %d %d %x\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\fat\frag.c:47
+msgid " %d : %8x %8x %8x (%i bytes)\r\n"
+msgstr " %d : %8x %8x %8x (%i octets)\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:59
+msgid "Memory Card Busy"
+msgstr "Memory Card occupée"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:61
+msgid "Inserted device is not a memory card"
+msgstr "Le périphérique inséré n'est pas une memory card"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:63
+msgid "No Card Inserted"
+msgstr "Aucune carte insérée"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:65
+msgid "Card Corrupted(?)"
+msgstr "Carte Corrompue(?)"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:67
+msgid "File does not exist"
+msgstr "Fichier inexistant"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:69
+msgid "Unknown error"
+msgstr "Erreur Inconnue"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:158
+msgid "Unaligned read dst %08X offset %08X length %i\r\n"
+msgstr "Lecture non alignée dst %08X offset %08X longueur %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:161
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:177
+msgid "CARD_Read offset %08X length %i\r\n"
+msgstr "CARD_Read offset %08X longueur %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:174
+msgid "Unaligned read leftovers offset %08X length %i\r\n"
+msgstr "Lecture non alignée leftovers offset %08X longueur %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:205
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:314
+msgid "Tried to open: [%s] in slot %s got res: %i\r\n"
+msgstr "Tentative d'ouverture: [%s] dans le slot %s got res: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:218
+msgid "Swiss copied file detected, skipping icon\r\n"
+msgstr "Fichier Swiss copié détecté, skipping icon\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:247
+msgid "Need to read: [%i] more bytes\r\n"
+msgstr "La lecture de: [%i] octects supplémentaires est néscessaire\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:255
+
+msgid "Read: [%i] bytes ret [%i] from offset [%i]\r\n"
+msgstr "Lecture: [%i] octets ret [%i] depuis offset [%i]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:257
+msgid "Read retry\r\n"
+msgstr "Nouvelle tentative de lecture\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:319
+msgid "Tried to create: [%s] in slot %s got res: %i\r\n"
+msgstr "Tried to create: [%s] in slot %s got res: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:324
+msgid "Tried to open after create: [%s] in slot %s got res: %i\r\n"
+msgstr "Tried to open after create: [%s] in slot %s got res: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:353
+msgid "Tried to write: [%s] in slot %s got res: %i\r\n"
+msgstr "Tried to write: [%s] in slot %s got res: %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:412
+msgid "CARD_ProbeEx failed %i\r\n"
+msgstr "CARD_ProbeEx a échoué %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\memcard\deviceHandler-CARD.c:436
+msgid "Deleting: %s from slot %i\r\n"
+msgstr "Suppression: %s depuis le slot %i\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\qoob\deviceHandler-Qoob.c:104
+msgid "Reading Qoob"
+msgstr "Lecture de Qoob en cours.."
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\smb\deviceHandler-SMB.c:71
+msgid "Reading filesystem info for smb:/"
+msgstr "Reading filesystem info for smb:/"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\smb\deviceHandler-SMB.c:102
+msgid "Check Samba Configuration"
+msgstr "Check Samba Configuration"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\smb\deviceHandler-SMB.c:111
+msgid "Network has not been initialised"
+msgstr "Network has not been initialised"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\smb\deviceHandler-SMB.c:122
+msgid "Error initialising Samba"
+msgstr "Error initialising Samba"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\usbgecko\deviceHandler-usbgecko.c:58
+msgid "Read directory!"
+msgstr "Lecture du dossier en cours !"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\usbgecko\deviceHandler-usbgecko.c:118
+msgid "Looking for USBGecko in Slot B"
+msgstr "Recherche d'un USBGecko dans le Slot B"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\usbgecko\deviceHandler-usbgecko.c:124
+msgid "Waiting for PC ..."
+msgstr "Attente du PC ..."
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\usbgecko\deviceHandler-usbgecko.c:136
+msgid "Couldn't find PC!"
+msgstr "PC Introuvable!"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\usbgecko\deviceHandler-usbgecko.c:143
+msgid "Found PC !!"
+msgstr "Pc Trouvé !!"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\deviceHandler-wiikeyfusion.c:201
+msgid "Init Wiikey Fusion"
+msgstr "Initialisation du Wiikey Fusion"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\deviceHandler-wiikeyfusion.c:209
+msgid "Reading filesystem info for wkf:/"
+msgstr "Lecture des infos du système de fichiers pour wkf:/ en cours"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:148
+msgid "Dumped %08X bytes (byte: %02X)\r\n"
+msgstr "Dumped %08X bytes (byte: %02X)\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:168
+msgid "WKF Serial: %s\r\n"
+msgstr "WKF Serial: %s\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:170
+msgid "Firmware upgrade in progress.\r\n"
+msgstr "Firmware upgrade in progress.\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:171
+msgid "Please do not power off your GC/Wii.\r\n"
+msgstr "Please do not power off your GC/Wii.\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:174
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:195
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:205
+msgid "Erasing Flash Page at %08X\r\n"
+msgstr "Erasing Flash Page at %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:179
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:200
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:210
+msgid "Writing Flash Page at %08X\r\n"
+msgstr "Writing Flash Page at %08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:187
+msgid "Menu flashing in progress. Do NOT Power Off !!"
+msgstr "Menu flashing in progress. Do NOT Power Off !!"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:218
+msgid "Firmware flashing in progress. Do NOT Power Off !!"
+msgstr "Firmware flashing in progress. Do NOT Power Off !!"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:225
+msgid "Should be 0x1C: %02X\r\n"
+msgstr "Should be 0x1C: %02X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:227
+msgid "Done!\r\n"
+msgstr "Terminé!\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:267
+msgid "Valid PAL Swich config detected\r\n"
+msgstr "Valid PAL Swich config detected\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:271
+msgid "Valid NTSC Swich config detected\r\n"
+msgstr "Valid NTSC Swich config detected\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:275
+msgid "Valid JAP Swich config detected\r\n"
+msgstr "Valid JAP Swich config detected\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:279
+msgid "Valid KOR Swich config detected\r\n"
+msgstr "Valid KOR Swich config detected\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:283
+msgid "Invalid Swich config detected: [0x%08X]\r\n"
+msgstr "Invalid Swich config detected: [0x%08X]\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:285
+msgid "*** WKF / WASP WARNING ***"
+msgstr "*** WKF / WASP WARNING ***"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:286
+msgid "Invalid WKF/WASP Switch config detected: [0x%08X]"
+msgstr "Invalid WKF/WASP Switch config detected: [0x%08X]"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:288
+msgid "This will cause slowdown in games!"
+msgstr "Ceci provoquera des ralentissements en jeu"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:289
+msgid "Please set SW3 & SW4 to ON to fix this"
+msgstr "Please set SW3 & SW4 to ON to fix this"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:340
+msgid "No SD Card"
+msgstr "Aucune Carte SD"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:364
+msgid "SD Card detected but failed to initialise.\nPlease try again"
+msgstr "SD Card detected but failed to initialise.\nPlease try again"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:366
+msgid "SD Card detected but failed to initialise.\nPlease try again\r\n"
+msgstr "SD Card detected but failed to initialise.\nPlease try again\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:371
+msgid "FAT detected\r\n"
+msgstr "FAT détectée\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wiikeyfusion\wkf.c:392
+msgid "Reinit complete\r\n"
+msgstr "Réinit. terminé\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wode\deviceHandler-WODE.c:43
+msgid "No Wode found! Press A"
+msgstr "Pas de Wode trouvé! Appuyer sur A"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wode\deviceHandler-WODE.c:59
+msgid "Reading WODE"
+msgstr "Lecture Wode en cours"
+
+#: j:\vb6_extract_string\i18n\swiss\source\devices\wode\deviceHandler-WODE.c:84
+msgid "Adding WODE entry: %s part:%08X iso:%08X region:%08X\r\n"
+msgstr "Adding WODE entry: %s part:%08X iso:%08X region:%08X\r\n"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:404
+msgid "%d%% percent complete"
+msgstr ""
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:515
+msgid "Partition: %i, ISO: %i"
+msgstr "Partition: %i, ISO: %i"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:518
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:521
+msgid "%.2fKB (%ld blocks)"
+msgstr "%.2fKo (%ld blocs)"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:658
+msgid "%s Parameters:"
+msgstr "Paramètres de %s:"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:673
+msgid "Default values will be used by the DOL being loaded if a"
+msgstr "Les valeurs par défaut seront utilisées par le DOL chargé"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:674
+msgid "parameter is not enabled. Please check the documentation"
+msgstr "si un paramètre n'est pas activé. Veuillez consulter la doc"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:675
+msgid "for this DOL if you are unsure of the default values."
+msgstr "pour ce DOL si vous n'êtes pas certain des valeurs par défaut."
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:676
+msgid "(A) Toggle Param - (Start) Load the DOL"
+msgstr "(A) Toggle Param - (Start) Charger le DOL"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:730
+msgid "%s Cheats:"
+msgstr "%s Cheats:"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:745
+msgid "Space taken by cheats:"
+msgstr "Espace pris par les cheats:"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:753
+msgid "WiiRD Debug %s"
+msgstr "Déboguage WiiRD %s"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\FrameBufferMagic.c:755
+msgid "(A) Toggle Cheat - (X) WiiRD Debug - (B) Return"
+msgstr "(A) Toggle Cheat - (X) Déboguage WiiRD - (B) Retour"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:27
+msgid "Dutch"
+msgstr ""
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:29
+msgid "Italian"
+msgstr "Italien"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:31
+msgid "Spanish"
+msgstr "Espagnol"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:33
+msgid "French"
+msgstr "Français"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:35
+msgid "German"
+msgstr "Allemand"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:37
+msgid "English"
+msgstr "Anglais"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:50
+msgid "System Info (1/3):"
+msgstr "Infos système (1/3):"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:88
+msgid "DVD Drive %02X %02X%02X/%02X (%02X)"
+msgstr "Lecteur DVD %02X %02X%02X/%02X (%02X)"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:90
+msgid "WKF Serial %s"
+msgstr "WKF Serial %s"
+
+#: j:\vb6_extract_string\i18n\swiss\source\gui\info.c:94
+msgid "No DVD Drive present"
+msgstr "Lecteur DVD Absent"
