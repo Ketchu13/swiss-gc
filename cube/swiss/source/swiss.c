@@ -3,7 +3,7 @@
 *   Swiss - The Gamecube IPL replacement
 *
 */
-//translation by ketchu13 3.51-18.3.17 windows-1252
+//Internationalization by ketchu13 2017
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
@@ -1324,9 +1324,9 @@ void load_file()
 			
 			// you're trying to load a disc1 of something
 
-			DrawFrameStart();
+			/*DrawFrameStart();
 	        DrawMessageBox(D_INFO,gettext("Vérification si c'est un jeu multi-disque.."));
-	        DrawFrameFinish();
+	        DrawFrameFinish();*/
 
 			if(curFile.name[strlen(secondDisc->name)-5] == '1') {
 				secondDisc->name[strlen(secondDisc->name)-5] = '2';
