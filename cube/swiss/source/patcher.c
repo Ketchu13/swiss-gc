@@ -1,5 +1,5 @@
 /* DOL Patching code by emu_kidid */
-
+//Internationalization by ketchu13 2017
 
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/

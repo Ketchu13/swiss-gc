@@ -5,7 +5,8 @@
       Version 1.0 11/11/2009
         - Initial Code
    ----------------------------------------------------------- */
-//** add more color - ketchu13 14.22.18.3.17
+//Internationalization
+//and more color - ketchu13 2017
 #include <gccore.h>
 #include <malloc.h>
 #include <stdio.h>

@@ -1,4 +1,4 @@
-//translation by ketchu13 14.10-19.3.17 windows-1252
+//Internationalization by ketchu13 2017
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/
@@ -180,7 +180,7 @@ int parse_gcm(file_handle *file, ExecutableFile *filesToPatch) {
 		deviceHandler_seekFile(file,GCMDisk.DOLOffset,DEVICE_HANDLER_SEEK_SET);
 		if(deviceHandler_readFile(file,&dolhdr,DOLHDRLENGTH) != DOLHDRLENGTH) {
 			DrawFrameStart();
-			DrawMessageBox(D_FAIL, "Failed to read Main DOL Header");
+			DrawMessageBox(D_FAIL, gettext("Failed to read Main DOL Header"));
 			DrawFrameFinish();
 			while(1);
 		}

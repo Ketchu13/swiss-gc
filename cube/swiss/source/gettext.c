@@ -1,3 +1,12 @@
+/****************************************************************************
+ * From Snes9x Nintendo Wii/Gamecube Port
+ *
+ * Tantric 2009-2010
+ *
+ * gettext.c
+ *
+ ***************************************************************************/
+ // Adapted to the Greatest SwissGC of emu_kidid by ketchu13 2017
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>

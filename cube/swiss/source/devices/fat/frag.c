@@ -4,7 +4,7 @@
  * Borrowed from cfg-loader, thanks guys.
  * Adapted for swiss :)
 **/
-//translation by ketchu13 15.43-19.3.17 windows-1252
+//Internationalization by ketchu13 2017
 
 #include <ogcsys.h>
 #include <stdlib.h>

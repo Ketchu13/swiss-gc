@@ -2,7 +2,7 @@
 	- device implementation for USBGecko
 	by emu_kidid
  */
-
+//Internationalization by ketchu13 2017
 #include <string.h>
 #include <unistd.h>
 #include <malloc.h>

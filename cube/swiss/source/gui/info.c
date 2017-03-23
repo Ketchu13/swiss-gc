@@ -1,4 +1,4 @@
-//translation by ketchu13 4.07-18.3.17 windows-1252
+//Internationalization by ketchu13 2017
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>

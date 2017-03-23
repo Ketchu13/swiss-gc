@@ -1,5 +1,4 @@
-//translation by ketchu13 0.12-19.3.17 windows-1252
-//resize font
+//Internationalization by ketchu13 2017
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>

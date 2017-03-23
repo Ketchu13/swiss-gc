@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+//Internationalization by ketchu13 2017
 #include <string.h>
 #include <malloc.h>
 #include <gccore.h>

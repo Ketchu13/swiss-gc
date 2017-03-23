@@ -2,7 +2,7 @@
 	- device implementation for FAT (via SDGecko/IDE-EXI)
 	by emu_kidid
  */
-//translation by ketchu13 13.55-19.3.17 windows-1252
+//Internationalization by ketchu13 2017
 #include <fat.h>
 #include <string.h>
 #include <unistd.h>

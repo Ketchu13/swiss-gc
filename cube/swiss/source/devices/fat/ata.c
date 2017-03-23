@@ -4,7 +4,7 @@
  * Based loosely on code written by Dampro
  * Re-written by emu_kidid
 **/
-//**i18n by ketchu13
+//**i18n by ketchu13 2017
 #include <stdio.h>
 #include <gccore.h>		/*** Wrapper to include common libogc headers ***/
 #include <ogcsys.h>		/*** Needed for console support ***/

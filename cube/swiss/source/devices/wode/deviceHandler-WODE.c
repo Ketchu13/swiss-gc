@@ -2,7 +2,7 @@
 	- device implementation for WODE (GC Only)
 	by emu_kidid
  */
-
+//Internationalization by ketchu13 2017
 
 #include <string.h>
 #include <unistd.h>

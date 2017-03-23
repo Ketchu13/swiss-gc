@@ -5,7 +5,7 @@
 	
 	- by emu_kidid for Swiss 28/07/2015
    ----------------------------------------------------------- */
-//translation by ketchu13 13.24-19.3.17 windows-1252
+//Internationalization by ketchu13 2017
 #include <gccore.h>
 #include <string.h>
 #include <malloc.h>

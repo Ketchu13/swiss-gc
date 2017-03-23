@@ -19,7 +19,7 @@
  * See the GNU General Public Licence for more details.
  *
 **/
-
+//Internationalization by ketchu13 2017
 #include <string.h>
 #include <unistd.h>
 #include <malloc.h>

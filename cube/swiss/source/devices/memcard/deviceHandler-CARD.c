@@ -3,7 +3,7 @@
 	by emu_kidid
  */
 
-
+//Internationalization by ketchu13 2017
 #include <stdio.h>
 #include <string.h>
 #include <gccore.h>

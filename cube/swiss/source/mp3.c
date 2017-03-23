@@ -1,3 +1,4 @@
+//Internationalization by ketchu13 2017
 #include <gccore.h>
 #include <stdlib.h>
 #include <asndlib.h>
