@@ -1411,7 +1411,7 @@ void draw_game_info() {
 			get_frag_list(curFile.name);
 			int bckslhPos = -1;
 			if(frag_list->num > 1) {
-				sprintf(txtbuffer, gettext("Fichier en %ld fragments."), frag_list->num);
+				sprintf(txtbuffer, gettext("File is in %ld fragments."), frag_list->num);
 				WriteFontStyled(640/2, 180, txtbuffer, 0.8f, true, defaultColor);
 			}
 			else {
