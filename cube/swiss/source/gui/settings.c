@@ -60,7 +60,7 @@ void settings_draw_page(int page_num, int option, file_handle *file) {
 	// Try to mute audio stutter [Yes/No]
 //todo 1.0f to 0.8f
 	if(!page_num) {
-		WriteFont(30, 65, gettext("Global Settings (1/3):"));
+		WriteFontStyled(30, 65, gettext("Global Settings (1/3):"), 1.0f, false, redColor);
 		WriteFontStyled(30, 120, gettext("IPL/Game Language:"), 1.0f, false, defaultColor);
 		DrawSelectableButton(400, 120, -1, 150, getSramLang(swissSettings.sramLanguage), option == 0 ? B_SELECTED:B_NOSELECT,-1);
 		WriteFontStyled(30, 160, gettext("IPL/Game Audio:"), 1.0f, false, defaultColor);
@@ -73,7 +73,7 @@ void settings_draw_page(int page_num, int option, file_handle *file) {
 		DrawSelectableButton(400, 280, -1, 310, igrTypeStr[swissSettings.igrType], option == 4 ? B_SELECTED:B_NOSELECT,-1);
 	}
 	else if(page_num == 1) {
-		WriteFont(30, 65, gettext("Advanced Settings (2/3):"));
+		WriteFontStyled(30, 65, gettext("Advanced Settings (2/3):"), 1.0f, false, redColor);
 		WriteFontStyled(30, 110, gettext("Enable USB Gecko Debug via Slot B:"), 1.0f, false, defaultColor);
 		DrawSelectableButton(500, 110, -1, 135, swissSettings.debugUSB ? gettext("Yes"):gettext("No"), option == 0 ? B_SELECTED:B_NOSELECT,-1);
 		WriteFontStyled(30, 140, gettext("Force No DVD Drive Mode:"), 1.0f, false, defaultColor);
@@ -90,7 +90,7 @@ void settings_draw_page(int page_num, int option, file_handle *file) {
 		DrawSelectableButton(500, 290, -1, 315, swissSettings.autoCheats ? gettext("Yes"):gettext("No"), option == 6 ? B_SELECTED:B_NOSELECT,-1);
 	}
 	else if(page_num == 2) {
-		WriteFont(30, 65, gettext("Current Game Settings (3/3):"));
+		WriteFontStyled(30, 65, gettext("Current Game Settings (3/3):"), 1.0f, false, redColor);
 		WriteFontStyled(30, 110, gettext("Force Video Mode:"), 1.0f, false, file != NULL ? defaultColor : disabledColor);
 		DrawSelectableButton(480, 110, -1, 135, gameVModeStr[swissSettings.gameVMode], option == 0 ? B_SELECTED:B_NOSELECT,-1);
 		WriteFontStyled(30, 140, gettext("If Progressive, Soften:"), 1.0f, false, file != NULL ? defaultColor : disabledColor);

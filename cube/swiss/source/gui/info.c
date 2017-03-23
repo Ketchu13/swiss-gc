@@ -101,7 +101,7 @@ void info_draw_page(int page_num) {
 		WriteFontStyled(640/2, 260, topStr, 0.75f, true, defaultColor);
 	}
 	else if(page_num == 1) {
-		WriteFont(30, 65, gettext("Device Info (2/3):"));
+		WriteFontStyled(30, 65, gettext("Device Info (2/3):"),1.0f, false, redColor);
 		sprintf(topStr,"BBA: %s", bba_exists ? gettext("Installed"):gettext("Not Present"));
 		WriteFont(30, 110, topStr);
 		if(exi_bba_exists()) {
@@ -155,7 +155,7 @@ void info_draw_page(int page_num) {
 		WriteFont(30, 200, topStr);
 	}
 	else if(page_num == 2) {
-		WriteFont(30, 65, gettext("Credits (3/3):"));
+		WriteFontStyled(30, 65, gettext("Credits (3/3):"),1.0f, false, redColor);
 		WriteFontStyled(640/2, 115, "Swiss ver 0.4 i18n", 1.0f, true, defaultColor);
 		WriteFontStyled(640/2, 140, gettext("by emu_kidid 2017 (i18n by Ketchu13)"), 0.75f, true, defaultColor);
 		sprintf(txtbuffer, "Commit %s Revision %s", GITREVISION, GITVERSION);
