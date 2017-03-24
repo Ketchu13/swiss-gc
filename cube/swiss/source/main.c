@@ -352,6 +352,7 @@ void main_loop()
                     sdgecko_setSpeed(EXI_SPEED16MHZ);
                     if(!deviceHandler_init( deviceHandler_initial )) {
                         print_gecko(gettext("Both slots failed twice\r\n"));
+                        sleep(1);
                         needsDeviceChange = 1;
                         return;
                     }
@@ -460,7 +461,10 @@ int main ()
     swissSettings.exiSpeed = 1;     // 32MHz
     swissSettings.uiVMode = 0;      // Auto UI mode
     swissSettings.enableFileManagement = 0;
-
+	DrawFrameStart();
+	DrawImage(TEX_SPLASHSC, 0, 0, 640, 480, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
+	DrawFrameFinish();
+	sleep(3);
     config_copy_swiss_settings(&swissSettings);
     needsDeviceChange = 1;
     needsRefresh = 1;

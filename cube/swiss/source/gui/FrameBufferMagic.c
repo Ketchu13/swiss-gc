@@ -80,7 +80,10 @@ TPLFile checkedTPL;
 GXTexObj checkedTexObj;
 TPLFile uncheckedTPL;
 GXTexObj uncheckedTexObj;
-
+//**+
+TPLFile splashscTPL;
+GXTexObj splashscTexObj;
+//**-
 void init_textures() 
 {
 	TPL_OpenTPLFromMemory(&backdropTPL, (void *)backdrop_tpl, backdrop_tpl_size);
@@ -135,6 +138,10 @@ void init_textures()
 	TPL_GetTexture(&checkedTPL,checked_32,&checkedTexObj);
 	TPL_OpenTPLFromMemory(&uncheckedTPL, (void *)unchecked_32_tpl, unchecked_32_tpl_size);
 	TPL_GetTexture(&uncheckedTPL,unchecked_32,&uncheckedTexObj);
+    //**+
+    TPL_OpenTPLFromMemory(&splashscTPL, (void *)splashsc_tpl, splashsc_tpl_size);
+	TPL_GetTexture(&splashscTPL,splashsc,&splashscTexObj);
+    //**-
 }
 
 void drawInit()
@@ -305,6 +312,9 @@ void DrawImage(int textureId, int x, int y, int width, int height, int depth, fl
 		break;
 	case TEX_UNCHECKED:
 		GX_LoadTexObj(&uncheckedTexObj, GX_TEXMAP0);
+		break;
+	case TEX_SPLASHSC: //k13**
+		GX_LoadTexObj(&splashscTexObj, GX_TEXMAP0);
 		break;
 	}	
 
