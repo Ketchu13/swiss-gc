@@ -1,2 +1,84 @@
 msgid "&"
 msgstr ""
+
+msgid "Global Settings (1/3):"
+msgstr "Globale Einstellungen (1/3):"
+
+msgid "IPL/Game Language:"
+msgstr "IPL/Sprache:"
+
+msgid "IPL/Game Audio:"
+msgstr "IPL/Modus Audio:"
+
+msgid "SD/IDE Speed:"
+msgstr "SD/IDE Geschwindigkeit:"
+
+msgid "Swiss Video Mode:"
+msgstr "Swiss Videomodus:"
+
+msgid "Advanced Settings (2/3):"
+msgstr "Erweiterte Einstellungen (2/3):"
+
+msgid "Enable USB Gecko Debug via Slot B:"
+msgstr "USB-Gecko-Debugging Slot B aktivieren:"
+
+msgid "Yes"
+msgstr "ja"
+
+msgid "No"
+msgstr "Nein"
+
+msgid "Force No DVD Drive Mode:"
+msgstr "Kraft Kein DVD-Laufwerk:"
+
+msgid "Hide Unknown file types:"
+msgstr "Unbekannte Dateitypen ausblenden:"
+
+msgid "Stop DVD Motor on startup:"
+msgstr "Arreter le moteur du DVD:"
+
+msgid "Enable WiiRD debugging in Games:"
+msgstr "Aktiviere WiiRD-Debug in Spielen:"
+
+msgid "Enable File Management:"
+msgstr "Dateiverwaltung aktivieren:"
+
+msgid "Auto-load all cheats:"
+msgstr "Auto lade alle cheats:"
+
+#: todo
+msgid "Current Game Settings (3/3):"
+msgstr "Aktuelle Spieleinstellungen (3/3):"
+
+msgid "Force Video Mode:"
+msgstr "Kraft Video Modus:"
+
+msgid "If Progressive, Soften:"
+msgstr "Wenn progressiv, weich:"
+
+msgid "Force Widescreen:"
+msgstr "Kraft Widescreen:"
+
+msgid "Force Anisotropy:"
+msgstr "Kraft Anisotropie:"
+
+msgid "Disable Audio Streaming:"
+msgstr "Deaktivieren Sie das Audio-Streaming:"
+
+msgid "Force Encoding:"
+msgstr "Kraftkodierung:"
+
+msgid "Back"
+msgstr "Zurück"
+
+msgid "Next"
+msgstr "Nächster"
+
+msgid "Save & Exit"
+msgstr "Sicherer und Ausgang"
+
+msgid "Discard & Exit"
+msgstr "Verwerfen und Ausgang"
+
+msgid "Saving changes!"
+msgstr "Änderungen speichern!"

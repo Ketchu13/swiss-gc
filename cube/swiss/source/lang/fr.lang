@@ -132,10 +132,6 @@ msgstr "Taille du DOL principal %i\r\n"
 msgid "Failed to read Main DOL"
 msgstr "Erreur de lecture du DOL principal"
 
-#: swiss.c:608
-msgid "Failed to find necessary functions for patching!"
-msgstr "Impossible de trouver les fonct. nécessaires au patch!"
-
 #: swiss.c:619
 msgid "Fragmentation patch failed to apply!"
 msgstr "Le correctif de fragmentation n'a pas été appliqué"
@@ -492,9 +488,6 @@ msgid "(Z) Show all devices"
 msgstr "(Z) Afficher tous les lecteurs"
 
 msgid "Global Settings (1/3):"
-msgstr "Paramètres Globaux (1/3):"
-
-msgid "Global Settings (1/3):"
 msgstr "Paramètres (1/3):"
 
 msgid "IPL/Game Language:"
@@ -541,7 +534,7 @@ msgstr "Chargement auto de tous les cheats:"
 
 #: todo
 msgid "Current Game Settings (3/3):"
-msgstr "Options pour le jeu (3/3):"
+msgstr "Options pour ce jeu (3/3):"
 
 msgid "Force Video Mode:"
 msgstr "Forcer le Mode Vidéo:"
@@ -568,10 +561,10 @@ msgid "Next"
 msgstr "Suivant"
 
 msgid "Save & Exit"
-msgstr "Enregistrer et Quitter"
+msgstr "Enregistrer & Quitter"
 
 msgid "Discard & Exit"
-msgstr "Annuler et Quitter"
+msgstr "Annuler & Quitter"
 
 msgid "Saving changes!"
 msgstr "Enregistrement des modifications!"
@@ -605,6 +598,7 @@ msgstr "Read from %08X Size %08X - Resultat: %08X\r\n"
 msgid "Failed to read!"
 msgstr "Lecture impossible!"
 
+#: swiss.c:608
 msgid "Failed to find necessary functions for patching!"
 msgstr "Impossible de trouver les fonctions nécessaires au correctif!"
 
