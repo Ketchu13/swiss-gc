@@ -1,23 +1,29 @@
-**Swiss v0.4 i18n Readme file
-  Avaiable Lang: En, De(Not fully), Fr, Es(Not fully). more coming soon.. 
-  
-  
+# **Swiss v0.4 i18n** #
+**What's i18n ?**
+>   *The terms "Internationalization" are frequently abbreviated
+> 	to the numeronyms i18n.
+> 	(where 18 stands for the number of letters between the 
+> 	first i and the last n in the word internationalization,
+> 	a usage coined at DEC in the 1970s or 80s) - **Wikipedia***
 
-Swiss v0.x No i18n 
--- Usage and features list:
-http://www.gc-forever.com/wiki/index.php?title=Swiss
+	 	
+## What's New: ##
+**New in Swiss 0.4 i18n:**
 
-
--- What's New:
-New in Swiss 0.4 i18n:
-- Added Internationalization to Swiss v0.4 !!
+- Added Internationalization to **Swiss v0.4**
+- Avaiable Lang: **En**, **De**(Not fully), **Fr**, **Es**(Not fully). more coming soon.
 - Added Swiss Slpash screen..
-...
+- **...**
+ 
+Swiss v0.x No i18n 
+-
+> **Usage and features list:** [http://www.gc-forever.com/wiki/index.php?title=Swiss](http://www.gc-forever.com/wiki/index.php?title=Swiss "http://www.gc-forever.com/wiki/index.php?title=Swiss")
 
-New in Swiss 0.3:
-- Added 16:9 widescreen forcing for games (thx Extrems!)
+**New in Swiss 0.3:**
+
+- Added 16:9 widescreen forcing for games (thx [Extrems](https://github.com/Extrems)!)
 - Added WiiRD Support for Games from all devices
-- Added 576p video mode support to Swiss/Games (thx Extrems!)
+- Added 576p video mode support to Swiss/Games (thx [Extrems](https://github.com/Extrems)!)
 - Added memory card emulation from SDGecko in slot A (WIP)
 - Added Ocarina Cheat engine support (.gct files or .qch archive still supported)
 - Added USBGecko PC browsing and game launch support (swissserver.exe)
@@ -34,7 +40,8 @@ New in Swiss 0.3:
 - Fix Linux compiling issue
 - Removed GCARS cheat engine (in favour of Ocarina)
 
-New in svn revision 123:
+**New in svn revision 123:**
+
 - High level type patch support significantly improved (driveless support too)
 - Disc swap code re-written (untested in anything but Tales of Symphonia - requires LOW patch type and disc in drive)
 - Re-wrote patches to use a common assembly code base
@@ -45,7 +52,8 @@ New in svn revision 123:
 - IDE-EXI v1 support partially broken for the time being whilst I fix it again..
 - Too much else to mention, check the SVN log :)
 
-New in svn revision 62:
+**New in svn revision 62:**
+
 - New high level patch (Fixes Super Mario Sunshine and a few other games)
 - Basic Wode support added
 - Pre-Patcher integrated into Swiss
@@ -54,14 +62,16 @@ New in svn revision 62:
 - Stop DVD motor after drive init for Qoob users
 - MP3 Playback (no point really)
 
-New in svn revision 47:
+**New in svn revision 47:**
+
 - Fix pre-patcher
 - Update pre-patcher version
 - Fix bugs in patch code
 - Added fast scrolling via analog stick in file selection
 - Bring up the info screen when booting a game
 
-New in svn revision 39:
+**New in svn revision 39:**
+
 - No need to navigate to the "Boot" button anymore, just press A on a file
 - Cheat file loading from browser on any device (.QCH format)
 - Reset SD Gecko on mount
@@ -71,16 +81,19 @@ New in svn revision 39:
 - Changed the device selection screen to allow for more devices to come
 - Attempt to fix black/green screen for users who have Swiss in 480p and then try booting a game
 
-New in svn revision 33:
+**New in svn revision 33:**
+
 - Zelda WW on Wii support
 - Add "Stop Motor" support now
 - DVD Seek instead of small Read now
 
-New in svn revision 28:
+**New in svn revision 28:**
+
 - Fixed a pretty big bug in SD/HDD code
 - Pokemon Box support
 
-New in svn revision 24:
+**New in svn revision 24:**
+
 - Extreme WIP version 
 - Fragmented files detection (no support for them yet)
 - Disabled disc dumper until I tidy up the code/fix it
@@ -88,14 +101,16 @@ New in svn revision 24:
 - Removed ELMchan FATFS in favour of libFAT
 - Simplified IDE-EXI code to use a 32bit sector addr (2TB Max)
 
-New in svn revision 21:
+**New in svn revision 21:**
+
 - Re-added device speed selection
 - Simplify Video forcing/patching (less green screen boot)
 - Fixed pre-patched image check
 - Fixed cheats scrolling being too fast
 - Cheats file now should be placed in device root:\cheats.qch
 
-New in svn revision 17:
+**New in svn revision 17:**
+
 - Fixed Zelda CE Windwaker demo (pre-patcher issue)
 - Fixed Zelda Master Quest
 - Changed relative branching to direct branching (mtctr,bctrl) (fixed 007 Everything or nothing)
@@ -103,7 +118,8 @@ New in svn revision 17:
 - Fixed broken ide-exi code
 - Swiss now checks the version a game was pre-patched with
 
-New in svn revision 7:
+**New in svn revision 7:**
+
 - Fixed Invalidation and Flushing
 - Fixed Zelda CE and possibly a few other games (use pre-patcher for it)
 - Fixed Audio Streaming original media on Wii
