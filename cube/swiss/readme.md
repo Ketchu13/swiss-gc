@@ -9,12 +9,14 @@
 	 	
 ## What's New: ##
 **New in Swiss 0.4 i18n:**
-
+![](https://github.com/Ketchu13/swiss-gc/blob/swiss_i18n/images/00000000-3.png)
 - Added Internationalization to **Swiss v0.4**
 - Avaiable Lang: **En**, **De**(Not fully), **Fr**, **Es**(Not fully). more coming soon.
 - Added Swiss Slpash screen..
 - **...**
- 
+
+
+
 Swiss v0.x No i18n 
 -
 > **Usage and features list:** [http://www.gc-forever.com/wiki/index.php?title=Swiss](http://www.gc-forever.com/wiki/index.php?title=Swiss "http://www.gc-forever.com/wiki/index.php?title=Swiss")
