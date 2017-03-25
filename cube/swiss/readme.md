@@ -14,7 +14,7 @@
 
 - Added Internationalization to **Swiss v0.4**
 - Avaiable Lang: **En**, **De**(Not fully), **Fr**, **Es**(Not fully). more coming soon.
-- Added Swiss Slpash screen..
+- Added Swiss Splash screen..
 - **...**
 
 Swiss v0.x No i18n 
