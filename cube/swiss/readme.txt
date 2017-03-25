@@ -1,5 +1,7 @@
 **Swiss v0.4 i18n Readme file
-  Avaiable Lang: en, fr. more coming soon.. 
+  Avaiable Lang: En, De(Not fully), Fr, Es(Not fully). more coming soon.. 
+  
+  
 
 Swiss v0.x No i18n 
 -- Usage and features list:
@@ -9,8 +11,9 @@ http://www.gc-forever.com/wiki/index.php?title=Swiss
 -- What's New:
 New in Swiss 0.4 i18n:
 - Added Internationalization to Swiss v0.4 !!
-
+- Added Swiss Slpash screen..
 ...
+
 New in Swiss 0.3:
 - Added 16:9 widescreen forcing for games (thx Extrems!)
 - Added WiiRD Support for Games from all devices
