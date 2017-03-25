@@ -35,7 +35,7 @@ msgid "Hide Unknown file types:"
 msgstr "Unbekannte Dateitypen ausblenden:"
 
 msgid "Stop DVD Motor on startup:"
-msgstr "Arreter le moteur du DVD:"
+msgstr "Stoppen Sie den DVD-Motor beim Start:"
 
 msgid "Enable WiiRD debugging in Games:"
 msgstr "Aktiviere WiiRD-Debug in Spielen:"
