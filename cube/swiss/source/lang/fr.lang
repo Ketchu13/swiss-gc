@@ -2,6 +2,9 @@
 msgid "&"
 msgstr "&"
 
+#: 
+msgid "Swiss Language:"
+msgstr "Langue utilisée pour Swiss:"
 #: swiss.c:147
 msgid "Video Mode: NTSC 60Hz"
 msgstr "Mode Vidéo: NTSC 60Hz"
@@ -1718,6 +1721,9 @@ msgstr "Allemand"
 #: gui\info.c:37
 msgid "English"
 msgstr "Anglais"
+
+msgid "Portuguese"
+msgstr "Português"
 
 #: gui\info.c:50
 msgid "System Info (1/3):"
