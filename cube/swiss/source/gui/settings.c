@@ -60,7 +60,9 @@ void settings_draw_page(int page_num, int option, file_handle *file) {
 	// Try to mute audio stutter [Yes/No]
 //todo 1.0f to 0.8f
 	if(!page_num) {
+		int tx_lng = swissSettings.sramLanguage + 25;
 		WriteFontStyled(30, 65, gettext("Global Settings (1/3):"), 1.0f, false, redColor);
+		DrawImage(tx_lng, 400, 65, 30,20, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
 		WriteFontStyled(30, 120, gettext("IPL/Game Language:"), 1.0f, false, defaultColor);
 		DrawSelectableButton(400, 120, -1, 150, getSramLang(swissSettings.sramLanguage), option == 0 ? B_SELECTED:B_NOSELECT,-1);
 		WriteFontStyled(30, 160, gettext("IPL/Game Audio:"), 1.0f, false, defaultColor);

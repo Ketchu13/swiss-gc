@@ -94,8 +94,22 @@ extern int whichfb;
 #include "checked_32.h"
 #include "unchecked_32_tpl.h"
 #include "unchecked_32.h"
+
 #include "splashsc_tpl.h"
 #include "splashsc.h"
+
+#include "lngfr_tpl.h"
+#include "lngfr.h"
+#include "lngen_tpl.h"
+#include "lngen.h"
+#include "lngde_tpl.h"
+#include "lngde.h"
+#include "lnges_tpl.h"
+#include "lnges.h"
+#include "lngit_tpl.h"
+#include "lngit.h"
+#include "lngnl_tpl.h"
+#include "lngnl.h"
 
 enum TextureId
 {
@@ -123,7 +137,13 @@ enum TextureId
 	TEX_PAL,
 	TEX_CHECKED,
 	TEX_UNCHECKED,
-	TEX_SPLASHSC
+	TEX_SPLASHSC,
+	TEX_LNGEN,
+	TEX_LNGDE,
+	TEX_LNGFR,
+	TEX_LNGES,
+	TEX_LNGIT,
+	TEX_LNGNL
 };
 
 void init_textures();

@@ -81,8 +81,20 @@ GXTexObj checkedTexObj;
 TPLFile uncheckedTPL;
 GXTexObj uncheckedTexObj;
 //**+
-TPLFile splashscTPL;
+TPLFile splashscTPL;	//splash
 GXTexObj splashscTexObj;
+TPLFile lngfrTPL;		//fr
+GXTexObj lngfrTexObj;
+TPLFile lngdeTPL;		//de
+GXTexObj lngdeTexObj;
+TPLFile lngenTPL;		//en
+GXTexObj lngenTexObj;
+TPLFile lngesTPL;		//es
+GXTexObj lngesTexObj;
+TPLFile lngitTPL;		//it
+GXTexObj lngitTexObj;
+TPLFile lngnlTPL;		//nl
+GXTexObj lngnlTexObj;
 //**-
 void init_textures() 
 {
@@ -141,7 +153,20 @@ void init_textures()
     //**+
     TPL_OpenTPLFromMemory(&splashscTPL, (void *)splashsc_tpl, splashsc_tpl_size);
 	TPL_GetTexture(&splashscTPL,splashsc,&splashscTexObj);
-    //**-
+	
+	TPL_OpenTPLFromMemory(&lngfrTPL, (void *)lngfr_tpl, lngfr_tpl_size);
+	TPL_GetTexture(&lngfrTPL,lngfr,&lngfrTexObj);
+	TPL_OpenTPLFromMemory(&lngdeTPL, (void *)lngde_tpl, lngde_tpl_size);
+	TPL_GetTexture(&lngdeTPL,lngde,&lngdeTexObj);
+	TPL_OpenTPLFromMemory(&lngenTPL, (void *)lngen_tpl, lngen_tpl_size);
+	TPL_GetTexture(&lngenTPL,lngen,&lngenTexObj);
+	TPL_OpenTPLFromMemory(&lngesTPL, (void *)lnges_tpl, lnges_tpl_size);
+	TPL_GetTexture(&lngesTPL,lnges,&lngesTexObj);
+	TPL_OpenTPLFromMemory(&lngitTPL, (void *)lngit_tpl, lngit_tpl_size);
+	TPL_GetTexture(&lngitTPL,lngit,&lngitTexObj);
+	TPL_OpenTPLFromMemory(&lngnlTPL, (void *)lngnl_tpl, lngnl_tpl_size);
+	TPL_GetTexture(&lngnlTPL,lngnl,&lngnlTexObj);
+	//**-
 }
 
 void drawInit()
@@ -315,6 +340,24 @@ void DrawImage(int textureId, int x, int y, int width, int height, int depth, fl
 		break;
 	case TEX_SPLASHSC: //k13**
 		GX_LoadTexObj(&splashscTexObj, GX_TEXMAP0);
+		break;
+	case TEX_LNGFR: //k13**
+		GX_LoadTexObj(&lngfrTexObj, GX_TEXMAP0);
+		break;
+	case TEX_LNGEN: //k13**
+		GX_LoadTexObj(&lngenTexObj, GX_TEXMAP0);
+		break;
+	case TEX_LNGES: //k13**
+		GX_LoadTexObj(&lngesTexObj, GX_TEXMAP0);
+		break;
+	case TEX_LNGDE: //k13**
+		GX_LoadTexObj(&lngdeTexObj, GX_TEXMAP0);
+		break;
+	case TEX_LNGIT: //k13**
+		GX_LoadTexObj(&lngitTexObj, GX_TEXMAP0);
+		break;
+	case TEX_LNGNL: //k13**
+		GX_LoadTexObj(&lngnlTexObj, GX_TEXMAP0);
 		break;
 	}	
 
