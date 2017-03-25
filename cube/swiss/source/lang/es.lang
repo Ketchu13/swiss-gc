@@ -1,2 +1,84 @@
 msgid "&"
 msgstr ""
+
+#: swiss.c:1713
+msgid "(Z) Show all devices"
+msgstr "(Z) Ver todos los dispositivos"
+
+msgid "Global Settings (1/3):"
+msgstr "Ajustes globales (1/3):"
+
+msgid "IPL/Game Language:"
+msgstr "IPL/Juego Idioma:"
+
+msgid "IPL/Game Audio:"
+msgstr "IPL/Modo de sonido:"
+
+msgid "SD/IDE Speed:"
+msgstr "Velocidad SD/IDE:"
+
+msgid "Swiss Video Mode:"
+msgstr "Modo video de Swiss"
+
+msgid "Advanced Settings (2/3):"
+msgstr "Configuracion avanzada (2/3):"
+
+msgid "Enable USB Gecko Debug via Slot B:"
+msgstr "Habilitar la depuracion USB Gecko Slot B"
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "No"
+msgstr "No"
+
+msgid "Force No DVD Drive Mode:"
+msgstr "Fuerza, no reproductor de DVD :"
+
+msgid "Hide Unknown file types:"
+msgstr "Ocultar Tipos de archivo desconocidos:"
+
+msgid "Stop DVD Motor on startup:"
+msgstr "Pare el motor de DVD en el arranque:"
+
+msgid "Enable WiiRD debugging in Games:"
+msgstr "Habilitar la depuracion WiiRD en los juegos:"
+
+msgid "Enable File Management:"
+msgstr "Habilitar la administracion de archivos:"
+
+msgid "Auto-load all cheats:"
+msgstr "Carga automatica de todos los trucos:"
+
+msgid "Current Game Settings (3/3):"
+msgstr "Configuracion actual del juego (3/3):"
+
+msgid "Force Video Mode:"
+msgstr "Forzar el modo de video:"
+
+msgid "If Progressive, Soften:"
+msgstr "Si es progresivo, suavizar:"
+
+msgid "Force Widescreen:"
+msgstr "Fuerza Widescreen:"
+
+msgid "Force Anisotropy:"
+msgstr "Fuerza Anisotropia:"
+
+msgid "Disable Audio Streaming:"
+msgstr "Desactivar streaming audio:"
+
+msgid "Force Encoding:"
+msgstr "Fuerza Codificacion:"
+
+msgid "Back"
+msgstr "Espalda"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Save & Exit"
+msgstr "Guardar y Salir"
+
+msgid "Discard & Exit"
+msgstr "Descartar y Salir"
