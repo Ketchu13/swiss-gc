@@ -293,7 +293,7 @@ void config_parse(char *configData) {
 						configSwissSettings.swissLanguage = 4;
 					else if(!strcmp("Dut", value))
 						configSwissSettings.swissLanguage = 5;
-					else if(!strcmp("kli", value))
+					else if(!strcmp("Por", value))
 						configSwissSettings.swissLanguage = 6;
 					LoadLanguage();
 				}

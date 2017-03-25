@@ -28,7 +28,7 @@ char *igrTypeStr[] = {"Disabled", "Reboot", "boot.bin","USB Flash"};
 char *getLang(u8 lang) {
 	switch(lang) {
 	    case 6:
-			return "Kli";
+			return "Por";
 		case 5:
 			return "Dut";
 		case 4:
