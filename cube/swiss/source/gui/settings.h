@@ -18,5 +18,5 @@ extern char *forceEncodingStr[];
 extern char *igrTypeStr[];
 int show_settings(file_handle *file, ConfigEntry *config);
 void refreshSRAM();
-
+char *getLang(u8 lang);
 #endif

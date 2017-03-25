@@ -104,6 +104,8 @@ int config_update_file() {
 		fwrite(str, 1, strlen(str), fp);
 		
 		// Write out Swiss settings
+		sprintf(txtbuffer, gettext("SwissLanguage=%s\r\n"),getLang(configSwissSettings.swissLanguage));
+		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		sprintf(txtbuffer, gettext("SD/IDE Speed=%s\r\n"),(configSwissSettings.exiSpeed ? gettext("32MHz"):gettext("16MHz")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		sprintf(txtbuffer, gettext("Swiss Video Mode=%s\r\n"),(uiVModeStr[configSwissSettings.uiVMode]));
@@ -277,10 +279,26 @@ void config_parse(char *configData) {
 					else if(!strcmp(forceEncodingStr[2], value))
 						configEntries[configEntriesCount].forceEncoding = 2;
 				}
-				
 				// Swiss settings
+				else if(!strcmp(gettext("Swiss Language"), name)) {
+					if(!strcmp("Eng",value))
+						configSwissSettings.swissLanguage = 0;
+					else if(!strcmp("Ger", value))
+						configSwissSettings.swissLanguage = 1;
+					else if(!strcmp("Fre", value ))
+						configSwissSettings.swissLanguage = 2;
+					else if(!strcmp("Spa", value ))
+						configSwissSettings.swissLanguage = 3;
+					else if(!strcmp("Ita", value))
+						configSwissSettings.swissLanguage = 4;
+					else if(!strcmp("Dut", value))
+						configSwissSettings.swissLanguage = 5;
+					else if(!strcmp("kli", value))
+						configSwissSettings.swissLanguage = 6;
+					LoadLanguage();
+				}
 				else if(!strcmp(gettext("SD/IDE Speed"), name)) {
-					configSwissSettings.exiSpeed = !strcmp(gettext("32MHz"), value) ? 1:0;
+					configSwissSettings.exiSpeed = !strcmp("32MHz", value) ? 1:0;
 				}
 				else if(!strcmp(gettext("Enable Debug"), name)) {
 					configSwissSettings.debugUSB = !strcmp(gettext("Yes"), value) ? 1:0;

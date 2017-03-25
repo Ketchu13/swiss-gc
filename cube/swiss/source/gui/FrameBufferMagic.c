@@ -95,6 +95,8 @@ TPLFile lngitTPL;		//it
 GXTexObj lngitTexObj;
 TPLFile lngnlTPL;		//nl
 GXTexObj lngnlTexObj;
+TPLFile lngptTPL;		//pt
+GXTexObj lngptTexObj;
 //**-
 void init_textures() 
 {
@@ -166,6 +168,8 @@ void init_textures()
 	TPL_GetTexture(&lngitTPL,lngit,&lngitTexObj);
 	TPL_OpenTPLFromMemory(&lngnlTPL, (void *)lngnl_tpl, lngnl_tpl_size);
 	TPL_GetTexture(&lngnlTPL,lngnl,&lngnlTexObj);
+	TPL_OpenTPLFromMemory(&lngptTPL, (void *)lngpt_tpl, lngpt_tpl_size);
+	TPL_GetTexture(&lngptTPL,lngpt,&lngptTexObj);
 	//**-
 }
 
@@ -358,6 +362,9 @@ void DrawImage(int textureId, int x, int y, int width, int height, int depth, fl
 		break;
 	case TEX_LNGNL: //k13**
 		GX_LoadTexObj(&lngnlTexObj, GX_TEXMAP0);
+		break;
+	case TEX_LNGPT: //k13**
+		GX_LoadTexObj(&lngptTexObj, GX_TEXMAP0);
 		break;
 	}	
 

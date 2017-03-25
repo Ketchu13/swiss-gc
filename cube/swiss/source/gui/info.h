@@ -8,7 +8,9 @@
 #include <malloc.h>
 #include <gccore.h>
 
+
 char *getSramLang(u8 lang);
+char *getSwissLang(u8 lang);
 
 void show_info();
 

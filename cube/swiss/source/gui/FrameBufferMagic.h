@@ -110,6 +110,8 @@ extern int whichfb;
 #include "lngit.h"
 #include "lngnl_tpl.h"
 #include "lngnl.h"
+#include "lngpt_tpl.h"
+#include "lngpt.h"
 
 enum TextureId
 {
@@ -143,7 +145,8 @@ enum TextureId
 	TEX_LNGFR,
 	TEX_LNGES,
 	TEX_LNGIT,
-	TEX_LNGNL
+	TEX_LNGNL,
+	TEX_LNGPT
 };
 
 void init_textures();

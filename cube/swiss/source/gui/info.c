@@ -21,8 +21,11 @@
 
 char topStr[256];
 
+
 char *getSramLang(u8 lang) {
 	switch(lang) {
+	    case 6:
+			return gettext("Portuguese");
 		case 5:
 			return gettext("Dutch");
 		case 4:
@@ -37,6 +40,9 @@ char *getSramLang(u8 lang) {
 			return gettext("English");
 	}
 	return gettext("Unknown");
+}
+char *getSwissLang(u8 lang) {
+	return getSramLang(lang);
 }
 
 void info_draw_page(int page_num) {

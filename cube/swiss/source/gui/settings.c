@@ -25,6 +25,27 @@ char *forceWidescreenStr[] = {"No", "Persp", "Yes"};
 char *forceEncodingStr[] = {"Auto", "ANSI", "SJIS"};
 char *igrTypeStr[] = {"Disabled", "Reboot", "boot.bin","USB Flash"};
 
+char *getLang(u8 lang) {
+	switch(lang) {
+	    case 6:
+			return "Kli";
+		case 5:
+			return "Dut";
+		case 4:
+			return "Ita";
+		case 3:
+			return "Spa";
+		case 2:
+			return "Fre";
+		case 1:
+			return "Ger";
+		case 0:
+			return "Eng";
+	}
+	return "Unk";
+}
+//char *swLanguage[] = { "
+
 syssram* sram;
 
 // Number of settings (including Back, Next, Save, Exit buttons) per page
@@ -60,19 +81,27 @@ void settings_draw_page(int page_num, int option, file_handle *file) {
 	// Try to mute audio stutter [Yes/No]
 //todo 1.0f to 0.8f
 	if(!page_num) {
-		int tx_lng = swissSettings.sramLanguage + 25;
+		int tx_lng = swissSettings.swissLanguage + 25;
 		WriteFontStyled(30, 65, gettext("Global Settings (1/3):"), 1.0f, false, redColor);
-		DrawImage(tx_lng, 400, 65, 30,20, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
-		WriteFontStyled(30, 120, gettext("IPL/Game Language:"), 1.0f, false, defaultColor);
-		DrawSelectableButton(400, 120, -1, 150, getSramLang(swissSettings.sramLanguage), option == 0 ? B_SELECTED:B_NOSELECT,-1);
-		WriteFontStyled(30, 160, gettext("IPL/Game Audio:"), 1.0f, false, defaultColor);
-		DrawSelectableButton(400, 160, -1, 190, swissSettings.sramStereo ? gettext("Stereo"):gettext("Mono"), option == 1 ? B_SELECTED:B_NOSELECT,-1);
+		DrawImage(tx_lng, 430, 65, 30,20, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
+		
+		WriteFontStyled(30, 110, gettext("Swiss Language:"), 1.0f, false, defaultColor);
+		DrawSelectableButton(400, 110, -1, 135, getSwissLang(swissSettings.swissLanguage), option == 0 ? B_SELECTED:B_NOSELECT,-1);
+		
+		WriteFontStyled(30, 140, gettext("IPL/Game Language:"), 1.0f, false, defaultColor);
+		DrawSelectableButton(400, 140, -1, 165, getSramLang(swissSettings.sramLanguage), option == 1 ? B_SELECTED:B_NOSELECT,-1);
+		
+		WriteFontStyled(30, 170, gettext("IPL/Game Audio:"), 1.0f, false, defaultColor);
+		DrawSelectableButton(400, 170, -1, 195, swissSettings.sramStereo ? gettext("Stereo"):gettext("Mono"), option == 2 ? B_SELECTED:B_NOSELECT,-1);
+		
 		WriteFontStyled(30, 200, gettext("SD/IDE Speed:"), 1.0f, false, defaultColor);
-		DrawSelectableButton(400, 200, -1, 230, swissSettings.exiSpeed ? gettext("32 MHz"):gettext("16 MHz"), option == 2 ? B_SELECTED:B_NOSELECT,-1);
-		WriteFontStyled(30, 240, gettext("Swiss Video Mode:"), 1.0f, false, defaultColor);
-		DrawSelectableButton(400, 240, -1, 270, uiVModeStr[swissSettings.uiVMode], option == 3 ? B_SELECTED:B_NOSELECT,-1);
-		WriteFontStyled(30, 280, gettext("In-Game-Reset:"), 1.0f, false, defaultColor);
-		DrawSelectableButton(400, 280, -1, 310, igrTypeStr[swissSettings.igrType], option == 4 ? B_SELECTED:B_NOSELECT,-1);
+		DrawSelectableButton(400, 200, -1, 225, swissSettings.exiSpeed ? gettext("32 MHz"):gettext("16 MHz"), option == 3 ? B_SELECTED:B_NOSELECT,-1);
+		
+		WriteFontStyled(30, 230, gettext("Swiss Video Mode:"), 1.0f, false, defaultColor);
+		DrawSelectableButton(400, 240, -1, 265, uiVModeStr[swissSettings.uiVMode], option == 4 ? B_SELECTED:B_NOSELECT,-1);
+		
+		WriteFontStyled(30, 260, gettext("In-Game-Reset:"), 1.0f, false, defaultColor);
+		DrawSelectableButton(400, 280, -1, 305, igrTypeStr[swissSettings.igrType], option == 5 ? B_SELECTED:B_NOSELECT,-1);
 	}
 	else if(page_num == 1) {
 		WriteFontStyled(30, 65, gettext("Advanced Settings (2/3):"), 1.0f, false, redColor);
@@ -123,27 +152,34 @@ void settings_toggle(int page, int option, int direction, file_handle *file) {
 	if(page == 0) {
 		switch(option) {
 			case 0:
+				swissSettings.swissLanguage += direction;
+				if(swissSettings.swissLanguage > 6)
+					swissSettings.swissLanguage = 0;
+				if(swissSettings.swissLanguage < 0)
+					swissSettings.swissLanguage = 6;
+				LoadLanguage();
+			break;
+			case 1:
 				swissSettings.sramLanguage += direction;
 				if(swissSettings.sramLanguage > 5)
 					swissSettings.sramLanguage = 0;
 				if(swissSettings.sramLanguage < 0)
 					swissSettings.sramLanguage = 5;
-				LoadLanguage();
-			break;
-			case 1:
-				swissSettings.sramStereo ^= 4;
 			break;
 			case 2:
-				swissSettings.exiSpeed ^= 1;
+				swissSettings.sramStereo ^= 4;
 			break;
 			case 3:
+				swissSettings.exiSpeed ^= 1;
+			break;
+			case 4:
 				swissSettings.uiVMode += direction;
 				if(swissSettings.uiVMode > 4)
 					swissSettings.uiVMode = 0;
 				if(swissSettings.uiVMode < 0)
 					swissSettings.uiVMode = 4;
 			break;
-			case 4:
+			case 5:
 				swissSettings.igrType += direction;
 				if(swissSettings.igrType > 3)
 					swissSettings.igrType = 0;
