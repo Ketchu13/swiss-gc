@@ -83,7 +83,7 @@ void settings_draw_page(int page_num, int option, file_handle *file) {
 	if(!page_num) {
 		int tx_lng = swissSettings.swissLanguage + 25;
 		WriteFontStyled(30, 65, gettext("Global Settings (1/3):"), 1.0f, false, redColor);
-		DrawImage(tx_lng, 430, 65, 30,20, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
+		DrawImage(tx_lng, 430, 70, 30,20, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
 		
 		WriteFontStyled(30, 110, gettext("Swiss Language:"), 1.0f, false, defaultColor);
 		DrawSelectableButton(400, 110, -1, 135, getSwissLang(swissSettings.swissLanguage), option == 0 ? B_SELECTED:B_NOSELECT,-1);
@@ -98,10 +98,10 @@ void settings_draw_page(int page_num, int option, file_handle *file) {
 		DrawSelectableButton(400, 200, -1, 225, swissSettings.exiSpeed ? gettext("32 MHz"):gettext("16 MHz"), option == 3 ? B_SELECTED:B_NOSELECT,-1);
 		
 		WriteFontStyled(30, 230, gettext("Swiss Video Mode:"), 1.0f, false, defaultColor);
-		DrawSelectableButton(400, 240, -1, 265, uiVModeStr[swissSettings.uiVMode], option == 4 ? B_SELECTED:B_NOSELECT,-1);
+		DrawSelectableButton(400, 230, -1, 255, uiVModeStr[swissSettings.uiVMode], option == 4 ? B_SELECTED:B_NOSELECT,-1);
 		
 		WriteFontStyled(30, 260, gettext("In-Game-Reset:"), 1.0f, false, defaultColor);
-		DrawSelectableButton(400, 280, -1, 305, igrTypeStr[swissSettings.igrType], option == 5 ? B_SELECTED:B_NOSELECT,-1);
+		DrawSelectableButton(400, 260, -1, 285, igrTypeStr[swissSettings.igrType], option == 5 ? B_SELECTED:B_NOSELECT,-1);
 	}
 	else if(page_num == 1) {
 		WriteFontStyled(30, 65, gettext("Advanced Settings (2/3):"), 1.0f, false, redColor);
