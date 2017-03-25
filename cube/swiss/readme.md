@@ -17,6 +17,7 @@
 
 
 
+![](https://github.com/Ketchu13/swiss-gc/blob/swiss_i18n/images/00000000-3.png)
 Swiss v0.x No i18n 
 -
 > **Usage and features list:** [http://www.gc-forever.com/wiki/index.php?title=Swiss](http://www.gc-forever.com/wiki/index.php?title=Swiss "http://www.gc-forever.com/wiki/index.php?title=Swiss")
