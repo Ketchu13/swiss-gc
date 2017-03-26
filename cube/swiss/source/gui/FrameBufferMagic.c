@@ -97,6 +97,15 @@ TPLFile lngnlTPL;		//nl
 GXTexObj lngnlTexObj;
 TPLFile lngptTPL;		//pt
 GXTexObj lngptTexObj;
+//icons
+TPLFile icopassTPL;		//es
+GXTexObj icopassTexObj;
+TPLFile icofailTPL;		//it
+GXTexObj icofailTexObj;
+TPLFile icowarnTPL;		//nl
+GXTexObj icowarnTexObj;
+TPLFile icoinfoTPL;		//pt
+GXTexObj icoinfoTexObj;
 
 void init_textures() 
 {
@@ -170,6 +179,16 @@ void init_textures()
 	TPL_GetTexture(&lngnlTPL,lngnl,&lngnlTexObj);
 	TPL_OpenTPLFromMemory(&lngptTPL, (void *)lngpt_tpl, lngpt_tpl_size);
 	TPL_GetTexture(&lngptTPL,lngpt,&lngptTexObj);
+	//icons
+	TPL_OpenTPLFromMemory(&icopassTPL, (void *)icopass_tpl, icopass_tpl_size);
+	TPL_GetTexture(&icopassTPL,icopass,&icopassTexObj);
+	TPL_OpenTPLFromMemory(&icofailTPL, (void *)icofail_tpl, icofail_tpl_size);
+	TPL_GetTexture(&icofailTPL,icofail,&icofailTexObj);
+	TPL_OpenTPLFromMemory(&icowarnTPL, (void *)icowarn_tpl, icowarn_tpl_size);
+	TPL_GetTexture(&icowarnTPL,icowarn,&icowarnTexObj);
+	TPL_OpenTPLFromMemory(&icoinfoTPL, (void *)icoinfo_tpl, icoinfo_tpl_size);
+	TPL_GetTexture(&icoinfoTPL,icoinfo,&icoinfoTexObj);
+	
 }
 
 void drawInit()
@@ -365,6 +384,18 @@ void DrawImage(int textureId, int x, int y, int width, int height, int depth, fl
 	case TEX_LNGPT: 
 		GX_LoadTexObj(&lngptTexObj, GX_TEXMAP0);
 		break;
+	case TEX_D_PASS: 
+		GX_LoadTexObj(&icopassTexObj, GX_TEXMAP0);
+		break;
+	case TEX_D_FAIL: 
+		GX_LoadTexObj(&icofailTexObj, GX_TEXMAP0);
+		break;
+	case TEX_D_WARN: 
+		GX_LoadTexObj(&icowarnTexObj, GX_TEXMAP0);
+		break;
+	case TEX_D_INFO: 
+		GX_LoadTexObj(&icoinfoTexObj, GX_TEXMAP0);
+		break;
 	}	
 
 	if(centered)
@@ -476,7 +507,24 @@ void DrawMessageBox(int type, char *message)
 	GXColor borderColor = (GXColor) {200,200,200,GUI_MSGBOX_ALPHA}; //silver
 	
 	DrawSimpleBox( x1, y1, x2-x1, y2-y1, 0, fillColor, borderColor); 
-
+	if(type >= -1) {
+		int msgicon = TEX_D_INFO; 
+		switch(type) {
+			case D_WARN:
+				msgicon = TEX_D_WARN;
+			break;
+			case D_INFO:
+				msgicon = TEX_D_INFO;
+			break;
+			case D_FAIL:
+				msgicon = TEX_D_FAIL;
+			break;
+			case D_PASS:
+				msgicon = TEX_D_PASS;
+			break;
+		}
+		DrawImage(msgicon, ((640/2)-(30/2)), (y1-(30/2)), 30,30, 0, 0.0f, 1.0f, 0.0f, 1.0f, 0);
+	}
 	sprintf(txtbuffer, "%s", message);
 	char *tok = strtok(txtbuffer,"\n");
 	while(tok != NULL) {

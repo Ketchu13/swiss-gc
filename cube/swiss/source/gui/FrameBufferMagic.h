@@ -97,7 +97,7 @@ extern int whichfb;
 
 #include "splashsc_tpl.h"
 #include "splashsc.h"
-
+//lang
 #include "lngfr_tpl.h"
 #include "lngfr.h"
 #include "lngen_tpl.h"
@@ -112,6 +112,14 @@ extern int whichfb;
 #include "lngnl.h"
 #include "lngpt_tpl.h"
 #include "lngpt.h"
+#include "icopass_tpl.h"
+#include "icopass.h"
+#include "icofail_tpl.h"
+#include "icofail.h"
+#include "icowarn_tpl.h"
+#include "icowarn.h"
+#include "icoinfo_tpl.h"
+#include "icoinfo.h"
 
 enum TextureId
 {
@@ -146,7 +154,11 @@ enum TextureId
 	TEX_LNGES,
 	TEX_LNGIT,
 	TEX_LNGNL,
-	TEX_LNGPT
+	TEX_LNGPT,
+	TEX_D_PASS,
+	TEX_D_FAIL,
+	TEX_D_WARN,
+	TEX_D_INFO
 };
 
 void init_textures();
