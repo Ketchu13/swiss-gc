@@ -13,9 +13,10 @@
 
 ![Swiss i18n](https://github.com/Ketchu13/swiss-gc/blob/swiss_i18n/images/00000000-3.png)
 
-- Added Internationalization to **Swiss v0.4**
-- Available Lang: **En**, **De**(Not fully), **Fr**, **Es**(Not fully). more coming soon.
-- Added Swiss Splash screen..
+- Added Internationalization to **Swiss v0.4**.
+- Available Lang: **En**, **Fr**, (**De**,**Es**, **Pt** Not complete).
+- Added Swiss Splash screen..*
+- Added dialogs icons..
 - **...**
 
 Swiss v0.x No i18n 
