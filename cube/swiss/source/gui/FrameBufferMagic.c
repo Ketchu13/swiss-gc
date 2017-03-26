@@ -80,7 +80,7 @@ TPLFile checkedTPL;
 GXTexObj checkedTexObj;
 TPLFile uncheckedTPL;
 GXTexObj uncheckedTexObj;
-//**+
+
 TPLFile splashscTPL;	//splash
 GXTexObj splashscTexObj;
 TPLFile lngfrTPL;		//fr
@@ -97,7 +97,7 @@ TPLFile lngnlTPL;		//nl
 GXTexObj lngnlTexObj;
 TPLFile lngptTPL;		//pt
 GXTexObj lngptTexObj;
-//**-
+
 void init_textures() 
 {
 	TPL_OpenTPLFromMemory(&backdropTPL, (void *)backdrop_tpl, backdrop_tpl_size);
@@ -152,7 +152,7 @@ void init_textures()
 	TPL_GetTexture(&checkedTPL,checked_32,&checkedTexObj);
 	TPL_OpenTPLFromMemory(&uncheckedTPL, (void *)unchecked_32_tpl, unchecked_32_tpl_size);
 	TPL_GetTexture(&uncheckedTPL,unchecked_32,&uncheckedTexObj);
-    //**+
+    
     TPL_OpenTPLFromMemory(&splashscTPL, (void *)splashsc_tpl, splashsc_tpl_size);
 	TPL_GetTexture(&splashscTPL,splashsc,&splashscTexObj);
 	
@@ -170,7 +170,6 @@ void init_textures()
 	TPL_GetTexture(&lngnlTPL,lngnl,&lngnlTexObj);
 	TPL_OpenTPLFromMemory(&lngptTPL, (void *)lngpt_tpl, lngpt_tpl_size);
 	TPL_GetTexture(&lngptTPL,lngpt,&lngptTexObj);
-	//**-
 }
 
 void drawInit()
@@ -342,28 +341,28 @@ void DrawImage(int textureId, int x, int y, int width, int height, int depth, fl
 	case TEX_UNCHECKED:
 		GX_LoadTexObj(&uncheckedTexObj, GX_TEXMAP0);
 		break;
-	case TEX_SPLASHSC: //k13**
+	case TEX_SPLASHSC: 
 		GX_LoadTexObj(&splashscTexObj, GX_TEXMAP0);
 		break;
-	case TEX_LNGFR: //k13**
+	case TEX_LNGFR: 
 		GX_LoadTexObj(&lngfrTexObj, GX_TEXMAP0);
 		break;
-	case TEX_LNGEN: //k13**
+	case TEX_LNGEN: 
 		GX_LoadTexObj(&lngenTexObj, GX_TEXMAP0);
 		break;
-	case TEX_LNGES: //k13**
+	case TEX_LNGES: 
 		GX_LoadTexObj(&lngesTexObj, GX_TEXMAP0);
 		break;
-	case TEX_LNGDE: //k13**
+	case TEX_LNGDE: 
 		GX_LoadTexObj(&lngdeTexObj, GX_TEXMAP0);
 		break;
-	case TEX_LNGIT: //k13**
+	case TEX_LNGIT: 
 		GX_LoadTexObj(&lngitTexObj, GX_TEXMAP0);
 		break;
-	case TEX_LNGNL: //k13**
+	case TEX_LNGNL: 
 		GX_LoadTexObj(&lngnlTexObj, GX_TEXMAP0);
 		break;
-	case TEX_LNGPT: //k13**
+	case TEX_LNGPT: 
 		GX_LoadTexObj(&lngptTexObj, GX_TEXMAP0);
 		break;
 	}	

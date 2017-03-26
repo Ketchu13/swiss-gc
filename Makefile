@@ -90,7 +90,6 @@ recovery-iso:
 	# merge bootloader and swiss
 	@dd if=$(DIST)/WiikeyFusion/RecoveryISO/pal.iso of=$(DIST)/WiikeyFusion/RecoveryISO/$(SVN_REVISION)"_Recovery".iso bs=1 seek=65536
 	@rm -rf $(DIST)/WiikeyFusion/RecoveryISO/pal.iso
-	# Skip to make ISOs and WKF firmware
 	
 #------------------------------------------------------------------
 

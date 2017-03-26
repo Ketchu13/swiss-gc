@@ -37,12 +37,10 @@ GXColor disabledColor = (GXColor) {175,175,182,255};
 GXColor fontColor = (GXColor) {255,255,255,255};
 GXColor deSelectedColor = (GXColor) {80,80,73,255};
 
-//**added color
 GXColor redColor = (GXColor) {255,0,0,255};
 GXColor blueColor = (GXColor) {0,0,255,255};
 GXColor greenColor = (GXColor) {0,255,0,255};
 GXColor orangeColor = (GXColor) {255,128,0,255};
-//**
 
 /****************************************************************************
  * YAY0 Decoding
