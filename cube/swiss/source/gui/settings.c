@@ -49,7 +49,7 @@ char *getLang(u8 lang) {
 syssram* sram;
 
 // Number of settings (including Back, Next, Save, Exit buttons) per page
-int settings_count_pp[3] = {7, 10, 8};
+int settings_count_pp[3] = {8, 10, 8};
 
 void refreshSRAM() {
 	sram = __SYS_LockSram();
