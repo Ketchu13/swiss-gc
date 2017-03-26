@@ -119,9 +119,10 @@ int deviceHandler_USBGecko_init(file_handle* file) {
 	DrawFrameFinish();
 	if(usb_isgeckoalive(1)) {
 		int retries = 1000;
-		
+		char txtbufftemp[256];
+		sprintf(txtbufftemp, gettext("Waiting for PC ...\nRetries: %i/1000"), (1000-retries));
 		DrawFrameStart();
-		DrawMessageBox(D_INFO,gettext("Waiting for PC ..."));
+		DrawMessageBox(D_INFO,txtbufftemp);
 		DrawFrameFinish();
 		
 		usb_flush(1);
