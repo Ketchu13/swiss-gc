@@ -143,8 +143,8 @@ void settings_draw_page(int page_num, int option, file_handle *file) {
 		DrawSelectableButton(510, 390, -1, 420, gettext("Next"), 
 		option == settings_count_pp[page_num]-2 ? B_SELECTED:B_NOSELECT,-1);
 	}
-	DrawSelectableButtonStyled(60, 425, -1, 455, gettext("Save & Exit"), option == settings_count_pp[page_num]-1 ? B_SELECTED:B_NOSELECT,-1, 0.8f);
-	DrawSelectableButtonStyled(310, 425, -1, 455, gettext("Discard & Exit"), option ==  settings_count_pp[page_num] ? B_SELECTED:B_NOSELECT,-1, 0.8f);
+	DrawSelectableButtonStyled(-1, 425, 315, 455, gettext("Save & Exit"), option == settings_count_pp[page_num]-1 ? B_SELECTED:B_NOSELECT,-1, 0.8f,1);
+	DrawSelectableButtonStyled(325, 425, -1, 455, gettext("Discard & Exit"), option ==  settings_count_pp[page_num] ? B_SELECTED:B_NOSELECT,-1, 0.8f,0);
 	DrawFrameFinish();
 }
 

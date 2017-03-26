@@ -492,20 +492,24 @@ void DrawRawFont(int x, int y, char *message) {
 
 void DrawSelectableButton(int x1, int y1, int x2, int y2, char *message, int mode, u32 color) 
 {
-	DrawSelectableButtonStyled(x1, y1, x2, y2, message, mode, color, 1.0f);
+	DrawSelectableButtonStyled(x1, y1, x2, y2, message, mode, color, 1.0f, 0);
 }
 
-void DrawSelectableButtonStyled(int x1, int y1, int x2, int y2, char *message, int mode, u32 color, float scale) 
+void DrawSelectableButtonStyled(int x1, int y1, int x2, int y2, char *message, int mode, u32 color, float scale, int rtol) 
 {
 	int middleY, borderSize;
 	color = (color == -1) ? BUTTON_COLOUR_INNER : color; //never used
 
 	borderSize = (mode==B_SELECTED) ? 6 : 4;
 	middleY = (((y2-y1)/2)-(12*scale))+y1;
-
-	//determine length of the text ourselves if x2 == -1
-	x1 = (x2 == -1) ? x1+2:x1;
-	x2 = (x2 == -1) ? (GetTextSizeInPixels(message, scale))+x1+(borderSize*2)+6 : x2;
+	if(rtol == 0 ) {
+		//determine length of the text ourselves if x2 == -1
+		x1 = (x2 == -1) ? x1+2:x1;
+		x2 = (x2 == -1) ? (GetTextSizeInPixels(message, scale))+x1+(borderSize*2)+6 : x2;
+	} else {
+		//determine length of the text ourselves
+		x1 = x2-(GetTextSizeInPixels(message, scale)+(borderSize*2)+6);//(x1 == -1) ? :x1;
+	}
 
 	if(middleY+24 > y2) {
 		middleY = y1+3;
