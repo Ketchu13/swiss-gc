@@ -13,10 +13,12 @@
 
 ![Swiss i18n](https://github.com/Ketchu13/swiss-gc/blob/swiss_i18n/images/00000000-3.png)
 
-- Added Internationalization to **Swiss v0.4**.
+- Added **Internationalization** to **Swiss v0.4**.
 - Available Lang: **En**, **Fr**, (**De**,**Es**, **Pt** Not complete).
-- Added Swiss Splash screen..*
-- Added dialogs icons..
+- Added Swiss **Splash screen**..*
+- Added **dialogs icons**..
+- Added function to **hide unknown file types** when using SDGecko. *(option already present in "Swiss v0.x No i18n" menu but not implemented)*
+- Auto **hides files** and **folders** whose names **begin with a dot**. *(ex: ".idea"..)*
 - **...**
 
 Swiss v0.x No i18n 
