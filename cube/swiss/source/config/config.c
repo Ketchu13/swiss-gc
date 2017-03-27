@@ -104,7 +104,7 @@ int config_update_file() {
 		fwrite(str, 1, strlen(str), fp);
 		
 		// Write out Swiss settings
-		sprintf(txtbuffer, gettext("SwissLanguage=%s\r\n"),getLang(configSwissSettings.swissLanguage));
+		sprintf(txtbuffer, gettext("Swiss Language=%s\r\n"),getLang(configSwissSettings.swissLanguage));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
 		sprintf(txtbuffer, gettext("SD/IDE Speed=%s\r\n"),(configSwissSettings.exiSpeed ? gettext("32MHz"):gettext("16MHz")));
 		fwrite(txtbuffer, 1, strlen(txtbuffer), fp);
