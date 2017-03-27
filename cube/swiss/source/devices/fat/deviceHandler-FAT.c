@@ -113,15 +113,23 @@ int deviceHandler_FAT_readDir(file_handle* ffile, file_handle** dir, unsigned in
 	strcpy((*dir)[0].name, "..");
 
 	// Read each entry of the directory
-	while( (entry = readdir(dp)) != NULL ){
-		if(strlen(entry->d_name) <= 2  && (entry->d_name[0] == '.' || entry->d_name[1] == '.')) {
+	while( (entry = readdir(dp)) != NULL ){		
+		if((strlen(entry->d_name) <= 2)||(entry->d_name[0] == '.' || entry->d_name[1] == '.')) {
 			continue;
 		}
+		
 		memset(&file_name[0],0,1024);
 		sprintf(&file_name[0], "%s/%s", ffile->name, entry->d_name);
 		stat(&file_name[0],&fstat);
 		// Do we want this one?
 		if((type == -1 || ((fstat.st_mode & S_IFDIR) ? (type==IS_DIR) : (type==IS_FILE)))) {
+			if(!(fstat.st_mode & S_IFDIR)){
+				if(swissSettings.hideUnknownFileTypes) {
+					if(isUnknowFileType(entry->d_name)==1) {
+						continue;
+					}
+				}
+			}
 			// Make sure we have room for this one
 			if(i == num_entries){
 				++num_entries;

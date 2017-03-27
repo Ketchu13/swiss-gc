@@ -59,10 +59,23 @@ int endsWith(char *str, char *end) {
     if(strlen(str) < strlen(end))
         return 0;
     int i;
-    for(i = 0; i < strlen(end); i++)
-        if(tolower((int)str[strlen(str)-i]) != tolower((int)end[strlen(end)-i]))
+    for(i = 0; i < strlen(end); i++) {
+        if(tolower((int)str[strlen(str)-i]) != tolower((int)end[strlen(end)-i])){
             return 0;
+		}
+	}
     return 1;
+}
+
+int isUnknowFileType(char *str) {
+	int i;
+	char *ends[8] = {".gcm",".iso",".dol",".tgc",".cli",".dcp",".mp3",".fzn"};
+	for(i = 0; i <= 7; i++) {
+		if(endsWith(str,ends[i])) {
+			return 0;
+		}
+	}
+	return 1;	
 }
 
 static void ProperScanPADS()    {

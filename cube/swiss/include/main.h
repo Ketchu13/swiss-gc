@@ -189,6 +189,7 @@ extern u32 __SYS_SyncSram();
 extern void __SYS_ReadROM(void *buf,u32 len,u32 offset);
 extern void sortFiles(file_handle* dir, int num_files);
 extern int endsWith(char *str, char *end);
+extern int isUnknowFileType(char *str);
 extern void initialise_video(GXRModeObj *m);
 GXRModeObj *getModeFromSwissSetting(int uiVMode);
 extern void populateDeviceAvailability();
